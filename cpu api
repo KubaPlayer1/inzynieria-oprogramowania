@@ -1,0 +1,163 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Czas generowania: 06 Mar 2023, 21:44
+-- Wersja serwera: 10.4.27-MariaDB
+-- Wersja PHP: 8.2.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Baza danych: `peryferie`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `cpu`
+--
+
+CREATE TABLE `cpu` (
+  `id_cpu` int(30) NOT NULL,
+  `nazwa` varchar(70) NOT NULL,
+  `socket` varchar(20) NOT NULL,
+  `zegar` float NOT NULL,
+  `turbo` float NOT NULL,
+  `rdzenie` float NOT NULL,
+  `watki` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `cpu`
+--
+
+INSERT INTO `cpu` (`id_cpu`, `nazwa`, `socket`, `zegar`, `turbo`, `rdzenie`, `watki`) VALUES
+(101, ' AMD Ryzen 5 7600', 'AM5 ', 3.8, 5.1, 6, 2),
+(102, ' AMD Ryzen 5 7600X', 'AM5 ', 4.7, 5.3, 6, 2),
+(103, ' AMD Ryzen 7 7700', 'AM5 ', 3.8, 5.3, 8, 6),
+(104, ' AMD Ryzen 7 7700X', 'AM5 ', 4.5, 5.4, 8, 6),
+(105, ' AMD Ryzen 9 7900', 'AM5 ', 3.7, 5.4, 12, 24),
+(106, ' AMD Ryzen 9 7900X', 'AM5 ', 4.7, 5.6, 12, 24),
+(107, ' AMD Ryzen 9 7950X', 'AM5 ', 4.5, 5.7, 16, 32),
+(108, ' AMD Ryzen 5 5600X', 'AM4 ', 3.7, 4.6, 6, 2),
+(109, ' AMD Ryzen 5 5500', 'AM4 ', 3.6, 4.2, 6, 2),
+(110, ' AMD Ryzen 5 5600', 'AM4 ', 3.5, 4.4, 6, 2),
+(111, ' AMD Ryzen 5 5600G', 'AM4 ', 3.9, 4.4, 6, 2),
+(112, ' AMD Ryzen 7 5700G', 'AM4 ', 3.8, 4.6, 8, 6),
+(113, ' AMD Ryzen 7 5700X', 'AM4 ', 3.4, 4.6, 8, 6),
+(114, ' AMD Ryzen 7 5800X', 'AM4 ', 3.8, 4.7, 8, 6),
+(115, ' AMD Ryzen 7 5800X3D', 'AM4 ', 3.4, 4.5, 8, 6),
+(116, ' AMD Ryzen 9 5900X', 'AM4 ', 3.7, 4.8, 12, 24),
+(117, ' AMD Ryzen 9 5950X', 'AM4 ', 3.4, 4.9, 16, 32),
+(118, ' AMD Ryzen 3 3200G', 'AM4 ', 3.6, 4, 4, 0),
+(119, ' AMD Ryzen 5 3400G', 'AM4 ', 3.7, 4.2, 4, 0),
+(120, ' AMD Ryzen 5 3600', 'AM4 ', 3.6, 4.2, 6, 2),
+(121, ' AMD Ryzen 5 3600X', 'AM4 ', 3.8, 4.4, 6, 2),
+(122, ' AMD Ryzen 7 3700X', 'AM4 ', 3.6, 4.4, 8, 6),
+(123, ' AMD Ryzen 7 3800X', 'AM4 ', 3.9, 4.5, 8, 6),
+(124, ' AMD Ryzen 9 3900X', 'AM4 ', 3.8, 4.6, 12, 24),
+(125, ' AMD Ryzen 3 3300X', 'AM4 ', 3.8, 4.3, 4, 0),
+(126, ' Intel Core i3-12100', '1700', 3.3, 4.3, 4, 8),
+(127, ' Intel Core i3-12100F', '1700', 3.3, 4.3, 4, 8),
+(128, ' Intel Core i5-12400', '1700', 2.5, 4.4, 6, 12),
+(129, ' Intel Core i5-12400F', '1700', 2.5, 4.4, 6, 12),
+(130, ' Intel Core i5-12600K', '1700', 3.6, 4.9, 6, 12),
+(131, ' Intel Core i5-12600KF', '1700', 3.7, 4.9, 6, 12),
+(132, ' Intel Core i7-13700K', '1700', 3.4, 3, 8, 16),
+(133, ' Intel Core i7-13700KF', '1700', 3.4, 3, 8, 16),
+(134, ' Intel Core i9-12900', '1700', 2.4, 5.1, 8, 16),
+(135, ' Intel Core i9-12900KF', '1700', 3.2, 5.2, 8, 16),
+(136, ' Intel Core i9-13900K', '1700', 3, 3, 8, 16),
+(137, ' Intel Core i9-12900K', '1700', 3.2, 5.2, 8, 16),
+(138, ' Intel Core i7-12700F', '1700', 2.1, 4.9, 8, 16),
+(139, ' Intel Core i7-12700KF', '1700', 3.6, 5, 8, 16),
+(140, ' Intel Core i9-12900KS', '1700', 3.4, 5.5, 8, 16),
+(141, ' Intel Core i5-12500', '1700', 3, 4.6, 6, 12),
+(142, ' Intel Core i5-12600', '1700', 3.3, 4.8, 6, 12),
+(143, ' Intel Core i7-12700', '1700', 2.1, 4.9, 8, 16),
+(144, ' Intel Core i9-13900KF', '1700', 3, 3, 8, 16),
+(145, ' Intel Core i7-12700K', '1700', 3.6, 5, 8, 16),
+(146, ' Intel Core i9-12900F', '1700', 2.4, 5.1, 8, 16),
+(147, ' Intel Core i5-9400F', '1151', 2.9, 4.1, 6, 6),
+(148, ' Intel Core i7-6700K', '1151', 4, 4.2, 4, 8),
+(149, ' Intel Core i7-9700K', '1151', 3.6, 4.9, 8, 8),
+(150, ' Intel Core i9-9900K', '1151', 3.6, 5, 8, 16),
+(151, ' Intel Core i3-9100', '1151', 3.6, 4.2, 4, 4),
+(152, ' Intel Core i3-9100F', '1151', 3.6, 4.2, 4, 4),
+(153, ' Intel Core i3-9300', '1151', 3.7, 4.3, 4, 4),
+(154, ' Intel Core i3-9320', '1151', 3.7, 4.4, 4, 4),
+(155, ' Intel Core i3-9350KF', '1151', 4, 4.6, 4, 4),
+(156, ' Intel Core i5-6400', '1151', 2.7, 3.3, 4, 4),
+(157, ' Intel Core i5-6500', '1151', 3.2, 3.6, 4, 4),
+(158, ' Intel Core i5-6600', '1151', 3.3, 3.9, 4, 4),
+(159, ' Intel Core i5-6600K', '1151', 3.5, 3.9, 4, 4),
+(160, ' Intel Core i5-7400', '1151', 3, 3.5, 4, 4),
+(161, ' Intel Core i5-7500', '1151', 3.4, 3.8, 4, 4),
+(162, ' Intel Core i5-7600', '1151', 3.5, 4.1, 4, 4),
+(163, ' Intel Core i5-7600K', '1151', 3.8, 4.2, 4, 4),
+(164, ' Intel Core i5-8400', '1151', 2.8, 4, 6, 6),
+(165, ' Intel Core i5-8500', '1151', 3, 4.1, 6, 6),
+(166, ' Intel Core i5-8600', '1151', 3.1, 4.3, 6, 6),
+(167, ' Intel Core i5-8600K', '1151', 3.6, 4.3, 6, 6),
+(168, ' Intel Core i5-9400', '1151', 2.9, 4.1, 6, 6),
+(169, ' Intel Core i5-9500', '1151', 3, 4.4, 6, 6),
+(170, ' Intel Core i5-9600', '1151', 3.1, 4.6, 6, 6),
+(171, ' Intel Core i5-9600KF', '1151', 3.7, 4.6, 6, 6),
+(172, ' Intel Core i7-6700', '1151', 3.4, 4, 4, 8),
+(173, ' Intel Core i7-7700', '1151', 3.6, 4.2, 4, 8),
+(174, ' Intel Core i7-7700K', '1151', 4.2, 4.5, 4, 8),
+(175, ' Intel Core i7-8086K', '1151', 4, 5, 6, 12),
+(176, ' Intel Core i7-8700', '1151', 3.2, 4.6, 6, 12),
+(177, ' Intel Core i7-8700K', '1151', 3.7, 4.7, 6, 12),
+(178, ' Intel Core i7-9700KF', '1151', 3.6, 4.9, 8, 8),
+(179, ' Intel Core i9-9900KF', '1151', 3.6, 5, 8, 16),
+(180, ' Intel Core i9-9900KS', '1151', 4, 5, 8, 16),
+(181, ' Intel Core i5-10400', '1200', 2.9, 4, 6, 12),
+(182, ' Intel Core i7-10700K', '1200', 3.8, 5.1, 8, 16),
+(183, ' Intel Core i7-10700KF', '1200', 3.8, 5.1, 8, 16),
+(184, ' Intel Core i9-10850K', '1200', 3.6, 5.2, 1, 2),
+(185, ' Intel Core i9-10900K', '1200', 3.7, 5.3, 1, 2),
+(186, ' Intel Core i9-11900K', '1200', 3.5, 5.2, 8, 16),
+(187, ' Intel Core i3-10100', '1200', 3.6, 4.1, 4, 8),
+(188, ' Intel Core i3-10100F', '1200', 3.6, 4.3, 4, 8),
+(189, ' Intel Core i3-10300', '1200', 3.7, 4.2, 4, 8),
+(190, ' Intel Core i3-10320', '1200', 3.8, 4.4, 4, 8),
+(191, ' Intel Core i5-10400F', '1200', 2.9, 4, 6, 12),
+(192, ' Intel Core i5-10600K', '1200', 4.1, 4.8, 6, 12),
+(193, ' Intel Core i5-10600KF', '1200', 4.1, 4.8, 6, 12),
+(194, ' Intel Core i9-10900KF', '1200', 3.7, 5.3, 1, 2);
+
+--
+-- Indeksy dla zrzutów tabel
+--
+
+--
+-- Indeksy dla tabeli `cpu`
+--
+ALTER TABLE `cpu`
+  ADD PRIMARY KEY (`id_cpu`);
+
+--
+-- AUTO_INCREMENT dla zrzuconych tabel
+--
+
+--
+-- AUTO_INCREMENT dla tabeli `cpu`
+--
+ALTER TABLE `cpu`
+  MODIFY `id_cpu` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
