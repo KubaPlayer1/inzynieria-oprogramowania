@@ -88,7 +88,7 @@ header {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    transform: scale(1);
+    transform: scale(0);
     transition: height .2s ease;
 }
 
@@ -124,7 +124,7 @@ header {
 .wrapper .form-box.login {
     transition: transform .18s ease;
     transform: translateX(0);
-    display: none;
+    /*display: none;*/
 }
 
 .wrapper.active .form-box.login {
@@ -135,7 +135,7 @@ header {
 .wrapper .form-box.register {
     position: absolute;
     transition: none;
-    transform: translateX(0);
+    transform: translateX(400px);
     /*400px*/
 }
 
