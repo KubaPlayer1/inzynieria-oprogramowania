@@ -1,27 +1,83 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Moja strona internetowa</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	<header>
-		<h1>Moja strona internetowa</h1>
-		<nav>
-			<ul>
-				<li><a href="#">Strona główna</a></li>
-				<li><a href="onas.html">O nas</a></li>
-				<li><a href="#">Kontakt</a></li>
-			</ul>
-		</nav>
-	</header>
-	<main>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in faucibus odio. In in dui vel sapien convallis tincidunt. Sed sit amet dapibus odio. Vestibulum ac arcu eu massa viverra aliquam in nec mauris. Pellentesque malesuada augue ut mi semper, quis consequat quam facilisis. Aliquam commodo augue id purus maximus, vitae ullamcorper quam gravida. Sed non ante quis elit bibendum mollis. Vestibulum commodo velit sapien, ut pharetra mi dignissim sed.</p>
-	</main>
-	<footer>
-		<p>&copy; 2023 Moja strona internetowa. Wszelkie prawa zastrzeżone.</p>
-	</footer>
-	<script src="scripts.js"></script>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Configurate your PC</title>
+        <link rel="stylesheet" href="style/styl.css">
+    </head>
+
+    <body>
+        
+        <header><h2 class="logo">Build your PC!</h2>
+            <nav class="navigation">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <button class="button-pop">Login</button>
+            </nav>
+        </header>
+
+        <div class="wrapper">
+            <span class="close-button"><ion-icon name="close-outline"></ion-icon></span>
+
+            <div class="form-box login">
+                <h2>Login</h2>
+                <form action="#">
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                        <input type="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                        <input type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="forgot">
+                        <label><input type="checkbox">Remenber me</label>
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                    <div class="register">
+                        <p>Don't have an account?<a href="#" class="register-link">Register</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-box register">
+                <h2>Registration</h2>
+                <form action="#" id="register">
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+                        <input type="text" id="username" onkeydown="usernameValidation()" required>
+                        <label>Username</label>
+                        <span id="username-valid"></span>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                        <input type="email" id="email" onkeydown="emailValidation()" required>
+                        <label>Email</label>
+                        <span id="email-valid"></span>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                        <input type="password" id="password" onkeydown="passwordValidation()" required>
+                        <label>Password</label>
+                        <span id="password-valid"></span>
+                    </div>
+                    <div class="forgot">
+                        <label><input type="checkbox" required>Agree to conditios and terms?</label>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                    <div class="register">
+                        <p>Already have an account?<a href="#" class="login-link">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="skrypty/skrypt.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
 </html>
