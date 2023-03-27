@@ -1,0 +1,43 @@
+Date : 2023-03-12 21:14:57
+Directory : c:\Studia\inzynieria-oprogramowania
+Total : 10 files,  715 codes, 30 comments, 108 blanks, all 853 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| CSS        |          2 |        338 |          2 |         50 |        390 |
+| HTML       |          3 |        174 |          0 |         13 |        187 |
+| JavaScript |          2 |        142 |          0 |         22 |        164 |
+| PHP        |          1 |         39 |          1 |          9 |         49 |
+| SQL        |          1 |         21 |         27 |         13 |         61 |
+| Markdown   |          1 |          1 |          0 |          1 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                  | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                     |         10 |        715 |         30 |        108 |        853 |
+| . (Files)                                             |          4 |        138 |         28 |         29 |        195 |
+| STRONA                                                |          4 |        302 |          0 |         36 |        338 |
+| skrypty                                               |          1 |         71 |          0 |         11 |         82 |
+| style                                                 |          1 |        204 |          2 |         32 |        238 |
++-------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                              | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Studia\inzynieria-oprogramowania\README.md         | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Studia\inzynieria-oprogramowania\STRONA\index.html | HTML       |         77 |          0 |          7 |         84 |
+| c:\Studia\inzynieria-oprogramowania\STRONA\onas.html  | HTML       |         20 |          0 |          0 |         20 |
+| c:\Studia\inzynieria-oprogramowania\STRONA\scripts.js | JavaScript |         71 |          0 |         11 |         82 |
+| c:\Studia\inzynieria-oprogramowania\STRONA\style.css  | CSS        |        134 |          0 |         18 |        152 |
+| c:\Studia\inzynieria-oprogramowania\formularz.php     | PHP        |         39 |          1 |          9 |         49 |
+| c:\Studia\inzynieria-oprogramowania\index.html        | HTML       |         77 |          0 |          6 |         83 |
+| c:\Studia\inzynieria-oprogramowania\konta.sql         | SQL        |         21 |         27 |         13 |         61 |
+| c:\Studia\inzynieria-oprogramowania\skrypty\skrypt.js | JavaScript |         71 |          0 |         11 |         82 |
+| c:\Studia\inzynieria-oprogramowania\style\styl.css    | CSS        |        204 |          2 |         32 |        238 |
+| Total                                                 |            |        715 |         30 |        108 |        853 |
++-------------------------------------------------------+------------+------------+------------+------------+------------+

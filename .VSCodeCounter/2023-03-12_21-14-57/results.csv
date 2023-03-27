@@ -1,0 +1,12 @@
+"filename", "language", "CSS", "HTML", "JavaScript", "SQL", "PHP", "Markdown", "comment", "blank", "total"
+"c:\Studia\inzynieria-oprogramowania\README.md", "Markdown", 0, 0, 0, 0, 0, 1, 0, 1, 2
+"c:\Studia\inzynieria-oprogramowania\STRONA\index.html", "HTML", 0, 77, 0, 0, 0, 0, 0, 7, 84
+"c:\Studia\inzynieria-oprogramowania\STRONA\onas.html", "HTML", 0, 20, 0, 0, 0, 0, 0, 0, 20
+"c:\Studia\inzynieria-oprogramowania\STRONA\scripts.js", "JavaScript", 0, 0, 71, 0, 0, 0, 0, 11, 82
+"c:\Studia\inzynieria-oprogramowania\STRONA\style.css", "CSS", 134, 0, 0, 0, 0, 0, 0, 18, 152
+"c:\Studia\inzynieria-oprogramowania\formularz.php", "PHP", 0, 0, 0, 0, 39, 0, 1, 9, 49
+"c:\Studia\inzynieria-oprogramowania\index.html", "HTML", 0, 77, 0, 0, 0, 0, 0, 6, 83
+"c:\Studia\inzynieria-oprogramowania\konta.sql", "SQL", 0, 0, 0, 21, 0, 0, 27, 13, 61
+"c:\Studia\inzynieria-oprogramowania\skrypty\skrypt.js", "JavaScript", 0, 0, 71, 0, 0, 0, 0, 11, 82
+"c:\Studia\inzynieria-oprogramowania\style\styl.css", "CSS", 204, 0, 0, 0, 0, 0, 2, 32, 238
+"Total", "-", 338, 174, 142, 21, 39, 1, 30, 108, 853

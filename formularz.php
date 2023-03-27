@@ -6,10 +6,10 @@
         return $data;
     }
 
-    $Connect = @new mysqli('localhost', 'root', '', 'baza');
+    $Connect = @new mysqli('loclahost', 'root', '', 'baza');
 
     if ($Connect->connect_error) {
-        die("Connection failed: " . $Connect->connect_error);
+        die('Connection failed: ' . $Connect->connect_error);
     }
 
     if (isset($_GET["username"])){

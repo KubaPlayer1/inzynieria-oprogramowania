@@ -24,7 +24,7 @@ function emailValidation(){
     var form = document.getElementById("register");
     var mail = document.getElementById("email").value;
     var emailValid = document.getElementById("email-valid");
-    var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    var pattern =  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
     if(mail.match(pattern)){
         form.classList.add("valid");
