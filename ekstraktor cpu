@@ -1,0 +1,77 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+//INSERT INTO `cpu` (`id_cpu`, `nazwa`, `socket`, `zegar`, `turbo`, `rdzenie`, `watki`) VALUES
+//('102', 'Intel Core i3-12100', '1700', '3.3', '4.3', '4', '8');
+
+// ', '3.3', '4.3', '4', '8');
+
+/*
+
+Intel Core i3-12100F
+Socket 1700 Clock 3.3 GHz Turbo 4.3 GHz 4 Cores 8 Threads
+
+*/
+typedef basic_string < char, char_traits < char >, allocator < char >> MojString;
+
+
+int main()
+{
+    fstream plik;
+    //plik.open("cpu.txt",ios::in | ios::out);
+    plik.open("cpuTest.txt",ios::in | ios::out);
+    if( plik.good() == true )
+    {
+        cout << "Uzyskano dostep do pliku!" <<endl;
+    }
+    else cout << "Dostep do pliku zostal zabroniony!" <<endl;
+
+    string nazwa;
+    string dane;
+    string socket;
+    string zegar;
+    string turbo;
+    string rdzen;
+    string watek;
+    string delimeter = " ";
+
+    int i=101;
+
+    while(!plik.eof())
+    {
+        getline(plik,nazwa);
+        getline(plik,dane);
+
+        string rozmiarcalego = dane.substr(0,dane.find(delimeter)); // ogolny rozmiar od poczatku linii
+        int leng = rozmiarcalego.length();
+
+
+        socket = dane.substr(dane.find(delimeter)+1,dane.find(delimeter)-2);
+        leng += socket.length()+1;
+
+        zegar = dane.substr(leng+6,dane.find(delimeter)-2);
+        leng += zegar.length()+16;
+
+        turbo = dane.substr(leng,dane.find(delimeter)-2);
+        leng += turbo.length()+1;
+
+        rdzen = dane.substr(leng+3,dane.find(delimeter)-4);
+        leng += rdzen.length()+1;
+
+        watek = dane.substr(leng+9,dane.find(delimeter)-4);
+
+        cout<<"INSERT INTO `cpu` (`id_cpu`, `nazwa`, `socket`, `zegar`, `turbo`, `rdzenie`, `watki`) VALUES ('"<<i<<"', ' "<<nazwa<<"', '"<<socket<<"', '"<<zegar<<"', '"<<turbo<<"', '"<<rdzen<<"', '"<<watek<<"');"<<endl;
+
+        i++;
+
+
+
+
+    }
+
+    plik.close();
+
+    return 0;
+}
