@@ -24,7 +24,9 @@ function emailValidation(){
     var form = document.getElementById("register");
     var mail = document.getElementById("email").value;
     var emailValid = document.getElementById("email-valid");
-    var pattern =  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    var pattern =  /^([A-Za-z0-9_])+\@([A-Za-z0-9_])+\.([A-Za-z]{2,4})$/;
+
+    /**/
 
     if(mail.match(pattern)){
         form.classList.add("valid");
@@ -44,7 +46,7 @@ function passwordValidation(){
     var form = document.getElementById("register");
     var password = document.getElementById("password").value;
     var passwordValid = document.getElementById("password-valid");
-    var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$/;
+    var pattern = /^[A-Za-z][A-Za-z0-9_]{8,24}$/;
 
     if(password.match(pattern)){
         form.classList.add("valid");

@@ -13,6 +13,7 @@
                 <a href="#">Home</a>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
+                <a href="#">Serch</a>
                 <button class="button-pop">Login</button>
             </nav>
         </header>
@@ -22,7 +23,7 @@
 
             <div class="form-box login">
                 <h2>Login</h2>
-                <form action="formularz.php" id="login" method="post">
+                <form action="formularz.php" id="login" method="get">
                     <div class="input-box">
                         <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
                         <input type="email" id="email" name="email" required>
@@ -46,7 +47,7 @@
 
             <div class="form-box register">
                 <h2>Registration</h2>
-                <form action="formularz.php" id="register" method="get">
+                <form action="formularz.php" id="register" method="post">
                     <div class="input-box">
                         <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
                         <input type="text" id="username" name="username" onkeydown="usernameValidation()" required>

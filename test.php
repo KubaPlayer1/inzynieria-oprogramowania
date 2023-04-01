@@ -1,12 +1,23 @@
 <?php
-    $connect = @new mysqli('localhost', 'root', '', 'testbazy');
-    if ($Connect->connect_error) {
-        die('Connection failed: ' . $Connect->connect_error);
+$servername = 'localhost';
+$username = 'root';
+$password = '';
+$dbname = "baza";
+$conn = mysqli_connect($servername, $username, $password, "$dbname");
+if (!$conn) {
+    die('Could not Connect MySql Server:' . mysql_error());
+}
+if (isset($_POST['submit'])) {
+    $login = $_POST['login'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $sql = "INSERT INTO konta (login,email,haslo)
+             VALUES ('$login','$email','$password')";
+    if (mysqli_query($conn, $sql)) {
+        echo "New record has been added successfully !";
+    } else {
+        echo "Error: " . $sql . ":-" . mysqli_error($conn);
     }
-    if(isset($_POST["submit"])){
-        $nazwa = $_POST["nazwa"];
-        $nazwa2 = $_POST["nazwa2"];
-        $sql = "INSERT INTO test (nazwa, nazwa2) VALUES ('$nazwa', '$nazwa2')";
-    }
-    $connect->close();
+    mysqli_close($conn);
+}
 ?>
