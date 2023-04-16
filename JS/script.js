@@ -22,13 +22,13 @@ close.addEventListener('click', ()=> {
 
 function emailValidation(){
     var form = document.getElementById("register");
-    var mail = document.getElementById("email").value;
+    var email = document.getElementById("email").value;
     var emailValid = document.getElementById("email-valid");
-    var pattern =  /^([A-Za-z0-9_])+\@([A-Za-z0-9_])+\.([A-Za-z]{2,4})$/;
+    var pattern =  /^([A-Za-z0-9_]{2,10})+\@([A-Za-z0-9_]{2,8})+\.([A-Za-z]{2,4})$/;
 
     /**/
 
-    if(mail.match(pattern)){
+    if(email.match(pattern)){
         form.classList.add("valid");
         form.classList.remove("invalid");
         emailValid.innerHTML = "Your email address is valid.";
@@ -46,7 +46,7 @@ function passwordValidation(){
     var form = document.getElementById("register");
     var password = document.getElementById("password").value;
     var passwordValid = document.getElementById("password-valid");
-    var pattern = /^[A-Za-z][A-Za-z0-9_]{8,24}$/;
+    var pattern = /^[A-Za-z0-9_]{8,24}$/;
 
     if(password.match(pattern)){
         form.classList.add("valid");
@@ -66,7 +66,7 @@ function usernameValidation(){
     var form = document.getElementById("register");
     var username = document.getElementById("username").value;
     var usernameValid = document.getElementById("username-valid");
-    var pattern = /^[A-Za-z][A-Za-z0-9_]{4,14}$/;
+    var pattern = /^[A-Za-z0-9_]{4,14}$/;
 
     if(username.match(pattern)){
         form.classList.add("valid");
