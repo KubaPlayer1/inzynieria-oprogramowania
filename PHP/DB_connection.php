@@ -4,6 +4,7 @@ require_once 'vendor/autoload.php';
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\Query;
 
 //..
 $connectionParams = [
@@ -65,6 +66,60 @@ if (isset($_POST["username"])){
 
     $entityManager->persist($accounts);
     $entityManager->flush();
+}
+
+if (isset($_GET["email"])){
+    $email = test_input($_GET["email"]);
+    $password = $_GET["password"];
+
+    /*$query = $entityManager->createQuery('SELECT c FROM Accounts c WHERE c.email LIKE(' .$email. ')');
+    $accounts = $query->getResult();*/
+
+    $queryBuilder = $entityManager->createQueryBuilder();
+    
+    $query = $queryBuilder
+        ->select('c')
+        ->from(Accounts::class, 'c')
+        //->where('c.email LIKE('.$email.')')
+        ->getQuery();
+
+    //echo $query->getDQL();
+    
+    $accounts = $query->getResult();
+
+    var_dump($accounts);
+
+    foreach($accounts as $account){
+        if ($account->getEmail() == $email){
+            if ($account->getPassword() == $password){
+                echo "Zalogowany.";
+                header("Location: ../HTML/kofigurepc.html");
+                break;
+            }
+            else {
+                echo "Hasło nie jest poprawne.";
+                header("Location: ../index.html");
+                break;
+            }
+        }
+        else {
+            echo "Niepoprawny adres email.";
+            header("Location: ../index.html");
+            break;
+        }
+    }
+
+    /*if ($account->getEmail() == $email){
+        if ($account->getPassword() == $password){
+            echo "Zalogowany.";
+        }
+        else {
+            echo "Hasło nie jest poprawne.";
+        }
+    }
+    else {
+        echo "Niepoprawny adres email.";
+    }*/
 }
 
 ?>

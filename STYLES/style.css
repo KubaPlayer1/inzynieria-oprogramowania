@@ -6,16 +6,18 @@
 }
 
 body {
+    color: aqua;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background: url("../GRAPHICS/pcbackground.jpg");
     background-size: cover;
     background-position: center;
 }
 
 header {
-    background-color: red;
+    color: aqua;
     position: fixed;
     top: 0;
     left: 0;
@@ -30,6 +32,7 @@ header {
 header .icon {
     position: absolute;
     right: 8px;
+    size: 150%;
     color: black;
 }
 
@@ -40,7 +43,7 @@ header .icon {
 
 .navigation a {
     position: relative;
-    color: #fff;
+    color: aqua;
     font-size: 1.1em;
     text-decoration: none;
     font-weight: 500;
@@ -54,7 +57,7 @@ header .icon {
     bottom: -6px;
     width: 100%;
     height: 3px;
-    background: #fff;
+    color: aqua;
     border-radius: 5px;
     transform-origin: right;
     transform: scaleX(0);
@@ -89,7 +92,10 @@ header .icon {
     position: relative;
     width: 400px;
     height: 440px;
-    border: 2px solid;
+    background: transparent;
+    border: 2px solid aqua;;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,7 +165,7 @@ header .icon {
     position: relative;
     width: 100%;
     height: 50px;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid aqua;
     margin: 30px 0;
 }
 
@@ -219,12 +225,19 @@ header .icon {
 .btn {
     width: 100%;
     height: 45px;
-    border: none;
+    background: transparent;
+    border: 2px solid;
     outline: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1em;
     font-weight: 500;
+    transition: .5s;
+}
+
+.btn:hover {
+    background-color: black;
+    color: aqua;
 }
 
 .register {
