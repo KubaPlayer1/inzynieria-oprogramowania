@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Konfigurate your PC</title>
+        <link rel="stylesheet" href="../STYLES/style.css">
+    </head>
+
+    <body>
+        <!--<img src="GRAPHICS/strona_logo.png">-->
+        <header><h2 class="logo">Build your PC!</h2>
+            <nav class="navigation">
+                <a href="../index.html"><ion-icon name="home-sharp">Home</ion-icon></a>
+                <a href="about.html"><ion-icon name="help-sharp">About</ion-icon></a>
+                <a href="contact.html"><ion-icon name="call-sharp">Contact</ion-icon></a>
+                <a href="../PHP/serch.php"><ion-icon name="search-sharp">Serch</ion-icon></a>
+            </nav>
+        </header>
+
+        <div class="wrapper2">
+            <!--<span class="close-button"><ion-icon name="close-outline"></ion-icon></span>-->
+
+            <div class="form-box change">
+                <h2>Change Password</h2>
+                <form action="../PHP/change_password.php" id="change" method="get">
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+                        <input type="email" id="email" name="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                        <input type="password" id="password" name="password" required>
+                        <label>Password</label>
+                        <span id="password-valid"></span>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
+                        <input type="password" id="password_repeat" name="password_repeat" required>
+                        <label>Repeat Password</label>
+                        <span id="password-valid"></span>
+                    </div>
+                    <button type="submit" class="btn" id="btn">Change Password</button>
+                </form>
+            </div>
+        </div>
+
+        <script src="JS/script.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>

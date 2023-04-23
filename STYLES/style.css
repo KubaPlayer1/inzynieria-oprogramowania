@@ -88,6 +88,25 @@ header .icon {
     color: aqua;
 }
 
+.navigation .button-out{
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation .button-out:hover {
+    background-color: black;
+    color: aqua;
+}
+
 .wrapper {
     position: relative;
     width: 400px;
@@ -154,6 +173,36 @@ header .icon {
 .wrapper.active .form-box.register {
     transition: transform .18s ease;
     transform: translateX(0);
+}
+
+.wrapper2 {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid aqua;;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.wrapper2 .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    background: red;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .form-box h2 {
@@ -254,4 +303,88 @@ header .icon {
 
 .register p a:hover {
     text-decoration: underline;
+}
+
+.contactUs {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid aqua;;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.contactUs h1 {
+    position: absolute;
+    top: 10px;
+    text-align: center;
+    font-size: 2em;
+    padding: 20px;
+}
+
+.contactUs .data1 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(150%);
+}
+
+.contactUs .data2 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-150%);
+}
+
+.aboutUs {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid aqua;;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.aboutUs h1 {
+    position: absolute;
+    top: 10px;
+    text-align: center;
+    font-size: 2em;
+    padding: 20px;
+}
+
+.aboutUs .data1 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(150%);
+}
+
+.aboutUs .data2 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-150%);
 }

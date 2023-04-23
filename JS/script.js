@@ -2,6 +2,7 @@ const wrapper = document.querySelector('.wrapper');
 const loginLink = document.querySelector('.login-link');
 const registerLink = document.querySelector('.register-link');
 const btnpopup = document.querySelector('.button-pop');
+const btnout = document.querySelector('.button-out');
 const close = document.querySelector('.close-button');
 
 registerLink.addEventListener('click', ()=> {
@@ -14,6 +15,10 @@ loginLink.addEventListener('click', ()=> {
 
 btnpopup.addEventListener('click', ()=> {
     wrapper.classList.add('active-popup');
+});
+
+btnout.addEventListener('click', ()=> {
+    window.location.href = "../index.html";
 });
 
 close.addEventListener('click', ()=> {

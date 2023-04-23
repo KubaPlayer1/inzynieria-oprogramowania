@@ -28,18 +28,13 @@ function test_input($data) {
     return $data;
 }
 
-if (isset($_POST["username"])){
-    $username = test_input($_POST["username"]);
-    $email = test_input($_POST["email"]);
-    $password = $_POST["password"];
-    $terms = test_input($_POST["terms"]);
+if (isset($_GET["email"])){
+    $email = test_input($_GET["email"]);
+    $password = $_GET["password"];
+    $password_repeat = $_GET["password_repeat"];
 
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Email address '$email' is considered valid.\n";
-    } else {
-        echo "Email address '$email' is considered invalid.\n";
-    }
-
+    /*$query = $entityManager->createQuery('SELECT c FROM Accounts c WHERE c.email LIKE(' .$email. ')');
+    $accounts = $query->getResult();*/
     $uppercase = preg_match('@[A-Z]@', $password);
     $lowercase = preg_match('@[a-z]@', $password);
     $number    = preg_match('@[0-9]@', $password);
@@ -59,22 +54,6 @@ if (isset($_POST["username"])){
         echo "Please enter valid username.";
     }
 
-    $accounts = (new Accounts())
-        ->setUsername($username)
-        ->setEmail($email)
-        ->setPassword($password);
-
-    $entityManager->persist($accounts);
-    $entityManager->flush();
-}
-
-if (isset($_GET["email"])){
-    $email = test_input($_GET["email"]);
-    $password = $_GET["password"];
-
-    /*$query = $entityManager->createQuery('SELECT c FROM Accounts c WHERE c.email LIKE(' .$email. ')');
-    $accounts = $query->getResult();*/
-
     $queryBuilder = $entityManager->createQueryBuilder();
     
     $query = $queryBuilder
@@ -91,13 +70,17 @@ if (isset($_GET["email"])){
 
     foreach($accounts as $account){
         if ($account->getEmail() == $email){
-            if ($account->getPassword() == $password){
-                echo "Zalogowany.";
-                header("Location: ../HTML/konfigurepc.html");
+            if ($password == $password_repeat){
+                echo "Passwords are correct.";
+                $account->setPassword($password);
+                $entityManager->persist($account);
+                $entityManager->flush();
+                sleep(5);
+                header("Location: ../index.html");
                 break;
             }
             else {
-                echo "Hasło nie jest poprawne.";
+                echo "Passwords aren't the same!";
                 header("Location: ../index.html");
                 break;
             }
