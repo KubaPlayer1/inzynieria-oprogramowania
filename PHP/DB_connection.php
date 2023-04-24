@@ -66,6 +66,7 @@ if (isset($_POST["username"])){
 
     $entityManager->persist($accounts);
     $entityManager->flush();
+    header("Location: ../index.html");
 }
 
 if (isset($_GET["email"])){
