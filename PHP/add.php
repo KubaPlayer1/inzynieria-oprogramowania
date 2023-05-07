@@ -79,7 +79,6 @@
                     }
                     if ($podzespoly[0] == $select) {
                         ?>
-                        <input type="text" name="select" hidden value="<?php echo $select ?>">
                         <input type="text" id="nazwa" name="nazwa">
                         <label>Name</label>
                         <input type="text" id="socket" name="socket">
@@ -101,15 +100,15 @@
                         <label>Name</label>
                         <input type="text" id="producent_chipsetu" name="producent_chipsetu">
                         <label>Manyfacturer od chipset</label>
-                        <input type="number" id="dlugosc_karty" name="dlugosc_karty">
+                        <input type="number" step="0.1" min="15" max="45" id="dlugosc_karty" name="dlugosc_karty">
                         <label>Length of GPU</label>
-                        <input type="number" id="ilosc_ram" name="ilosc_ram">
+                        <input type="number" step="1" min="2" max="32" id="ilosc_ram" name="ilosc_ram">
                         <label>Capacity of RAM</label>
                         <input type="text" id="rodzaj_chipsetu" name="rodzaj_chipsetu">
                         <label>Type of chipset</label>
-                        <input type="number" id="Rekomedowana_moc_zasilacza" name="Rekomedowana_moc_zasilacza">
+                        <input type="number" step="1" min="500" max="2000" id="rekomendowana_moc_zasilacza" name="rekomendowana_moc_zasilacza">
                         <label>Recomended power of power supply</label>
-                        <input type="number" id="Taktowanie_rdzenia_boost" name="Taktowanie_rdzenia_boost">
+                        <input type="number" step="0.1" min="0.0" max="10.0" id="taktowanie_rdzenia_boost" name="taktowanie_rdzenia_boost">
                         <label>Timing of thread boost</label>
                         <input type="submit" name="add" value="Add"/>
                         <?php
@@ -118,19 +117,19 @@
                         ?>
                         <input type="text" id="nazwa" name="nazwa">
                         <label>Name</label>
-                        <input type="text" id="certyfikat" name="cetryfikat">
+                        <input type="text" id="certyfikat" name="certyfikat">
                         <label>Certyfication</label>
-                        <input type="number" id="srednica_wentylatora" name="srednica_wentylatora">
+                        <input type="number" step="1" min="10" max="36" id="srednica_wentylatora" name="srednica_wentylatora">
                         <label>Vent size</label>
-                        <input type="number" id="moc" name="moc">
+                        <input type="number" step="1" min="500" max="2000" id="moc" name="moc">
                         <label>Power</label>
                         <input type="text" id="standard" name="standard">
                         <label>Standarization</label>
-                        <input type="number" id="wysokosc" name="wysokosc">
+                        <input type="number" step="0.1" min="5" max="15" id="wysokosc" name="wysokosc">
                         <label>Height</label>
-                        <input type="number" id="szerokosc" name="szerokosc">
+                        <input type="number" step="0.1" min="5" max="20" id="szerokosc" name="szerokosc">
                         <label>Width</label>
-                        <input type="number" id="glebokosc" name="glebokosc">
+                        <input type="number" step="0.1" min="5" max="25" id="glebokosc" name="glebokosc">
                         <label>Depth</label>
                         <input type="submit" name="add" value="Add"/>
                         <?php
@@ -245,6 +244,9 @@
                         <input type="submit" name="add" value="Add"/>
                         <?php
                     }
+                    ?>
+                    <input type="text" name="select" hidden value="<?php echo $select ?>">
+                    <?php
                 }
             ?>
         </form>
@@ -252,6 +254,9 @@
             if (isset($_POST['select'])) {
                 $select = $_POST['select'];
             }
+
+            echo $select;
+            var_dump($_POST);
 
             if($select == "cpu" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["socket"]) && isset($_POST["zegar"]) && isset($_POST["turbo"]) && $_POST["rdzenie"] && isset($_POST["watki"])){
                 $nazwa = test_input($_POST["nazwa"]);
@@ -275,15 +280,14 @@
                 echo "CPU add was succesful.";
                 
             }
-
-            if($select == "gpu" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["producnet_chipsetu"]) && isset($_POST["dlugosc_karty"]) && isset($_POST["ilosc_ram"]) && isset($_POST["rodzaj_chipsetu"]) && isset($_POST["Rekomendowana_moc_zasilacza"]) && isset($_POST["Taktowanie_rdzenia_boost"])){
+            else if($select == "gpu" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["producent_chipsetu"]) && isset($_POST["dlugosc_karty"]) && isset($_POST["ilosc_ram"]) && isset($_POST["rodzaj_chipsetu"]) && isset($_POST["rekomendowana_moc_zasilacza"]) && isset($_POST["taktowanie_rdzenia_boost"])){
                 $nazwa = test_input($_POST["nazwa"]);
-                $producnet_chipsetu = test_input($_POST["producnet_chipsetu"]);
+                $producnet_chipsetu = test_input($_POST["producent_chipsetu"]);
                 $dlugosc_karty = test_input($_POST["dlugosc_karty"]);
                 $ilosc_ram = test_input($_POST["ilosc_ram"]);
                 $rodzaj_chipsetu = test_input($_POST["rodzaj_chipsetu"]);
-                $Rekomendowana_moc_zasilacza = test_input($_POST["Rekomendowana_moc_zasilacza"]);
-                $Taktowanie_rdzenia_boost = test_input($_POST["Taktowanie_rdzenia_boost"]);
+                $rekomendowana_moc_zasilacza = test_input($_POST["rekomendowana_moc_zasilacza"]);
+                $taktowanie_rdzenia_boost = test_input($_POST["taktowanie_rdzenia_boost"]);
 
                 $gpu = (new Gpu())
                     ->setNazwa($nazwa)
@@ -291,15 +295,14 @@
                     ->setDlugosc_karty($dlugosc_karty)
                     ->setIlosc_ram($ilosc_ram)
                     ->setRodzaj_chipsetu($rodzaj_chipsetu)
-                    ->setRekomendowana_moc_zasilacza($Rekomendowana_moc_zasilacza)
-                    ->setTaktowanie_rdzenia_boost($Taktowanie_rdzenia_boost);
+                    ->setRekomendowana_moc_zasilacza($rekomendowana_moc_zasilacza)
+                    ->setTaktowanie_rdzenia_boost($taktowanie_rdzenia_boost);
 
                 $entityManager->persist($gpu);
                 $entityManager->flush();
                 echo "GPU add was succesful.";
             }
-
-            if($select == "zasilacz" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["certyfikat"]) && isset($_POST["srednica_wentylatora"]) && isset($_POST["moc"]) && isset($_POST["standard"]) && isset($_POST["wysokosc"]) && isset($_POST["szerokosc"]) && isset($_POST["glebokosc"])){
+            else if($select == "zasilacz" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["certyfikat"]) && isset($_POST["srednica_wentylatora"]) && isset($_POST["moc"]) && isset($_POST["standard"]) && isset($_POST["wysokosc"]) && isset($_POST["szerokosc"]) && isset($_POST["glebokosc"])){
                 $nazwa = test_input($_POST["nazwa"]);
                 $certyfikat = test_input($_POST["certyfikat"]);
                 $srednica_wentylatora = test_input($_POST["srednica_wentylatora"]);
@@ -323,8 +326,7 @@
                 $entityManager->flush();
                 echo "Power supply add was succesful.";
             }
-
-            if($select == "mb" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["chipset_plyty"]) && isset($_POST["gniazdo_procesora"]) && isset($_POST["liczba_slotow_pamieci"]) && isset($_POST["standard_plyty"]) && isset($_POST["standard_pamieci"]) && isset($_POST["maks_ilosc_pamieci_ram"])){
+            else if($select == "mb" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["chipset_plyty"]) && isset($_POST["gniazdo_procesora"]) && isset($_POST["liczba_slotow_pamieci"]) && isset($_POST["standard_plyty"]) && isset($_POST["standard_pamieci"]) && isset($_POST["maks_ilosc_pamieci_ram"])){
                 $nazwa = test_input($_POST["nazwa"]);
                 $chipset_plyty = test_input($_POST["chipset_plyty"]);
                 $gniazdo_procesora = test_input($_POST["gniazdo_procesora"]);
@@ -346,8 +348,7 @@
                 $entityManager->flush();
                 echo "Mother board add was succesful.";
             }
-
-            if($select == "ram" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["czestotliwosc"]) && isset($_POST["liczba_modulow"]) && isset($_POST["laczna_pamiec"]) && isset($_POST["opuznienie"]) && isset($_POST["typ_pamieci"])){
+            else if($select == "ram" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["czestotliwosc"]) && isset($_POST["liczba_modulow"]) && isset($_POST["laczna_pamiec"]) && isset($_POST["opuznienie"]) && isset($_POST["typ_pamieci"])){
                 $nazwa = test_input($_POST["nazwa"]);
                 $czestotliwosc = test_input($_POST["czestotliwosc"]);
                 $liczba_modulow = test_input($_POST["liczba_modulow"]);
@@ -367,8 +368,7 @@
                 $entityManager->flush();
                 echo "RAM add was succesful.";
             }
-
-            if($select == "ssd" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["interfejs"]) && isset($_POST["pojemnosc"]) && isset($_POST["format"]) && isset($_POST["odczyt"]) && isset($_POST["zapis"])){
+            else if($select == "ssd" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["interfejs"]) && isset($_POST["pojemnosc"]) && isset($_POST["format"]) && isset($_POST["odczyt"]) && isset($_POST["zapis"])){
                 $nazwa = test_input($_POST["nazwa"]);
                 $interfejs = test_input($_POST["interfejs"]);
                 $pojemnosc = test_input($_POST["pojemnosc"]);
@@ -388,8 +388,7 @@
                 $entityManager->flush();
                 echo "SSD add was succesful.";
             }
-
-            if($select == "hdd" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["format"]) && isset($_POST["interfejs"]) && isset($_POST["pamiec_podreczna"]) && isset($_POST["pojemnosc"]) && isset($_POST["predkosc"])){
+            else if($select == "hdd" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["format"]) && isset($_POST["interfejs"]) && isset($_POST["pamiec_podreczna"]) && isset($_POST["pojemnosc"]) && isset($_POST["predkosc"])){
                 $nazwa = test_input($_POST["nazwa"]);
                 $format = test_input($_POST["format"]);
                 $interfejs = test_input($_POST["interfejs"]);
@@ -409,8 +408,7 @@
                 $entityManager->flush();
                 echo "HDD add was succesful.";
             }
-
-            if($select == "chlodzenie_cpu" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["maks_TDP"]) && isset($_POST["socket"]) && isset($_POST["wysokosc"]) && isset($_POST["szerokosc"]) && isset($_POST["glebokosc"]) && isset($_POST["ilosc_cieplowodow"]) && isset($_POST["srednica_cieplowodow"])){
+            else if($select == "chlodzenie_cpu" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["maks_TDP"]) && isset($_POST["socket"]) && isset($_POST["wysokosc"]) && isset($_POST["szerokosc"]) && isset($_POST["glebokosc"]) && isset($_POST["ilosc_cieplowodow"]) && isset($_POST["srednica_cieplowodow"])){
                 $nazwa = test_input($_POST["nazwa"]);
                 $maks_TDP = test_input($_POST["maks_TDP"]);
                 $socket = test_input($_POST["socket"]);
@@ -434,8 +432,7 @@
                 $entityManager->flush();
                 echo "CPU coller add was succesful.";
             }
-
-            if($select == "obudowa" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["standard"]) && isset($_POST["maks_dlugosc_karty_graf"]) && isset($_POST["typ_obudowy"]) && isset($_POST["wysokosc"]) && isset($_POST["szerokosc"]) && isset($_POST["glebokosc"])){
+            else if($select == "obudowa" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["standard"]) && isset($_POST["maks_dlugosc_karty_graf"]) && isset($_POST["typ_obudowy"]) && isset($_POST["wysokosc"]) && isset($_POST["szerokosc"]) && isset($_POST["glebokosc"])){
                 $nazwa = test_input($_POST["nazwa"]);
                 $standard = test_input($_POST["standard"]);
                 $maks_dlugosc_karty_graf = test_input($_POST["maks_dlugosc_karty_graf"]);

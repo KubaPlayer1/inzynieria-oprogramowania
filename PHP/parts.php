@@ -13,8 +13,9 @@ use Doctrine\ORM\Mapping\Table;
 class CpuCooler
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_chlodzenie_cpu;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_chlodzenie_cpu = null;
     #[Column]
     private string $nazwa;
     #[Column(type: 'float')]
@@ -238,8 +239,9 @@ class Cpu
 class Gpu
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_gpu;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_gpu = null;
     #[Column]
     private string $nazwa;
     #[Column]
@@ -253,7 +255,7 @@ class Gpu
     #[Column(type: 'float')]
     private float $rekomendowana_moc_zasilacza;
     #[Column(type: 'float')]
-    private float $Taktowanie_rdzenia_boost;
+    private float $taktowanie_rdzenia_boost;
 
     public function getId_gpu()
     {
@@ -334,12 +336,12 @@ class Gpu
 
     public function getTaktowanie_rdzenia_boost()
     {
-        return $this->Taktowanie_rdzenia_boost;
+        return $this->taktowanie_rdzenia_boost;
     }
 
-    public function setTaktowanie_rdzenia_boost($Taktowanie_rdzenia_boost)
+    public function setTaktowanie_rdzenia_boost($taktowanie_rdzenia_boost)
     {
-        $this->Taktowanie_rdzenia_boost = $Taktowanie_rdzenia_boost;
+        $this->taktowanie_rdzenia_boost = $taktowanie_rdzenia_boost;
 
         return $this;
     }
@@ -350,8 +352,9 @@ class Gpu
 class Hdd
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_hdd;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_hdd = null;
     #[Column]
     private string $nazwa;
     #[Column]
@@ -448,8 +451,9 @@ class Hdd
 class Mb
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_mb;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_mb;
     #[Column]
     private string $nazwa;
     #[Column]
@@ -560,8 +564,9 @@ class Mb
 class Obudowa
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_obudowa;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_obudowa = null;
     #[Column]
     private string $nazwa;
     #[Column]
@@ -672,8 +677,9 @@ class Obudowa
 class Ram
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_ram;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_ram = null;
     #[Column]
     private string $nazwa;
     #[Column(type: 'float')]
@@ -770,8 +776,9 @@ class Ram
 class Ssd
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id = null;
     #[Column]
     private string $nazwa;
     #[Column]
@@ -868,8 +875,9 @@ class Ssd
 class Zasilacz
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_zasilacz;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_zasilacz = null;
     #[Column]
     private string $nazwa;
     #[Column]
