@@ -1,16 +1,16 @@
 <?php
-
+require_once 'vendor/autoload.php';
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
-require_once 'vendor/autoload.php';
+
 
 #[Entity]
 #[Table('chlodzenie_cpu')]
-class cpuCooler
+class CpuCooler
 {
     #[Id]
     #[Column, GeneratedValue]
@@ -136,14 +136,15 @@ class cpuCooler
 
 #[Entity]
 #[Table('cpu')]
-class cpu
+class Cpu
 {
     #[Id]
-    #[Column, GeneratedValue]
-    private int $id_cpu;
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
+    private int|null $id_cpu = null;
     #[Column]
     private string $nazwa;
-    #[Column]
+    #[Column(name: 'socket')]
     private string $cpu_socket;
     #[Column(type: 'float')]
     private float $zegar;
@@ -234,7 +235,7 @@ class cpu
 
 #[Entity]
 #[Table('gpu')]
-class gpu
+class Gpu
 {
     #[Id]
     #[Column, GeneratedValue]
@@ -346,7 +347,7 @@ class gpu
 
 #[Entity]
 #[Table('hdd')]
-class hdd
+class Hdd
 {
     #[Id]
     #[Column, GeneratedValue]
@@ -444,7 +445,7 @@ class hdd
 
 #[Entity]
 #[table('mb')]
-class mb
+class Mb
 {
     #[Id]
     #[Column, GeneratedValue]
@@ -556,7 +557,7 @@ class mb
 
 #[Entity]
 #[Table('obudowa')]
-class obudowa
+class Obudowa
 {
     #[Id]
     #[Column, GeneratedValue]
@@ -668,7 +669,7 @@ class obudowa
 
 #[Entity]
 #[Table('ram')]
-class ram
+class Ram
 {
     #[Id]
     #[Column, GeneratedValue]
@@ -766,7 +767,7 @@ class ram
 
 #[Entity]
 #[Table('ssd')]
-class ssd
+class Ssd
 {
     #[Id]
     #[Column, GeneratedValue]
@@ -864,7 +865,7 @@ class ssd
 
 #[Entity]
 #[Table('zasilacz')]
-class zasilacz
+class Zasilacz
 {
     #[Id]
     #[Column, GeneratedValue]
