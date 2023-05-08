@@ -69,15 +69,23 @@
                 <option value="obudowa">Case</option>
             </select>
             <input type="submit" name="submit" value="Submit"/>
+            
             <?php } ?>
+             </form>
+            
+             <form action="" method="post">
+            
+             <input type="text" name="select" hidden value="<?php echo $select ?>">
+            
             <?php
+            
                 $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
                 if(isset($_POST["submit"]))
                 { 
                     
                     $select = $_POST["select"];
                     echo($select);
-                    
+                    $select ="cpu";
                     if (empty($select)){
                         echo "There is no opption choosed.";
                     }
@@ -87,6 +95,9 @@
                        ?>
                        <input type="submit" name="submit" value="Submit"/>
                        <input type="text"  name="name">
+                       <?php
+                       $zmiennaName=$_POST["name"];
+                       ?>
                        <label> wpisz cos </label>
                        <?php
                         
@@ -97,7 +108,7 @@
                             $jakaszmienna=$queryBuilder
                                 ->select('c')
                                 ->from(Cpu::class,'c')
-                                ->where('c.nazwa LIKE :name')
+                                ->where('c.nazwa LIKE :' . $zmiennaName)
                                 ->getQuery();
                             $cpus=$jakaszmienna->getResult();    
                         ?>
@@ -173,13 +184,25 @@
                     }
 
                     ?>
-                    <input type="text" name="select" hidden value="<?php echo $select ?>">
+                    
                     <?php
 
 
                 }
             ?>
         </form>
+
+
+
+
+
+
+
+
+
+
+
+
 
         <script src="JS/script.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
