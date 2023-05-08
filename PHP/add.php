@@ -73,7 +73,7 @@
                 $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
                 if(isset($_POST["submit"])){
                     $select = $_POST["select"];
-                    echo($select);
+                    //echo($select);
                     if(empty($select)){
                         echo "There is no opption choosed.";
                     }
@@ -255,8 +255,8 @@
                 $select = $_POST['select'];
             }
 
-            echo $select;
-            var_dump($_POST);
+            //echo $select;
+            //var_dump($_POST);
 
             if($select == "cpu" && isset($_POST["add"]) && isset($_POST["nazwa"]) && isset($_POST["socket"]) && isset($_POST["zegar"]) && isset($_POST["turbo"]) && $_POST["rdzenie"] && isset($_POST["watki"])){
                 $nazwa = test_input($_POST["nazwa"]);
