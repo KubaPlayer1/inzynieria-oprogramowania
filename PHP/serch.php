@@ -1,100 +1,188 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>PC konfigurator</title>
-</head>
-<body>
+    <?php
+        require_once('parts.php');
+        require_once 'vendor/autoload.php';
+        use Doctrine\DBAL\DriverManager;
+        use Doctrine\ORM\EntityManager;
+        use Doctrine\ORM\Tools\Setup;
+        use Doctrine\ORM\Query;
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h4> Search box & filter data in HTML Table from Database in PHP MySQL </h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-7">
+        $connectionParams = [
+            'dbname' => 'peryferia',
+            'user' => 'root',
+            'password' => '',
+            'host' => 'localhost',
+            'driver' => 'mysqli',
+        ];
+        $conn = DriverManager::getConnection($connectionParams);
+        
+        $entityManager = EntityManager::create(
+            $conn,
+            Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+        );
+        
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        
+        }
+        $select = "";
+    ?>
 
-                                <form action="" method="GET">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
-                                        <button type="submit" class="btn btn-primary">Search</button>
-                                    </div>
-                                </form>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>Konfigurate your PC</title>
+        <link rel="stylesheet" href="../STYLES/style.css">
+    </head>
 
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>id_cpu</th>
-                                    <th>nazwa</th>
-                                    <th>socket</th>
-                                    <th>zegar</th>
-									<th>turbo</th>
-									<th>rdzenie</th>
-									<th>watki</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
-                                    $con = mysqli_connect("localhost","root","","peryferia");
-									
-                                    if(isset($_GET['search']))
-                                    {
-                                        $filtervalues = $_GET['search'];
-                                        $query = "SELECT * FROM cpu WHERE CONCAT(nazwa,socket) LIKE '%$filtervalues%' ";
-                                        $query_run = mysqli_query($con, $query);
+    <body>
+        <img src="GRAPHICS/strona_logo.png">
+        <header><h2 class="logo">Build your PC!</h2>
+            <nav class="navigation">
+                <a href="../PHP/add.php">Add new part</a>
+                <a href="#">My account</a>
+                <a href="#">My configurations</a>
+                <a href="../HTML/konfigurepc.html"><ion-icon name="home-sharp">Konfigure PC</ion-icon></a>
+                <button class="button-out" href="../index.html">Log out</button>
+            </nav>
+        </header>
 
-                                        if(mysqli_num_rows($query_run) > 0)
-                                        {
-                                            foreach($query_run as $items)
-                                            {
-                                                ?>
-                                                <tr>
-                                                    <td><?= $items['id_cpu']; ?></td>
-                                                    <td><?= $items['nazwa']; ?></td>
-                                                    <td><?= $items['socket']; ?></td>
-                                                    <td><?= $items['zegar']; ?></td>
-													<td><?= $items['turbo']; ?></td>
-													<td><?= $items['rdzenie']; ?></td>
-													<td><?= $items['watki']; ?></td>
-                                                </tr>
-                                                <?php
-                                            }
-                                        }
-                                        else
-                                        {
-                                            ?>
-                                                <tr>
-                                                    <td colspan="7">No Record Found</td>
-                                                </tr>
-                                            <?php
-                                        }
-                                    }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <form action="" method="post">
+            
+            <?php
+             if(!isset($_POST['submit'])) { ?>
+            <label>Choose what you wont to search: </label>
+            <select name="select">
+                <option value="">Select...</option>
+                <option value="cpu">CPU</option>
+                <option value="gpu">GPU</option>
+                <option value="zasilacz">Power supply</option>
+                <option value="mb">Mother board</option>
+                <option value="ram">RAM</option>
+                <option value="ssd">SSD</option>
+                <option value="hdd">HDD</option>
+                <option value="chlodzenie_cpu">CPU cooler</option>
+                <option value="obudowa">Case</option>
+            </select>
+            <input type="submit" name="submit" value="Submit"/>
+            <?php } ?>
+            <?php
+                $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
+                if(isset($_POST["submit"]))
+                { 
+                    
+                    $select = $_POST["select"];
+                    echo($select);
+                    
+                    if (empty($select)){
+                        echo "There is no opption choosed.";
+                    }
+                    
+                    if ($podzespoly[0] == $select) 
+                    {
+                       ?>
+                       <input type="submit" name="submit" value="Submit"/>
+                       <input type="text"  name="name">
+                       <label> wpisz cos </label>
+                       <?php
+                        
+                        if(isset($_POST["submit"]))
+                       {
+                            
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $jakaszmienna=$queryBuilder
+                                ->select('c')
+                                ->from(Cpu::class,'c')
+                                ->where('c.nazwa LIKE :name')
+                                ->getQuery();
+                            $cpus=$jakaszmienna->getResult();    
+                        ?>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+                        <div class="lista">
+                        <?php
+                            foreach($cpus as $cpu)
+                            {
+                                echo $cpus->getId_cpu() . "\n";
+                                echo $cpus->getNazwa() . "\n";
+                                echo $cpus->getCpu_socket() . "\n";
+                                echo $cpus->getTurbo() . "\n";
+                                echo $cpus->getRdzenie() . "\n";
+                                echo $cpus->getWatki() . "\n";
+                            }
+                        
+                        }
+                        else
+                        {
+                            echo "nie zostalo nic wpisane";
+                        }
+                        ?>
+                        <?php
+                        
+                    }
+                    if ($podzespoly[1] == $select) 
+                    {
+                        echo "ram";
+                        ?>
+                        <?php 
+                    }
+                    if ($podzespoly[2] == $select) 
+                    {
+                        echo "ram";
+                        ?>
+                        <?php 
+                    }
+                    if ($podzespoly[3] == $select) 
+                    {
+                        echo "ram";
+                        ?>
+                        <?php
+                    }
+                    if ($podzespoly[4] == $select) 
+                    {
+                        echo "ram";
+                        ?>
+                        <?php
+                    }
+                    if ($podzespoly[5] == $select) 
+                    {
+                        echo "ssd";
+                        ?>
+                        <?php
+                    }
+                    if ($podzespoly[6] == $select) 
+                    {
+                        echo "hdd";
+                        ?>
+                        <?php
+                    }
+                    if ($podzespoly[7] == $select) 
+                    {
+                        echo "chlodzenie";
+                        ?>
+                        <?php
+                    }
+                    if ($podzespoly[8] == $select) 
+                    {
+                        echo "obudowa";
+                        ?>
+                        <?php
+                    }
+
+                    ?>
+                    <input type="text" name="select" hidden value="<?php echo $select ?>">
+                    <?php
+
+
+                }
+            ?>
+        </form>
+
+        <script src="JS/script.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
 </html>
