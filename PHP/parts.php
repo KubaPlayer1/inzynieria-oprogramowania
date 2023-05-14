@@ -32,7 +32,7 @@ class CpuCooler
     private float $ilosc_cieplowodow;
     #[Column(type: 'float')]
     private float $srednica_cieplowodow;
- 
+
     public function getId_chlodzenie_cpu()
     {
         return $this->id_chlodzenie_cpu;
@@ -73,7 +73,7 @@ class CpuCooler
 
         return $this;
     }
- 
+
     public function getWysokosc()
     {
         return $this->wysokosc;
@@ -314,7 +314,7 @@ class Gpu
     {
         return $this->rodzaj_chipsetu;
     }
- 
+
     public function setRodzaj_chipsetu($rodzaj_chipsetu)
     {
         $this->rodzaj_chipsetu = $rodzaj_chipsetu;
@@ -372,7 +372,7 @@ class Hdd
     {
         return $this->id_hdd;
     }
- 
+
     public function getNazwa()
     {
         return $this->nazwa;
@@ -514,7 +514,7 @@ class Mb
     {
         return $this->liczba_slotow_pamieci;
     }
- 
+
     public function setLiczba_slotow_pamieci($liczba_slotow_pamieci)
     {
         $this->liczba_slotow_pamieci = $liczba_slotow_pamieci;
@@ -688,11 +688,11 @@ class Ram
     private int $liczba_modulow;
     #[Column(type: 'integer')]
     private int $laczna_pamiec;
-    #[Column]
+    #[Column(name: 'opoznienie')]
     private string $opluznienie;
     #[Column]
     private string $typ_pamieci;
-    
+
     public function getId_ram()
     {
         return $this->id_ram;
@@ -702,14 +702,14 @@ class Ram
     {
         return $this->nazwa;
     }
- 
+
     public function setNazwa($nazwa)
     {
         $this->nazwa = $nazwa;
 
         return $this;
     }
-     
+
     public function getCzestotliwosc()
     {
         return $this->czestotliwosc;
@@ -959,7 +959,7 @@ class Zasilacz
 
         return $this;
     }
- 
+
     public function getWysokosc()
     {
         return $this->wysokosc;
