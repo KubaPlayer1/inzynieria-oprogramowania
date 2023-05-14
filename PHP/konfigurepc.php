@@ -69,7 +69,7 @@ $select = "";
   <header>
     <h2 class="logo">Build your PC!</h2>
     <nav class="navigation">
-      <a href="../PHP/add.php">Add new part</a>
+      <a href="add.php">Add new part</a>
       <a href="#">My account</a>
       <a href="#">Save configuration</a>
       <a href="#">My configurations</a>
