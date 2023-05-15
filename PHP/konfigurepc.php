@@ -518,7 +518,7 @@ $select = "";
         <div class="tile">
           <img src="../GRAPHICS/cpu-grafika.png" alt="obrazek 2" />
           <p>
-            <?php echo isset($_GET['gpu']) ? getProductName('gpu', $_GET['gpu']) : "" ?>
+            <?php echo isset($_GET['cpu']) ? getProductName('cpu', $_GET['cpu']) : "" ?>
           </p>
         </div>
       </a>
