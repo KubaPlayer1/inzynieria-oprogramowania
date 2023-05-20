@@ -159,7 +159,45 @@ $select = "";
           </table>
           <?php
           break;
-        case 'dysk':
+        case 'hdd':
+          $queryBuilder = $entityManager->createQueryBuilder();
+          $hddQuery = $queryBuilder
+            ->select('c')
+            ->from(Hdd::class, 'c')
+            ->getQuery();
+          $hdds = $hddQuery->getResult();
+          ?>
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Format</th>
+              <th>Interface</th>
+              <th>ROM memory</th>
+              <th>Capacity</th>
+              <th>Speed</th>
+              <th>Add</th>
+            </tr>
+
+            <?php
+
+            foreach ($hdds as $hdd) {
+              echo "<tr>";
+              echo "<td>" . $hdd->getId_hdd() . "</td>";
+              echo "<td>" . $hdd->getNazwa() . "</td>";
+              echo "<td>" . $hdd->getFormat() . "</td>";
+              echo "<td>" . $hdd->getInterfejs() . "</td>";
+              echo "<td>" . $hdd->getPamiec_podreczna() . "</td>";
+              echo "<td>" . $hdd->getPojemnosc() . "</td>";
+              echo "<td>" . $hdd->getPredkosc() . "</td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $hdd->getId_hdd() . "'></form></td>";
+              echo "</tr>";
+            }
+            ?>
+          </table>
+          <?php
+          break;
+        case 'ssd':
           $queryBuilder = $entityManager->createQueryBuilder();
           $ssdQuery = $queryBuilder
             ->select('c')
@@ -441,12 +479,21 @@ $select = "";
           ->getQuery();
         return $dane->getSingleResult()->getNazwa();
         break;
-      case 'dysk':
+      case 'ssd':
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
           ->from(Ssd::class, 'c')
           ->where('c.id = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'hdd':
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Hdd::class, 'c')
+          ->where('c.id_hdd = ' . $id)
           ->getQuery();
         return $dane->getSingleResult()->getNazwa();
         break;
@@ -554,11 +601,19 @@ $select = "";
           </p>
         </div>
       </a>
-      <a href="?type=dysk">
+      <a href="?type=hdd">
         <div class="tile">
           <img src="../GRAPHICS/dysk-grafika.png" alt="obrazek 3" />
           <p>
-            <?php echo isset($_GET['dysk']) ? getProductName('dysk', $_GET['dysk']) : "" ?>
+            <?php echo isset($_GET['hdd']) ? getProductName('hdd', $_GET['hdd']) : "" ?>
+          </p>
+        </div>
+      </a>
+      <a href="?type=ssd">
+        <div class="tile">
+          <img src="" alt="obrazek 3" />
+          <p>
+            <?php echo isset($_GET['ssd']) ? getProductName('ssd', $_GET['ssd']) : "" ?>
           </p>
         </div>
       </a>
