@@ -92,12 +92,12 @@ $select = "";
           <table>
             <tr>
               <th>ID</th>
-              <th>Nazwa</th>
+              <th>Name</th>
               <th>Socket</th>
               <th>Turbo</th>
-              <th>Rdzenie</th>
-              <th>Wątki</th>
-              <th>Dodaj</th>
+              <th>Cores</th>
+              <th>Threads</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -110,7 +110,7 @@ $select = "";
               echo "<td>" . $cpu->getTurbo() . "</td>";
               echo "<td>" . $cpu->getRdzenie() . "</td>";
               echo "<td>" . $cpu->getWatki() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpu->getId_cpu() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpu->getId_cpu() . "'></form></td>";
               echo "</tr>";
             }
             ?>
@@ -128,15 +128,15 @@ $select = "";
           <table>
             <tr>
               <th>ID</th>
-              <th>Nazwa</th>
-              <th>Maks TDP</th>
+              <th>Name</th>
+              <th>Max TDP</th>
               <th>Socket</th>
-              <th>Wysokość</th>
-              <th>Szerokość</th>
-              <th>Głębokość</th>
-              <th>Ilość ciepłowodów</th>
-              <th>Średnica ciepłowodów</th>
-              <th>Dodaj</th>
+              <th>Heigth</th>
+              <th>Width</th>
+              <th>Depth</th>
+              <th>Count of heatpipes</th>
+              <th>Size of heatpipe</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -152,7 +152,7 @@ $select = "";
               echo "<td>" . $cpuC->getGlebokosc() . "</td>";
               echo "<td>" . $cpuC->getIlosc_cieplowodow() . "</td>";
               echo "<td>" . $cpuC->getSrednica_cieplowodow() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpuC->getId_chlodzenie_cpu() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpuC->getId_chlodzenie_cpu() . "'></form></td>";
               echo "</tr>";
             }
             ?>
@@ -170,13 +170,13 @@ $select = "";
           <table>
             <tr>
               <th>ID</th>
-              <th>Nazwa</th>
-              <th>Interfejs</th>
-              <th>Pojemność</th>
+              <th>Name</th>
+              <th>Interface</th>
+              <th>Capacity</th>
               <th>Format</th>
-              <th>Odczyt</th>
-              <th>Zapis</th>
-              <th>Dodaj</th>
+              <th>Reading</th>
+              <th>Saving</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -190,7 +190,7 @@ $select = "";
               echo "<td>" . $ssd->getFormat() . "</td>";
               echo "<td>" . $ssd->getOdczyt() . "</td>";
               echo "<td>" . $ssd->getZapis() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ssd->getId() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ssd->getId() . "'></form></td>";
               echo "</tr>";
             }
             ?>
@@ -208,14 +208,14 @@ $select = "";
           <table>
             <tr>
               <th>ID</th>
-              <th>Nazwa</th>
-              <th>Producent Chipsetu</th>
-              <th>Długość Karty</th>
-              <th>Ilość RAM</th>
-              <th>Rodzaj Chipsetu</th>
-              <th>Rekomendowana Moc Zasilacza</th>
-              <th>Taktowanie Boost</th>
-              <th>Dodaj</th>
+              <th>Name</th>
+              <th>Chipset manufacturer</th>
+              <th>Length</th>
+              <th>RAM</th>
+              <th>Chipset type</th>
+              <th>Recomended PSU power</th>
+              <th>BOOST</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -230,7 +230,7 @@ $select = "";
               echo "<td>" . $gpu->getRodzaj_chipsetu() . "</td>";
               echo "<td>" . $gpu->getRekomendowana_moc_zasilacza() . "</td>";
               echo "<td>" . $gpu->getTaktowanie_rdzenia_boost() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $gpu->getId_gpu() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $gpu->getId_gpu() . "'></form></td>";
               echo "</tr>";
             }
             ?>
@@ -247,15 +247,15 @@ $select = "";
           ?>
           <table>
             <tr>
-              <th>$id_obudowa = null</th>
-              <th>$nazwa</th>
-              <th>$standard</th>
-              <th>$maks_dlugosc_karty_graf</th>
-              <th>$typ_obudowy</th>
-              <th>$wysokosc</th>
-              <th>$szerokosc</th>
-              <th>$glebokosc</th>
-              <th>Dodaj</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Standard</th>
+              <th>Max size of GPU</th>
+              <th>Type</th>
+              <th>Heigth</th>
+              <th>Width</th>
+              <th>Depth</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -270,7 +270,7 @@ $select = "";
               echo "<td>" . $obudowa->getWysokosc() . "</td>";
               echo "<td>" . $obudowa->getSzerokosc() . "</td>";
               echo "<td>" . $obudowa->getGlebokosc() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $obudowa->getId_obudowa() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $obudowa->getId_obudowa() . "'></form></td>";
               echo "</tr>";
             }
             ?>
@@ -287,15 +287,15 @@ $select = "";
           ?>
           <table>
             <tr>
-              <th>$id_mb</th>
-              <th>$nazwa</th>
-              <th>$chipset_plyty</th>
-              <th>$gniazdo_procesora</th>
-              <th>$liczba_slotow_pamieci</th>
-              <th>$standard_plyty</th>
-              <th>$standard_pamieci</th>
-              <th>$maks_ilosc_pamieci_ram</th>
-              <th>Dodaj</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Mb chipset</th>
+              <th>CPU socket</th>
+              <th>RAM slots</th>
+              <th>Mb standard</th>
+              <th>RAM standard</th>
+              <th>Max RAM capacity</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -310,7 +310,7 @@ $select = "";
               echo "<td>" . $mb->getStandard_plyty() . "</td>";
               echo "<td>" . $mb->getStandard_pamieci() . "</td>";
               echo "<td>" . $mb->getMaks_ilosc_pamieci_ram() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $mb->getId_mb() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $mb->getId_mb() . "'></form></td>";
               echo "</tr>";
             }
             ?>
@@ -327,14 +327,14 @@ $select = "";
           ?>
           <table>
             <tr>
-              <th>$id_ram = null</th>
-              <th>$nazwa</th>
-              <th>$czestotliwosc</th>
-              <th>$liczba_modulow</th>
-              <th>$laczna_pamiec</th>
-              <th>$opluznienie</th>
-              <th>$typ_pamieci</th>
-              <th>Dodaj</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Friquency</th>
+              <th>How much modules</th>
+              <th>Capacity</th>
+              <th>CLI</th>
+              <th>Type</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -348,7 +348,7 @@ $select = "";
               echo "<td>" . $ram->getLaczna_pamiec() . "</td>";
               echo "<td>" . $ram->getOpluznienie() . "</td>";
               echo "<td>" . $ram->getTyp_pamieci() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ram->getId_ram() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ram->getId_ram() . "'></form></td>";
               echo "</tr>";
             }
             ?>
@@ -365,16 +365,16 @@ $select = "";
           ?>
           <table>
             <tr>
-              <th>$id_zasilacz = null</th>
-              <th>$nazwa</th>
-              <th>$certyfikat</th>
-              <th>$srednica_wentylatora</th>
-              <th>$moc</th>
-              <th>$standard</th>
-              <th>$wysokosc</th>
-              <th>$szerokosc</th>
-              <th>$glebokosc</th>
-              <th>Dodaj</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Certyficate</th>
+              <th>Fan size</th>
+              <th>Power</th>
+              <th>Standard</th>
+              <th>Heigth</th>
+              <th>Width</th>
+              <th>Depth</th>
+              <th>Add</th>
             </tr>
 
             <?php
@@ -390,7 +390,7 @@ $select = "";
               echo "<td>" . $zasilacz->getWysokosc() . "</td>";
               echo "<td>" . $zasilacz->getSzerokosc() . "</td>";
               echo "<td>" . $zasilacz->getGlebokosc() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Dodaj</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $zasilacz->getId_zasilacz() . "'></form></td>";
+              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $zasilacz->getId_zasilacz() . "'></form></td>";
               echo "</tr>";
             }
             ?>
