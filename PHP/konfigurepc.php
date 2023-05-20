@@ -506,43 +506,11 @@ $select = "";
       <img src="../GRAPHICS/strona_logo.png" alt="LOGO" />
     </div>
     <div class="grid">
-      <a href="?type=chlodzenie_cpu">
-        <div class="tile">
-          <img src="../GRAPHICS/chlodzenie-grafika.png" alt="obrazek 1" />
-          <p>
-            <?php echo isset($_GET['chlodzenie_cpu']) ? getProductName('chlodzenie_cpu', $_GET['chlodzenie_cpu']) : "" ?>
-          </p>
-        </div>
-      </a>
       <a href="?type=cpu">
         <div class="tile">
           <img src="../GRAPHICS/cpu-grafika.png" alt="obrazek 2" />
           <p>
             <?php echo isset($_GET['cpu']) ? getProductName('cpu', $_GET['cpu']) : "" ?>
-          </p>
-        </div>
-      </a>
-      <a href="?type=dysk">
-        <div class="tile">
-          <img src="../GRAPHICS/dysk-grafika.png" alt="obrazek 3" />
-          <p>
-            <?php echo isset($_GET['dysk']) ? getProductName('dysk', $_GET['dysk']) : "" ?>
-          </p>
-        </div>
-      </a>
-      <a href="?type=gpu">
-        <div class="tile">
-          <img src="../GRAPHICS/gpu-grafika.png" alt="obrazek 4" />
-          <p>
-            <?php echo isset($_GET['gpu']) ? getProductName('gpu', $_GET['gpu']) : "" ?>
-          </p>
-        </div>
-      </a>
-      <a href="?type=obudowa">
-        <div class="tile">
-          <img src="../GRAPHICS/obudowa-grafika.png" alt="obrazek 5" />
-          <p>
-            <?php echo isset($_GET['obudowa']) ? getProductName('obudowa', $_GET['obudowa']) : "" ?>
           </p>
         </div>
       </a>
@@ -562,6 +530,14 @@ $select = "";
           </p>
         </div>
       </a>
+      <a href="?type=gpu">
+        <div class="tile">
+          <img src="../GRAPHICS/gpu-grafika.png" alt="obrazek 4" />
+          <p>
+            <?php echo isset($_GET['gpu']) ? getProductName('gpu', $_GET['gpu']) : "" ?>
+          </p>
+        </div>
+      </a>
       <a href="?type=zasilacz">
         <div class="tile">
           <img src="../GRAPHICS/zasilacz-grafika.png" alt="obrazek 8" />
@@ -570,6 +546,31 @@ $select = "";
           </p>
         </div>
       </a>
+      <a href="?type=chlodzenie_cpu">
+        <div class="tile">
+          <img src="../GRAPHICS/chlodzenie-grafika.png" alt="obrazek 1" />
+          <p>
+            <?php echo isset($_GET['chlodzenie_cpu']) ? getProductName('chlodzenie_cpu', $_GET['chlodzenie_cpu']) : "" ?>
+          </p>
+        </div>
+      </a>
+      <a href="?type=dysk">
+        <div class="tile">
+          <img src="../GRAPHICS/dysk-grafika.png" alt="obrazek 3" />
+          <p>
+            <?php echo isset($_GET['dysk']) ? getProductName('dysk', $_GET['dysk']) : "" ?>
+          </p>
+        </div>
+      </a>
+      <a href="?type=obudowa">
+        <div class="tile">
+          <img src="../GRAPHICS/obudowa-grafika.png" alt="obrazek 5" />
+          <p>
+            <?php echo isset($_GET['obudowa']) ? getProductName('obudowa', $_GET['obudowa']) : "" ?>
+          </p>
+        </div>
+      </a>
+
 
       <script>
         [...document.querySelector('.grid').querySelectorAll('a')].forEach(e => {
