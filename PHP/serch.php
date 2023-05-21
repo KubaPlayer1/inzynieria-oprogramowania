@@ -51,7 +51,7 @@
             </nav>
         </header>
 
-        <form action="" method="post">
+        <form action="serch.php" method="post">
             
             <?php
              if(!isset($_POST['submit'])) { ?>
@@ -71,21 +71,21 @@
             <input type="submit" name="submit" value="Submit"/>
             
             <?php } ?>
-             </form>
+        </form>
             
-             <form action="" method="post">
+        <form action="serch.php" method="post">
             
              <input type="text" name="select" hidden value="<?php echo $select ?>">
             
             <?php
             
                 $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
+                print_r($_POST);
                 if(isset($_POST["submit"]))
                 { 
                     
                     $select = $_POST["select"];
                     echo($select);
-                    $select ="cpu";
                     if (empty($select)){
                         echo "There is no opption choosed.";
                     }
@@ -96,14 +96,16 @@
                        <input type="submit" name="submit" value="Submit"/>
                        <input type="text"  name="name">
                        <?php
-                       $zmiennaName=$_POST["name"];
-                       ?>
+                        echo "COS";
+                        $zmiennaName=$_POST["name"];
+                    ?>
                        <label> wpisz cos </label>
                        <?php
                         
                         if(isset($_POST["submit"]))
-                       {
-                            
+                        {
+                            echo "COS22222222";
+
                             $queryBuilder = $entityManager->createQueryBuilder();
                             $jakaszmienna=$queryBuilder
                                 ->select('c')
