@@ -611,7 +611,7 @@ $select = "";
       </a>
       <a href="?type=ssd">
         <div class="tile">
-          <img src="" alt="obrazek 3" />
+          <img src="../GRAPHICS/ssd-grafika.png" alt="obrazek 3" />
           <p>
             <?php echo isset($_GET['ssd']) ? getProductName('ssd', $_GET['ssd']) : "" ?>
           </p>
