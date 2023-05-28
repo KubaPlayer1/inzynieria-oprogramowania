@@ -44,8 +44,8 @@
         <img src="GRAPHICS/strona_logo.png">
         <header><h2 class="logo">Build your PC!</h2>
             <nav class="navigation">
-                <a href="../HTML/konfigurepc.html"><ion-icon name="home-sharp">Konfigure PC</ion-icon></a>
-                <button class="button-out" href="../index.html">Log out</button>
+                <a href="../index.html"><ion-icon name="home-sharp">Konfigure PC</ion-icon></a>
+                
             </nav>
         </header>
  <div class="pudelko">
