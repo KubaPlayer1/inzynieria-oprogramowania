@@ -1,7 +1,7 @@
 <?php
 require_once('parts.php');
 require_once('configurations.php');
-require_once('DB_connection.php');
+//require_once('DB_connection.php');
 require_once 'vendor/autoload.php';
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
@@ -60,9 +60,9 @@ function saveConfiguration($config)
 {
   global $entityManager;
 
-  $configuration = new Configurations();
-  $configuration->setID_account($ID_account);
-  $configuration->setID_cpu($ID_cpu);
+  //$configuration = new Configurations();
+  //$configuration->setID_account($ID_account);
+  //$configuration->setID_cpu($ID_cpu);
   $configuration->setID_mb($ID_mb);
   $configuration->setID_ram($ID_ram);
   $configuration->setID_gpu($ID_gpu);
