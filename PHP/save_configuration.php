@@ -1,5 +1,6 @@
 <?php
 require_once 'vendor/autoload.php';
+require_once 'DB_connection.php';
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
@@ -45,9 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Formularz zapisu konfiguracji</title>
 </head>
+
 <body>
     <h2>Formularz zapisu konfiguracji</h2>
     <form method="post" action="save_configuration.php">
@@ -87,4 +90,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="submit" value="Zapisz konfigurację">
     </form>
 </body>
+
 </html>
