@@ -21,14 +21,15 @@ $entityManager = EntityManager::create(
     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
 );
 
-function test_input($data) {
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 
-if (isset($_POST["username"])){
+if (isset($_POST["username"])) {
     $username = test_input($_POST["username"]);
     $email = test_input($_POST["email"]);
     $password = $_POST["password"];
@@ -42,20 +43,18 @@ if (isset($_POST["username"])){
 
     $uppercase = preg_match('@[A-Z]@', $password);
     $lowercase = preg_match('@[a-z]@', $password);
-    $number    = preg_match('@[0-9]@', $password);
+    $number = preg_match('@[0-9]@', $password);
     $specialChars = preg_match('@[^\w]@', $password);
 
-    if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+    if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
         echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
-    }else{
+    } else {
         echo 'Strong password.';
     }
 
-    if(preg_match('/^[a-z]\w{2,23}[^_]$/i', $username)) {
+    if (preg_match('/^[a-z]\w{2,23}[^_]$/i', $username)) {
         echo "Username correct.";
-    }
-    else
-    {
+    } else {
         echo "Please enter valid username.";
     }
 
@@ -69,7 +68,7 @@ if (isset($_POST["username"])){
     header("Location: ../index.html");
 }
 
-if (isset($_GET["email"])){
+if (isset($_GET["email"])) {
     $email = test_input($_GET["email"]);
     $password = $_GET["password"];
 
@@ -77,7 +76,7 @@ if (isset($_GET["email"])){
     $accounts = $query->getResult();*/
 
     $queryBuilder = $entityManager->createQueryBuilder();
-    
+
     $query = $queryBuilder
         ->select('c')
         ->from(Accounts::class, 'c')
@@ -85,25 +84,23 @@ if (isset($_GET["email"])){
         ->getQuery();
 
     //echo $query->getDQL();
-    
+
     $accounts = $query->getResult();
 
     var_dump($accounts);
 
-    foreach($accounts as $account){
-        if ($account->getEmail() == $email){
-            if ($account->getPassword() == $password){
+    foreach ($accounts as $account) {
+        if ($account->getEmail() == $email) {
+            if ($account->getPassword() == $password) {
                 echo "Zalogowany.";
-                header("Location: ../HTML/konfigurepc.html");
+                header("Location: konfigurepc.php");
                 break;
-            }
-            else {
+            } else {
                 echo "Hasło nie jest poprawne.";
                 header("Location: ../index.html");
                 break;
             }
-        }
-        else {
+        } else {
             echo "Niepoprawny adres email.";
             header("Location: ../index.html");
             break;
