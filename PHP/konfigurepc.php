@@ -1,5 +1,7 @@
 <?php
 require_once('parts.php');
+require_once('configurations.php');
+require_once('DB_connection.php');
 require_once 'vendor/autoload.php';
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
