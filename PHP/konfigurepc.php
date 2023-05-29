@@ -54,6 +54,28 @@ function addToUrl($url, $key, $value = null)
   }
   return $url;
 }
+function saveConfiguration($config)
+{
+  global $entityManager;
+
+  $configuration = new Configurations();
+  $configuration->setID_account($ID_account);
+  $configuration->setID_cpu($ID_cpu);
+  $configuration->setID_mb($ID_mb);
+  $configuration->setID_ram($ID_ram);
+  $configuration->setID_gpu($ID_gpu);
+  $configuration->setID_zasilacz($ID_zasilacz);
+  $configuration->setID_chlodzenie($ID_chlodzenie);
+  $configuration->setID_hdd($ID_hdd);
+  $configuration->setID_ssd($ID_ssd);
+  $configuration->setID_obudowa($ID_obudowa);
+  $configuration->setName($name);
+
+  $entityManager->persist($configuration);
+  $entityManager->flush();
+
+  echo "Konfiguracja została zapisana w bazie danych.";
+}
 $select = "";
 ?>
 <!DOCTYPE html>
@@ -71,7 +93,7 @@ $select = "";
     <nav class="navigation">
       <a href="add.php">Add new part</a>
       <a href="#">My account</a>
-      <a href="#">Save configuration</a>
+      <a href="save_configuration.php">Save configuration</a>
       <a href="#">My configurations</a>
       <button class="button-out" href="../index.html">Log out</button>
     </nav>
