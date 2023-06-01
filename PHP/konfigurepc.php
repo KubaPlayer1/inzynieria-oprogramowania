@@ -63,18 +63,18 @@ function saveConfiguration($config)
   //$configuration = new Configurations();
   //$configuration->setID_account($ID_account);
   //$configuration->setID_cpu($ID_cpu);
-  $configuration->setID_mb($ID_mb);
-  $configuration->setID_ram($ID_ram);
-  $configuration->setID_gpu($ID_gpu);
-  $configuration->setID_zasilacz($ID_zasilacz);
-  $configuration->setID_chlodzenie($ID_chlodzenie);
-  $configuration->setID_hdd($ID_hdd);
-  $configuration->setID_ssd($ID_ssd);
-  $configuration->setID_obudowa($ID_obudowa);
-  $configuration->setName($name);
+  //$configuration->setID_mb($ID_mb);
+  //$configuration->setID_ram($ID_ram);
+  //$configuration->setID_gpu($ID_gpu);
+  //$configuration->setID_zasilacz($ID_zasilacz);
+  //$configuration->setID_chlodzenie($ID_chlodzenie);
+  //$configuration->setID_hdd($ID_hdd);
+  //$configuration->setID_ssd($ID_ssd);
+  //$configuration->setID_obudowa($ID_obudowa);
+  //$configuration->setName($name);
 
-  $entityManager->persist($configuration);
-  $entityManager->flush();
+  //$entityManager->persist($configuration);
+  //$entityManager->flush();
 
   echo "Konfiguracja została zapisana w bazie danych.";
 }
@@ -93,6 +93,7 @@ $select = "";
   <header>
     <h2 class="logo">Build your PC!</h2>
     <nav class="navigation">
+      <a href="konfigurepc.php">Clear configuration</a>
       <a href="add.php">Add new part</a>
       <a href="#">My account</a>
       <a href="save_configuration.php">Save configuration</a>
