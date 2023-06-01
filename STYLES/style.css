@@ -51,7 +51,9 @@ header .icon {
   font-size: 2em;
   user-select: none;
 }
-
+.navigation {
+  white-space: nowrap;
+}
 .navigation a {
   position: relative;
   color: rgb(255, 254, 254);
