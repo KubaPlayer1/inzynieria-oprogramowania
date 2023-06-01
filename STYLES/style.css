@@ -6,7 +6,8 @@
 }
 
 body {
-  color: aqua;
+  position:relative;
+  color: rgb(242, 247, 247);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,9 +16,19 @@ body {
   background-size: cover;
   background-position: center;
 }
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(63, 63, 63, 0.8);
+  z-index: -1;
+}
 
 header {
-  color: aqua;
+  color: rgb(255, 255, 255);
   position: fixed;
   top: 0;
   left: 0;
@@ -43,7 +54,7 @@ header .icon {
 
 .navigation a {
   position: relative;
-  color: aqua;
+  color: rgb(255, 254, 254);
   font-size: 1.1em;
   text-decoration: none;
   font-weight: 500;
@@ -84,8 +95,8 @@ header .icon {
 }
 
 .navigation .button-pop:hover {
-  background-color: black;
-  color: aqua;
+  background-color: rgb(255, 253, 253);
+  color: rgb(1, 14, 14);
 }
 
 .navigation .button-out {
@@ -112,7 +123,7 @@ header .icon {
   width: 400px;
   height: 440px;
   background: transparent;
-  border: 2px solid aqua;
+  border: 2px solid rgb(0, 0, 0);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   display: flex;
@@ -180,7 +191,7 @@ header .icon {
   width: 400px;
   height: 440px;
   background: transparent;
-  border: 2px solid aqua;
+  border: 2px solid rgb(0, 17, 17);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   display: flex;
@@ -214,7 +225,7 @@ header .icon {
   position: relative;
   width: 100%;
   height: 50px;
-  border-bottom: 2px solid aqua;
+  border-bottom: 2px solid rgb(0, 12, 12);
   margin: 30px 0;
 }
 
@@ -285,7 +296,7 @@ header .icon {
 
 .btn:hover {
   background-color: black;
-  color: aqua;
+  color: rgb(255, 255, 255);
 }
 
 .register {
@@ -309,7 +320,7 @@ header .icon {
   width: 400px;
   height: 440px;
   background: transparent;
-  border: 2px solid aqua;
+  border: 2px solid rgb(0, 17, 17);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   display: flex;
@@ -351,7 +362,7 @@ header .icon {
   width: 400px;
   height: 440px;
   background: transparent;
-  border: 2px solid aqua;
+  border: 2px solid rgb(0, 5, 5);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   display: flex;
