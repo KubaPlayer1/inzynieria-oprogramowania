@@ -9,32 +9,32 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 
 #[Entity]
-#[Table("configurations")]
+#[Table('configurations')]
 class Configurations
 {
     #[Id]
-    #[Column(type: 'integer')]
+    #[Column(type: 'integer', name: 'ID')]
     #[GeneratedValue]
     private int|null $ID = null;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_account')]
     private int $ID_account;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_cpu')]
     private int $ID_cpu;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_mb')]
     private int $ID_mb;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_ram')]
     private int $ID_ram;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_gpu')]
     private int $ID_gpu;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_zasilacz')]
     private int $ID_zasilacz;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_chlodzenie')]
     private int $ID_chlodzenie;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_hdd')]
     private int $ID_hdd;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_ssd')]
     private int $ID_ssd;
-    #[Column]
+    #[Column(type: 'integer', name: 'ID_obudowa')]
     private int $ID_obudowa;
     #[Column(type: 'text')]
     private string $name;

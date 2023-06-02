@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Maj 2023, 15:59
+-- Czas generowania: 02 Cze 2023, 02:16
 -- Wersja serwera: 10.4.24-MariaDB
 -- Wersja PHP: 8.1.6
 
@@ -50,17 +50,7 @@ CREATE TABLE `configurations` (
 -- Indeksy dla tabeli `configurations`
 --
 ALTER TABLE `configurations`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `account_fk` (`ID_account`),
-  ADD KEY `cpu_fk` (`ID_cpu`),
-  ADD KEY `mb_fk` (`ID_mb`),
-  ADD KEY `ram_fk` (`ID_ram`),
-  ADD KEY `gpu_fk` (`ID_gpu`),
-  ADD KEY `zasilacz_fk` (`ID_zasilacz`),
-  ADD KEY `hdd_fk` (`ID_hdd`),
-  ADD KEY `ssd_fk` (`ID_ssd`),
-  ADD KEY `obudowa_fk` (`ID_obudowa`),
-  ADD KEY `chlodzenie_fk` (`ID_chlodzenie`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- AUTO_INCREMENT dla zrzuconych tabel

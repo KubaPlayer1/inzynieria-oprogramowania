@@ -1,6 +1,7 @@
 <?php
 require_once('accounts.php');
 require_once 'vendor/autoload.php';
+require_once('ID.php');
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -92,6 +93,11 @@ if (isset($_GET["email"])) {
     foreach ($accounts as $account) {
         if ($account->getEmail() == $email) {
             if ($account->getPassword() == $password) {
+                $ida = $account->getId();
+                $idaccount = (new Iddb())
+                    ->setId_account($ida);
+                $entityManager->persist($idaccount);
+                $entityManager->flush();
                 echo "Zalogowany.";
                 header("Location: konfigurepc.php");
                 break;

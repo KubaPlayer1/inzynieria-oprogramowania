@@ -1,6 +1,8 @@
 <?php
 require_once('parts.php');
 require_once('configurations.php');
+require_once('accounts.php');
+require_once('ID.php');
 //require_once('DB_connection.php');
 require_once 'vendor/autoload.php';
 use Doctrine\DBAL\DriverManager;
@@ -21,6 +23,7 @@ $entityManager = EntityManager::create(
   $conn,
   Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
 );
+
 
 function test_input($data)
 {
@@ -96,9 +99,8 @@ $select = "";
       <a href="konfigurepc.php">Clear configuration</a>
       <a href="add.php">Add new part</a>
       <a href="#">My account</a>
-      <a href="save_configuration.php">Save configuration</a>
       <a href="#">My configurations</a>
-      <button class="button-out" href="../index.html">Log out</button>
+      <button class="button-out" name="button-out" href="../index.html">Log out</button>
     </nav>
   </header>
 
@@ -469,6 +471,16 @@ $select = "";
   <?php } ?>
 
   <?php
+  $queryBuilder = $entityManager->createQueryBuilder();
+  $accQuery = $queryBuilder
+    ->select('c')
+    ->from(Iddb::class, 'c')
+    ->getQuery();
+  $acc = $accQuery->getResult();
+
+  foreach ($acc as $ac) {
+    $kon = $ac->getID_account();
+  }
   function getProductName($type, $id)
   {
     $connectionParams = [
@@ -485,8 +497,10 @@ $select = "";
       Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
     );
 
+
     switch ($type) {
       case 'chlodzenie_cpu':
+        $chlo = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -496,6 +510,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'cpu':
+        $proc = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -505,6 +520,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'ssd':
+        $ssddy = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -514,6 +530,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'hdd':
+        $hdddy = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -523,6 +540,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'gpu':
+        $graf = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -532,6 +550,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'obudowa':
+        $obu = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -541,6 +560,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'mb':
+        $plyta = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -550,6 +570,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'ram':
+        $pami = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -559,6 +580,7 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'zasilacz':
+        $zasi = $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -569,6 +591,45 @@ $select = "";
         break;
       default:
         break;
+    }
+  }
+  ?>
+  <div class="input">
+    <form action="konfigurepc.php" method="post">
+      <label>If you wont to save yor configuration please enter it's name: </label>
+      <input type="text" name="nazwa" required>
+      <input type="number" name="kon" hidden value="<?php $kon ?>">
+      <button type='submit' name="save">Save configuration</button>
+    </form>
+  </div>
+  <?php
+  if (isset($_POST['nazwa'])) {
+    $nazwa = $_POST['nazwa'];
+    $konto = $_POST['kon'];
+    if (isset($_POST['save'])) {
+      if ($kon != 0 && $chlo != 0 && $proc != 0 && $ssddy != 0 && $hdddy != 0 && $graf != 0 && $obu != 0 && $plyta != 0 && $pami != 0 && $zasi != 0 && $nazwa != "") {
+        $configurations = (new Configurations())
+          ->setID_account($kon)
+          ->setID_cpu($proc)
+          ->setID_mb($plyta)
+          ->setID_ram($pami)
+          ->setID_gpu($graf)
+          ->setID_zasilacz($zasi)
+          ->setID_chlodzenie($chlo)
+          ->setID_hdd($hdddy)
+          ->setID_ssd($ssddy)
+          ->setID_obudowa($obu)
+          ->setName($nazwa);
+
+        $entityManager->persist($configurations);
+        $entityManager->flush();
+        var_dump($_POST);
+        header("Location: konfigurepc.php");
+      } else {
+        var_dump($_POST);
+        echo "nie dodano nic do tabeli.";
+      }
+      //echo $kon . " " . $chlo . " " . $proc . " " . $ssddy . " " . $hdddy . " " . $graf . " " . $obu . " " . $plyta . " " . $pami . " " . $zasi . " " . $nazwa;
     }
   }
   ?>
@@ -667,7 +728,6 @@ $select = "";
       </script>
     </div>
   </div>
-
   <script src="JS/script.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

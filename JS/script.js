@@ -17,9 +17,9 @@ btnpopup.addEventListener("click", () => {
   wrapper.classList.add("active-popup");
 });
 
-btnout.addEventListener("click", () => {
-  window.location.href = "../index.html";
-});
+/*btnout.addEventListener("click", () => {
+  Location.href = "../index.html";
+});*/
 
 close.addEventListener("click", () => {
   wrapper.classList.remove("active-popup");
