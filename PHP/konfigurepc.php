@@ -658,7 +658,7 @@ $zasi;
         break;
     }
   }
-  function przekarzDalej($type, $id)
+  function przekarzdalej($type, $id)
   {
     global $chlo, $proc, $ssddy, $hdddy, $graf, $obu, $plyta, $pami, $zasi;
     switch ($type) {
