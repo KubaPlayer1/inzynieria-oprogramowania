@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 02 Cze 2023, 02:16
+-- Czas generowania: 03 Cze 2023, 18:38
 -- Wersja serwera: 10.4.24-MariaDB
 -- Wersja PHP: 8.1.6
 
@@ -61,25 +61,6 @@ ALTER TABLE `configurations`
 --
 ALTER TABLE `configurations`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Ograniczenia dla zrzutów tabel
---
-
---
--- Ograniczenia dla tabeli `configurations`
---
-ALTER TABLE `configurations`
-  ADD CONSTRAINT `account_fk` FOREIGN KEY (`ID_account`) REFERENCES `accounts` (`id`),
-  ADD CONSTRAINT `chlodzenie_fk` FOREIGN KEY (`ID_chlodzenie`) REFERENCES `chlodzenie_cpu` (`id_chlodzenie_cpu`),
-  ADD CONSTRAINT `cpu_fk` FOREIGN KEY (`ID_cpu`) REFERENCES `cpu` (`id_cpu`),
-  ADD CONSTRAINT `gpu_fk` FOREIGN KEY (`ID_gpu`) REFERENCES `gpu` (`id_gpu`),
-  ADD CONSTRAINT `hdd_fk` FOREIGN KEY (`ID_hdd`) REFERENCES `hdd` (`id_hdd`),
-  ADD CONSTRAINT `mb_fk` FOREIGN KEY (`ID_mb`) REFERENCES `mb` (`id_mb`),
-  ADD CONSTRAINT `obudowa_fk` FOREIGN KEY (`ID_obudowa`) REFERENCES `obudowa` (`id_obudowa`),
-  ADD CONSTRAINT `ram_fk` FOREIGN KEY (`ID_ram`) REFERENCES `ram` (`id_ram`),
-  ADD CONSTRAINT `ssd_fk` FOREIGN KEY (`ID_ssd`) REFERENCES `ssd` (`id`),
-  ADD CONSTRAINT `zasilacz_fk` FOREIGN KEY (`ID_zasilacz`) REFERENCES `zasilacz` (`id_zasilacz`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

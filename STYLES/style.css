@@ -63,6 +63,10 @@ header .icon {
   margin-left: 40px;
 }
 
+.navigation form {
+  align-items: right;
+}
+
 .navigation a::after {
   content: "";
   position: absolute;
@@ -437,7 +441,7 @@ header .icon {
 
 .tile p {
   color: white !important;
-filter: drop-shadow(1px 1px 5px red);
+  filter: drop-shadow(1px 1px 5px red);
   font-size: 2em;
   font-weight: 700;
 

@@ -7,8 +7,12 @@ require_once('ID.php');
 require_once 'vendor/autoload.php';
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\Query;
+
+use function PHPSTORM_META\type;
+
 
 $connectionParams = [
   'dbname' => 'peryferia',
@@ -31,8 +35,9 @@ function test_input($data)
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
-
 }
+
+
 
 if (isset($_POST['type'])) {
   $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -40,6 +45,9 @@ if (isset($_POST['type'])) {
   var_dump($actual_link);
   var_dump($_POST['type']);
   var_dump($_POST['id']);
+  if ($_POST['type'] == 'zasilacz') {
+    echo "<td><form method='POST'><input type='number' name='zasi' hidden value='" . $_POST['id'] . "'></form>";
+  }
 
   $url = addToUrl($actual_link, $_POST['type'], $_POST['id']);
   $url = addToUrl($url, 'type', '');
@@ -82,6 +90,17 @@ function saveConfiguration($config)
   echo "Konfiguracja została zapisana w bazie danych.";
 }
 $select = "";
+$account;
+$chlo;
+$proc;
+$obu;
+$ssddy;
+$hdddy;
+$pami;
+$graf;
+$plyta;
+$zasi;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +119,16 @@ $select = "";
       <a href="add.php">Add new part</a>
       <a href="#">My account</a>
       <a href="#">My configurations</a>
-      <button class="button-out" name="button-out" href="../index.html">Log out</button>
+      <form action="#" method="get"><button class="button-out" name="button-out">Log out</button></form>
+      <?php
+      if (isset($_GET['button-out'])) {
+        $em = $entityManager;
+        $iddb = new Iddb;
+        $em->remove($iddb);
+        $em->flush();
+        header("Location: ../index.html");
+      }
+      ?>
     </nav>
   </header>
 
@@ -471,16 +499,17 @@ $select = "";
   <?php } ?>
 
   <?php
+
   $queryBuilder = $entityManager->createQueryBuilder();
   $accQuery = $queryBuilder
     ->select('c')
     ->from(Iddb::class, 'c')
     ->getQuery();
   $acc = $accQuery->getResult();
-
   foreach ($acc as $ac) {
-    $kon = $ac->getID_account();
+    $account = $ac->getId_account();
   }
+
   function getProductName($type, $id)
   {
     $connectionParams = [
@@ -496,11 +525,16 @@ $select = "";
       $conn,
       Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
     );
-
+    global $chlo, $proc, $ssddy, $hdddy, $graf, $obu, $plyta, $pami, $zasi;
 
     switch ($type) {
       case 'chlodzenie_cpu':
         $chlo = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="chlo" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
+        echo $id;
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -511,6 +545,10 @@ $select = "";
         break;
       case 'cpu':
         $proc = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="proc" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -521,6 +559,10 @@ $select = "";
         break;
       case 'ssd':
         $ssddy = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="ssddy" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -531,6 +573,10 @@ $select = "";
         break;
       case 'hdd':
         $hdddy = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="hdddy" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -541,6 +587,10 @@ $select = "";
         break;
       case 'gpu':
         $graf = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="graf" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -551,6 +601,9 @@ $select = "";
         break;
       case 'obudowa':
         $obu = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="obu" hidden value="<?php echo $id; ?>"></form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -561,6 +614,10 @@ $select = "";
         break;
       case 'mb':
         $plyta = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="plyta" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -571,6 +628,10 @@ $select = "";
         break;
       case 'ram':
         $pami = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="pami" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -580,7 +641,11 @@ $select = "";
         return $dane->getSingleResult()->getNazwa();
         break;
       case 'zasilacz':
-        $zasi = $id;
+        //$zasi = $id;
+        ?>
+        <!--<form action="konfigurepc.php" method="post"><input type="number" name="zasi" hidden value="<?php echo $id; ?>">
+        </form>-->
+        <?php
         $queryBuilder = $entityManager->createQueryBuilder();
         $dane = $queryBuilder
           ->select('c')
@@ -593,46 +658,112 @@ $select = "";
         break;
     }
   }
+  function przekarzDalej($type, $id)
+  {
+    global $chlo, $proc, $ssddy, $hdddy, $graf, $obu, $plyta, $pami, $zasi;
+    switch ($type) {
+      case 'chlodzenie_cpu':
+        $chlo = $id;
+        break;
+      case 'cpu':
+        $proc = $id;
+        break;
+      case 'ssd':
+        $ssddy = $id;
+        break;
+      case 'hdd':
+        $hdddy = $id;
+        break;
+      case 'gpu':
+        $graf = $id;
+        break;
+      case 'obudowa':
+        $obu = $id;
+        break;
+      case 'mb':
+        $plyta = $id;
+        break;
+      case 'ram':
+        $pami = $id;
+        break;
+      case 'zasilacz':
+        $zasi = $id;
+        break;
+      default:
+        break;
+    }
+  }
   ?>
   <div class="input">
     <form action="konfigurepc.php" method="post">
       <label>If you wont to save yor configuration please enter it's name: </label>
       <input type="text" name="nazwa" required>
-      <input type="number" name="kon" hidden value="<?php $kon ?>">
+      <input type="number" name="account" hidden value="<?php echo $account; ?>">
+      <input type="number" name="proc" hidden value="<?php global $proc;
+      echo $proc; ?>">
+      <input type="number" name="plyta" hidden value="<?php global $plyta;
+      echo $plyta; ?>">
+      <input type="number" name="pami" hidden value="<?php global $pami;
+      echo $pami; ?>">
+      <input type="number" name="graf" hidden value="<?php global $graf;
+      echo $graf; ?>">
+      <input type="number" name="zasi" hidden value="<?php global $zasi;
+      echo $zasi; ?>">
+      <input type="number" name="chlo" hidden value="<?php global $chlo;
+      echo $chlo; ?>">
+      <input type="number" name="hdddy" hidden value="<?php global $hdddy;
+      echo $hdddy; ?>">
+      <input type="number" name="ssddy" hidden value="<?php global $ssddy;
+      echo $ssddy; ?>">
+      <input type="number" name="zasi" hidden value="<?php global $zasi;
+      echo $zasi; ?>">
+      <input type="number" name="obu" hidden value="<?php global $obu;
+      echo $obu; ?>">
       <button type='submit' name="save">Save configuration</button>
     </form>
   </div>
   <?php
   if (isset($_POST['nazwa'])) {
     $nazwa = $_POST['nazwa'];
-    $konto = $_POST['kon'];
+    $konto = $_POST['account'];
+    $procesor = (int) $_POST['proc'];
+    $plyta_gl = (int) $_POST['plyta'];
+    $pamiec = (int) $_POST['pami'];
+    $grafika = (int) $_POST['graf'];
+    $psu = (int) $_POST['zasi'];
+    $chlodzenie = (int) $_POST['chlo'];
+    $wolny = (int) $_POST['hdddy'];
+    $szybki = (int) $_POST['ssddy'];
+    $case = (int) $_POST['obu'];
+
+
     if (isset($_POST['save'])) {
-      if ($kon != 0 && $chlo != 0 && $proc != 0 && $ssddy != 0 && $hdddy != 0 && $graf != 0 && $obu != 0 && $plyta != 0 && $pami != 0 && $zasi != 0 && $nazwa != "") {
+      var_dump($_POST);
+      /*if (isset($konto, $procesor, $plyta_gl, $pamiec, $grafika, $psu, $chlodzenie, $wolny, $szybki, $case)) {
         $configurations = (new Configurations())
-          ->setID_account($kon)
-          ->setID_cpu($proc)
-          ->setID_mb($plyta)
-          ->setID_ram($pami)
-          ->setID_gpu($graf)
-          ->setID_zasilacz($zasi)
-          ->setID_chlodzenie($chlo)
-          ->setID_hdd($hdddy)
-          ->setID_ssd($ssddy)
-          ->setID_obudowa($obu)
+          ->setID_account($konto)
+          ->setID_cpu($procesor)
+          ->setID_mb($plyta_gl)
+          ->setID_ram($pamiec)
+          ->setID_gpu($grafika)
+          ->setID_zasilacz($psu)
+          ->setID_chlodzenie($chlodzenie)
+          ->setID_hdd($wolny)
+          ->setID_ssd($szybki)
+          ->setID_obudowa($case)
           ->setName($nazwa);
 
         $entityManager->persist($configurations);
         $entityManager->flush();
-        var_dump($_POST);
-        header("Location: konfigurepc.php");
+        //header("Location: konfigurepc.php");
       } else {
-        var_dump($_POST);
         echo "nie dodano nic do tabeli.";
-      }
+      }*/
       //echo $kon . " " . $chlo . " " . $proc . " " . $ssddy . " " . $hdddy . " " . $graf . " " . $obu . " " . $plyta . " " . $pami . " " . $zasi . " " . $nazwa;
     }
   }
   ?>
+
 
   <div class="container">
     <div class="logo">
@@ -675,7 +806,9 @@ $select = "";
         <div class="tile">
           <img src="../GRAPHICS/zasilacz-grafika.png" alt="obrazek 8" />
           <p>
-            <?php echo isset($_GET['zasilacz']) ? getProductName('zasilacz', $_GET['zasilacz']) : "" ?>
+            <?php echo isset($_GET['zasilacz']) ? getProductName('zasilacz', $_GET['zasilacz']) : "";
+            if (isset($_GET['zasilacz']))
+              przekarzdalej('zasilacz', $_GET['zasilacz']); ?>
           </p>
         </div>
       </a>
@@ -712,7 +845,6 @@ $select = "";
         </div>
       </a>
 
-
       <script>
         [...document.querySelector('.grid').querySelectorAll('a')].forEach(e => {
           //add window url params to to the href's params
@@ -724,6 +856,7 @@ $select = "";
             url.searchParams.set(k, v)
           }
           e.href = url.toString();
+
         })
       </script>
     </div>
