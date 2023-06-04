@@ -484,7 +484,7 @@ header .icon {
   width: 90%;
   height: 90%;
   position: fixed;
-  background: black;
+  background: rgba(0, 0, 0, 0.685);
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
@@ -492,6 +492,7 @@ header .icon {
 }
 
 .modal table {
+  border-radius: 10px;
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -516,7 +517,7 @@ header .icon {
   font-size: 20px;
   border: none;
   background-color: transparent;
-  color: aqua;
+  color: rgb(255, 255, 255);
   margin-left: 10px;
 }
 
@@ -536,7 +537,7 @@ header .icon {
 
 .input button:hover{
   background-color: black;
-  color: aqua;
+  color: rgb(255, 255, 255);
 }
 
 .input {
@@ -545,7 +546,7 @@ header .icon {
   height: 50px;
   font-size: 20px;
   background: transparent;
-  border: 2px solid aqua;
+  border: 2px solid rgb(255, 255, 255);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   display: flex;
