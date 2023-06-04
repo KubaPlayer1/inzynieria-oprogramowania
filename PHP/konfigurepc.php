@@ -91,15 +91,36 @@ function saveConfiguration($config)
 }
 $select = "";
 $account;
-$chlo;
-$proc;
-$obu;
-$ssddy;
-$hdddy;
-$pami;
-$graf;
-$plyta;
-$zasi;
+$chlo = 0;
+$proc = 0;
+$obu = 0;
+$ssddy = 0;
+$hdddy = 0;
+$pami = 0;
+$graf = 0;
+$plyta = 0;
+$zasi = 0;
+
+function del_user($id)
+{
+  $connectionParams = [
+    'dbname' => 'peryferia',
+    'user' => 'root',
+    'password' => '',
+    'host' => 'localhost',
+    'driver' => 'mysqli',
+  ];
+  $conn = DriverManager::getConnection($connectionParams);
+  $entityManager = EntityManager::create(
+    $conn,
+    Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+  );
+  $single_user = $entityManager->find('Iddb', $id);
+
+  $entityManager->remove($single_user);
+
+  $entityManager->flush();
+}
 
 ?>
 <!DOCTYPE html>
@@ -122,10 +143,16 @@ $zasi;
       <form action="#" method="get"><button class="button-out" name="button-out">Log out</button></form>
       <?php
       if (isset($_GET['button-out'])) {
-        $em = $entityManager;
-        $iddb = new Iddb;
-        $em->remove($iddb);
-        $em->flush();
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $accQuery = $queryBuilder
+          ->select('c')
+          ->from(Iddb::class, 'c')
+          ->getQuery();
+        $acc = $accQuery->getResult();
+        foreach ($acc as $ac) {
+          $idaccount = $ac->getId();
+        }
+        del_user($idaccount);
         header("Location: ../index.html");
       }
       ?>
@@ -498,273 +525,6 @@ $zasi;
     </div>
   <?php } ?>
 
-  <?php
-
-  $queryBuilder = $entityManager->createQueryBuilder();
-  $accQuery = $queryBuilder
-    ->select('c')
-    ->from(Iddb::class, 'c')
-    ->getQuery();
-  $acc = $accQuery->getResult();
-  foreach ($acc as $ac) {
-    $account = $ac->getId_account();
-  }
-
-  function getProductName($type, $id)
-  {
-    $connectionParams = [
-      'dbname' => 'peryferia',
-      'user' => 'root',
-      'password' => '',
-      'host' => 'localhost',
-      'driver' => 'mysqli',
-    ];
-    $conn = DriverManager::getConnection($connectionParams);
-
-    $entityManager = EntityManager::create(
-      $conn,
-      Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
-    );
-    global $chlo, $proc, $ssddy, $hdddy, $graf, $obu, $plyta, $pami, $zasi;
-
-    switch ($type) {
-      case 'chlodzenie_cpu':
-        $chlo = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="chlo" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        echo $id;
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(CpuCooler::class, 'c')
-          ->where('c.id_chlodzenie_cpu = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'cpu':
-        $proc = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="proc" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Cpu::class, 'c')
-          ->where('c.id_cpu = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'ssd':
-        $ssddy = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="ssddy" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Ssd::class, 'c')
-          ->where('c.id = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'hdd':
-        $hdddy = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="hdddy" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Hdd::class, 'c')
-          ->where('c.id_hdd = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'gpu':
-        $graf = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="graf" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Gpu::class, 'c')
-          ->where('c.id_gpu = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'obudowa':
-        $obu = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="obu" hidden value="<?php echo $id; ?>"></form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Obudowa::class, 'c')
-          ->where('c.id_obudowa = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'mb':
-        $plyta = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="plyta" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Mb::class, 'c')
-          ->where('c.id_mb = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'ram':
-        $pami = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="pami" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Ram::class, 'c')
-          ->where('c.id_ram = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      case 'zasilacz':
-        //$zasi = $id;
-        ?>
-        <!--<form action="konfigurepc.php" method="post"><input type="number" name="zasi" hidden value="<?php echo $id; ?>">
-        </form>-->
-        <?php
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $dane = $queryBuilder
-          ->select('c')
-          ->from(Zasilacz::class, 'c')
-          ->where('c.id_zasilacz = ' . $id)
-          ->getQuery();
-        return $dane->getSingleResult()->getNazwa();
-        break;
-      default:
-        break;
-    }
-  }
-  function przekarzdalej($type, $id)
-  {
-    global $chlo, $proc, $ssddy, $hdddy, $graf, $obu, $plyta, $pami, $zasi;
-    switch ($type) {
-      case 'chlodzenie_cpu':
-        $chlo = $id;
-        break;
-      case 'cpu':
-        $proc = $id;
-        break;
-      case 'ssd':
-        $ssddy = $id;
-        break;
-      case 'hdd':
-        $hdddy = $id;
-        break;
-      case 'gpu':
-        $graf = $id;
-        break;
-      case 'obudowa':
-        $obu = $id;
-        break;
-      case 'mb':
-        $plyta = $id;
-        break;
-      case 'ram':
-        $pami = $id;
-        break;
-      case 'zasilacz':
-        $zasi = $id;
-        break;
-      default:
-        break;
-    }
-  }
-  ?>
-  <div class="input">
-    <form action="konfigurepc.php" method="post">
-      <label>If you wont to save yor configuration please enter it's name: </label>
-      <input type="text" name="nazwa" required>
-      <input type="number" name="account" hidden value="<?php echo $account; ?>">
-      <input type="number" name="proc" hidden value="<?php global $proc;
-      echo $proc; ?>">
-      <input type="number" name="plyta" hidden value="<?php global $plyta;
-      echo $plyta; ?>">
-      <input type="number" name="pami" hidden value="<?php global $pami;
-      echo $pami; ?>">
-      <input type="number" name="graf" hidden value="<?php global $graf;
-      echo $graf; ?>">
-      <input type="number" name="zasi" hidden value="<?php global $zasi;
-      echo $zasi; ?>">
-      <input type="number" name="chlo" hidden value="<?php global $chlo;
-      echo $chlo; ?>">
-      <input type="number" name="hdddy" hidden value="<?php global $hdddy;
-      echo $hdddy; ?>">
-      <input type="number" name="ssddy" hidden value="<?php global $ssddy;
-      echo $ssddy; ?>">
-      <input type="number" name="zasi" hidden value="<?php global $zasi;
-      echo $zasi; ?>">
-      <input type="number" name="obu" hidden value="<?php global $obu;
-      echo $obu; ?>">
-      <button type='submit' name="save">Save configuration</button>
-    </form>
-  </div>
-  <?php
-  if (isset($_POST['nazwa'])) {
-    $nazwa = $_POST['nazwa'];
-    $konto = $_POST['account'];
-    $procesor = (int) $_POST['proc'];
-    $plyta_gl = (int) $_POST['plyta'];
-    $pamiec = (int) $_POST['pami'];
-    $grafika = (int) $_POST['graf'];
-    $psu = (int) $_POST['zasi'];
-    $chlodzenie = (int) $_POST['chlo'];
-    $wolny = (int) $_POST['hdddy'];
-    $szybki = (int) $_POST['ssddy'];
-    $case = (int) $_POST['obu'];
-
-
-    if (isset($_POST['save'])) {
-      var_dump($_POST);
-      /*if (isset($konto, $procesor, $plyta_gl, $pamiec, $grafika, $psu, $chlodzenie, $wolny, $szybki, $case)) {
-        $configurations = (new Configurations())
-          ->setID_account($konto)
-          ->setID_cpu($procesor)
-          ->setID_mb($plyta_gl)
-          ->setID_ram($pamiec)
-          ->setID_gpu($grafika)
-          ->setID_zasilacz($psu)
-          ->setID_chlodzenie($chlodzenie)
-          ->setID_hdd($wolny)
-          ->setID_ssd($szybki)
-          ->setID_obudowa($case)
-          ->setName($nazwa);
-
-        $entityManager->persist($configurations);
-        $entityManager->flush();
-        //header("Location: konfigurepc.php");
-      } else {
-        echo "nie dodano nic do tabeli.";
-      }*/
-      //echo $kon . " " . $chlo . " " . $proc . " " . $ssddy . " " . $hdddy . " " . $graf . " " . $obu . " " . $plyta . " " . $pami . " " . $zasi . " " . $nazwa;
-    }
-  }
-  ?>
-
-
   <div class="container">
     <div class="logo">
       <img src="../GRAPHICS/strona_logo.png" alt="LOGO" />
@@ -806,9 +566,7 @@ $zasi;
         <div class="tile">
           <img src="../GRAPHICS/zasilacz-grafika.png" alt="obrazek 8" />
           <p>
-            <?php echo isset($_GET['zasilacz']) ? getProductName('zasilacz', $_GET['zasilacz']) : "";
-            if (isset($_GET['zasilacz']))
-              przekarzdalej('zasilacz', $_GET['zasilacz']); ?>
+            <?php echo isset($_GET['zasilacz']) ? getProductName('zasilacz', $_GET['zasilacz']) : "" ?>
           </p>
         </div>
       </a>
@@ -856,11 +614,221 @@ $zasi;
             url.searchParams.set(k, v)
           }
           e.href = url.toString();
-
         })
       </script>
     </div>
   </div>
+
+  <?php
+
+  $queryBuilder = $entityManager->createQueryBuilder();
+  $accQuery = $queryBuilder
+    ->select('c')
+    ->from(Iddb::class, 'c')
+    ->getQuery();
+  $acc = $accQuery->getResult();
+  foreach ($acc as $ac) {
+    $account = $ac->getId_account();
+  }
+
+
+  function getProductName($type, $id)
+  {
+    global $chlo, $proc, $ssddy, $hdddy, $graf, $obu, $plyta, $pami, $zasi;
+    //echo $type, $id;
+    $connectionParams = [
+      'dbname' => 'peryferia',
+      'user' => 'root',
+      'password' => '',
+      'host' => 'localhost',
+      'driver' => 'mysqli',
+    ];
+    $conn = DriverManager::getConnection($connectionParams);
+
+    $entityManager = EntityManager::create(
+      $conn,
+      Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+    );
+
+
+    switch ($type) {
+      case 'chlodzenie_cpu':
+        global $chlo;
+        $chlo = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(CpuCooler::class, 'c')
+          ->where('c.id_chlodzenie_cpu = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'cpu':
+        global $proc;
+        $proc = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Cpu::class, 'c')
+          ->where('c.id_cpu = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'ssd':
+        global $ssddy;
+        $ssddy = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Ssd::class, 'c')
+          ->where('c.id = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'hdd':
+        global $hdddy;
+        $hdddy = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Hdd::class, 'c')
+          ->where('c.id_hdd = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'gpu':
+        global $graf;
+        $graf = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Gpu::class, 'c')
+          ->where('c.id_gpu = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'obudowa':
+        global $obu;
+        $obu = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Obudowa::class, 'c')
+          ->where('c.id_obudowa = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'mb':
+        global $plyta;
+        $plyta = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Mb::class, 'c')
+          ->where('c.id_mb = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'ram':
+        global $pami;
+        $pami = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Ram::class, 'c')
+          ->where('c.id_ram = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      case 'zasilacz':
+        global $zasi;
+        $zasi = $id;
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+          ->select('c')
+          ->from(Zasilacz::class, 'c')
+          ->where('c.id_zasilacz = ' . $id)
+          ->getQuery();
+        return $dane->getSingleResult()->getNazwa();
+        break;
+      default:
+        break;
+    }
+  }
+
+  ?>
+  <div class="input">
+    <form action="konfigurepc.php" method="post">
+      <label>If you wont to save yor configuration please enter it's name: </label>
+      <input type="text" name="nazwa" required>
+      <input type="number" name="account" hidden value="<?php echo $account; ?>">
+      <input type="number" name="proc" hidden value="<?php global $proc;
+      echo $proc; ?>">
+      <input type="number" name="plyta" hidden value="<?php global $plyta;
+      echo $plyta; ?>">
+      <input type="number" name="pami" hidden value="<?php global $pami;
+      echo $pami; ?>">
+      <input type="number" name="graf" hidden value="<?php global $graf;
+      echo $graf; ?>">
+      <input type="number" name="zasi" hidden value="<?php global $zasi;
+      echo $zasi; ?>">
+      <input type="number" name="chlo" hidden value="<?php global $chlo;
+      echo $chlo; ?>">
+      <input type="number" name="hdddy" hidden value="<?php global $hdddy;
+      echo $hdddy; ?>">
+      <input type="number" name="ssddy" hidden value="<?php global $ssddy;
+      echo $ssddy; ?>">
+      <input type="number" name="zasi" hidden value="<?php global $zasi;
+      echo $zasi; ?>">
+      <input type="number" name="obu" hidden value="<?php global $obu;
+      echo $obu; ?>">
+      <button type='submit' name="save">Save configuration</button>
+    </form>
+  </div>
+  <?php
+  if (isset($_POST['nazwa'])) {
+    $nazwa = $_POST['nazwa'];
+    $konto = $_POST['account'];
+    $procesor = (int) $_POST['proc'];
+    $plyta_gl = (int) $_POST['plyta'];
+    $pamiec = (int) $_POST['pami'];
+    $grafika = (int) $_POST['graf'];
+    $psu = (int) $_POST['zasi'];
+    $chlodzenie = (int) $_POST['chlo'];
+    $wolny = (int) $_POST['hdddy'];
+    $szybki = (int) $_POST['ssddy'];
+    $case = (int) $_POST['obu'];
+
+
+    if (isset($_POST['save'])) {
+      //var_dump($_POST);
+      if (isset($konto, $procesor, $plyta_gl, $pamiec, $grafika, $psu, $chlodzenie, $wolny, $szybki, $case)) {
+        $configurations = (new Configurations())
+          ->setID_account($konto)
+          ->setID_cpu($procesor)
+          ->setID_mb($plyta_gl)
+          ->setID_ram($pamiec)
+          ->setID_gpu($grafika)
+          ->setID_zasilacz($psu)
+          ->setID_chlodzenie($chlodzenie)
+          ->setID_hdd($wolny)
+          ->setID_ssd($szybki)
+          ->setID_obudowa($case)
+          ->setName($nazwa);
+
+        $entityManager->persist($configurations);
+        $entityManager->flush();
+        header("Location: konfigurepc.php");
+      } else {
+        echo "nie dodano nic do tabeli.";
+      }
+      //echo $kon . " " . $chlo . " " . $proc . " " . $ssddy . " " . $hdddy . " " . $graf . " " . $obu . " " . $plyta . " " . $pami . " " . $zasi . " " . $nazwa;
+    }
+  }
+  ?>
+
+
+
   <script src="JS/script.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
