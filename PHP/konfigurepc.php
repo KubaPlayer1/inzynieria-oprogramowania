@@ -139,7 +139,7 @@ function del_user($id)
       <a href="konfigurepc.php">Clear configuration</a>
       <a href="add.php">Add new part</a>
       <a href="#">My account</a>
-      <a href="#">My configurations</a>
+      <a href="myConfigurations.php">My configurations</a>
       <form action="#" method="get"><button class="button-out" name="button-out">Log out</button></form>
       <?php
       if (isset($_GET['button-out'])) {
@@ -787,6 +787,19 @@ function del_user($id)
   </div>
   <?php
   if (isset($_POST['nazwa'])) {
+    $connectionParams = [
+      'dbname' => 'peryferia',
+      'user' => 'root',
+      'password' => '',
+      'host' => 'localhost',
+      'driver' => 'mysqli',
+    ];
+    $conn = DriverManager::getConnection($connectionParams);
+
+    $entityManager = EntityManager::create(
+      $conn,
+      Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+    );
     $nazwa = $_POST['nazwa'];
     $konto = $_POST['account'];
     $procesor = (int) $_POST['proc'];
@@ -799,10 +812,24 @@ function del_user($id)
     $szybki = (int) $_POST['ssddy'];
     $case = (int) $_POST['obu'];
 
-
     if (isset($_POST['save'])) {
       //var_dump($_POST);
       if (isset($konto, $procesor, $plyta_gl, $pamiec, $grafika, $psu, $chlodzenie, $wolny, $szybki, $case)) {
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $conf = $queryBuilder
+          ->select('c')
+          ->from(Configurations::class, 'c')
+          ->where('c.ID_account = ' . $konto)
+          ->getQuery();
+        $confi = $conf->getResult();
+
+        foreach ($confi as $config) {
+          if ($config->getName() == $nazwa) {
+            echo "This name of configuration exist on your account.";
+            $link = "konfigurepc.php?type=&cpu=" . $procesor . "&mb=" . $plyta_gl . "&ram=" . $pamiec . "&gpu=" . $grafika . "&zasilacz=" . $psu . "&chlodzenie_cpu=" . $chlodzenie . "&hdd=" . $wolny . "&ssd=" . $szybki . "&obudowa=" . $case . "";
+            header("Location: " . $link);
+          }
+        }
         $configurations = (new Configurations())
           ->setID_account($konto)
           ->setID_cpu($procesor)
