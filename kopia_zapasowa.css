@@ -1,0 +1,561 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    position:relative;
+    color: rgb(242, 247, 247);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("../GRAPHICS/pcbackground.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(63, 63, 63, 0.8);
+    z-index: -1;
+  }
+  
+  header {
+    color: rgb(255, 255, 255);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+  }
+  
+  header .icon {
+    position: absolute;
+    right: 8px;
+    size: 150%;
+    color: black;
+  }
+  
+  .logo {
+    font-size: 2em;
+    user-select: none;
+  }
+  .navigation {
+    white-space: nowrap;
+  }
+  .navigation a {
+    position: relative;
+    color: rgb(255, 254, 254);
+    font-size: 1.1em;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+  }
+  
+  .navigation form {
+    align-items: right;
+  }
+  
+  .navigation a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    color: aqua;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transform: transform 0.5s;
+  }
+  
+  .navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+  
+  .navigation .button-pop {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: 0.5s;
+  }
+  
+  .navigation .button-pop:hover {
+    background-color: rgb(255, 253, 253);
+    color: rgb(1, 14, 14);
+  }
+  
+  .navigation .button-out {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: 0.5s;
+  }
+  
+  .navigation .button-out:hover {
+    background-color: black;
+    color: aqua;
+  }
+  
+  .wrapper {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transform: scale(0);
+    transition: height 0.2s ease;
+  }
+  
+  .wrapper.active-popup {
+    transform: scale(1);
+  }
+  
+  .wrapper.active {
+    height: 520px;
+  }
+  
+  .wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+  }
+  
+  .wrapper .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    background: red;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .wrapper .form-box.login {
+    transition: transform 0.18s ease;
+    transform: translateX(0);
+    /*display: none;*/
+  }
+  
+  .wrapper.active .form-box.login {
+    transition: none;
+    transform: translateX(-400px);
+  }
+  
+  .wrapper .form-box.register {
+    position: absolute;
+    transition: none;
+    transform: translateX(400px);
+    /*400px*/
+  }
+  
+  .wrapper.active .form-box.register {
+    transition: transform 0.18s ease;
+    transform: translateX(0);
+  }
+  
+  .wrapper2 {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgb(0, 17, 17);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .wrapper2 .close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    background: red;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .form-box h2 {
+    text-align: center;
+    font-size: 2em;
+  }
+  
+  .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid rgb(0, 12, 12);
+    margin: 30px 0;
+  }
+  
+  .input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    font-weight: 500;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .input-box input:focus ~ label,
+  .input-box input:valid ~ label {
+    top: -5px;
+  }
+  
+  .input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 0 30px 0 5px;
+    border: none;
+    outline: none;
+  }
+  
+  .input-box .icon {
+    position: absolute;
+    right: 8px;
+  }
+  
+  .forgot {
+    font-size: 0.9em;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .forgot label input {
+    margin-right: 3px;
+  }
+  
+  .forgot a {
+    text-decoration: none;
+  }
+  
+  .forgot a:hover {
+    text-decoration: underline;
+  }
+  
+  .btn {
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    border: 2px solid;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.5s;
+  }
+  
+  .btn:hover {
+    background-color: black;
+    color: rgb(255, 255, 255);
+  }
+  
+  .register {
+    font-size: 0.9em;
+    font-weight: 500;
+    text-align: center;
+    margin: 25px 0 10px;
+  }
+  
+  .register p a {
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .register p a:hover {
+    text-decoration: underline;
+  }
+  
+  .contactUs {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgb(0, 17, 17);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .contactUs h1 {
+    position: absolute;
+    top: 10px;
+    text-align: center;
+    font-size: 2em;
+    padding: 20px;
+  }
+  
+  .contactUs .data1 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(150%);
+  }
+  
+  .contactUs .data2 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-150%);
+  }
+  
+  .aboutUs {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgb(0, 5, 5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .aboutUs h1 {
+    position: absolute;
+    top: 10px;
+    text-align: center;
+    font-size: 2em;
+    padding: 20px;
+  }
+  
+  .aboutUs .data1 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(150%);
+  }
+  
+  .aboutUs .data2 {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-150%);
+  }
+  .tile {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: #4d4d4db4;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+  
+    transition: 0.3s all ease-in-out;
+  }
+  
+  .tile:hover {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    background-color: #2f2f2fef;
+  }
+  
+  .tile:hover > img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .tile img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    filter: invert();
+    transition: 0.3s all ease-in-out;
+  }
+  
+  .tile p {
+    color: white !important;
+    filter: drop-shadow(1px 1px 5px red);
+    font-size: 2em;
+    font-weight: 700;
+  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    z-index: 998;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 70%;
+  }
+  
+  .logo {
+    display: block;
+    margin: 0 auto;
+    width: 800px;
+  }
+  
+  .logo img {
+    width: 100%;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  
+    place-items: center;
+  }
+  
+  .modal {
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 90%;
+    height: 90%;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.685);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 999;
+  }
+  
+  .modal table {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .modal table tr {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .modal table tr th {
+    font-size: 2em;
+  }
+  
+  .modal table td, .modal table th {
+    padding: 1em 0;
+    font-size: 1.2em;
+  }
+  
+  .input input{
+    height: 40px;
+    width: 300px;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    margin-left: 10px;
+  }
+  
+  .input button{
+    position: relative;
+    height: 40px;
+    width: 300px;
+    background: transparent;
+    border: 2px solid;
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: 0.5s;
+  }
+  
+  .input button:hover{
+    background-color: black;
+    color: rgb(255, 255, 255);
+  }
+  
+  .input {
+    position: absolute;
+    width: 70%;
+    height: 50px;
+    font-size: 20px;
+    background: transparent;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .input label{
+    margin-left: 100px;
+  }
