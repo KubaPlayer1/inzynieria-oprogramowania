@@ -509,6 +509,7 @@ header .icon {
 
 .modal table td, .modal table th {
   padding: 1em 0;
+  font-size: 1.2em;
 }
 
 .input input{
