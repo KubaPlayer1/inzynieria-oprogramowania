@@ -49,7 +49,7 @@ $select = "";
         <h2 class="logo">ADD A NEW PART</h2>
         <nav class="navigation">
             <a href="konfigurepc.php"><ion-icon name="home-sharp">Konfigure PC</ion-icon></a>
-            <a href="serch.php"><ion-icon name="search-sharp">Serch</ion-icon></a>
+            <a href="serch2.php"><ion-icon name="search-sharp">Serch</ion-icon></a>
             <button class="button-out" href="../index.html">Log out</button>
         </nav>
     </header>

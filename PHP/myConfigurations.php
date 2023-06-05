@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once('accounts.php'); 
+require_once('accounts.php');
 require_once('configurations.php');
 require_once 'vendor/autoload.php';
 require_once('parts.php');
@@ -19,15 +19,16 @@ $connectionParams = [
     'password' => '',
     'host' => 'localhost',
     'driver' => 'mysqli',
-  ];
+];
 $conn = DriverManager::getConnection($connectionParams);
-  
+
 $entityManager = EntityManager::create(
-    $conn,    
+    $conn,
     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
 );
 
-function test_input($data) {
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -36,88 +37,90 @@ function test_input($data) {
 }
 $select = "";
 
+
+
 ?>
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Konfigurate your PC</title>
-  <link rel="stylesheet" href="../STYLES/style.css" />
+    <meta charset="UTF-8" />
+    <title>Konfigurate your PC</title>
+    <link rel="stylesheet" href="../STYLES/style.css" />
 </head>
 
 <body>
-  <header>
-    <h2 class="logo">Build your PC!</h2>
-    <nav class="navigation">
-      <a href="add.php">Add new part</a>
-      <a href="#">My account</a>
-      <a href="save_configuration.php">Save configuration</a>
-      <a href="myConfigurations.php">My configurations</a>
-      <button class="button-out" href="../index.html">Log out</button>
-    </nav>
-  </header>
+    <header>
+        <h2 class="logo">Build your PC!</h2>
+        <nav class="navigation">
+            <a href="add.php">Add new part</a>
+            <a href="konfigurepc.php">Config PC</a>
+            <a href="save_configuration.php">Save configuration</a>
+            <a href="myConfigurations.php">My configurations</a>
+            <button class="button-out" href="../index.html">Log out</button>
+        </nav>
+    </header>
     <div class="konfiguracje">
-    
-
-    <form action="" method="POST">
-        <input type="text" name="id">
-        <input type="Submit" name="delete" value="Submit" >
-    </form>
-    
-<?php
 
 
-    if(isset($_POST['delete']))
-    {
+        <form action="" method="POST">
+            <input type="text" name="id" placeholder="Enter ID of a configuration">
+            <input type="Submit" name="delete" value="Submit">
+        </form>
+
+        <?php
+
+        if (isset($_POST['delete'])) {
+
+
+            $id = $_POST['id'];
+            // Pobierz encję, którą chcesz usunąć
+            $entity = $entityManager->getRepository(Configurations::class)->find($id); // Zastąp 'YourEntity' nazwą twojej encji i '$id' konkretnym ID wiersza
         
-        $id = $_POST['id'];
-        // Pobierz encję, którą chcesz usunąć
-        $entity = $entityManager->getRepository(Configurations::class)->find($id); // Zastąp 'YourEntity' nazwą twojej encji i '$id' konkretnym ID wiersza
+            if (!$entity) {
+                //throw $this->createNotFoundException('Nie znaleziono encji o podanym ID');
+            }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Nie znaleziono encji o podanym ID');
+            // Oznacz encję do usunięcia
+            $entityManager->remove($entity);
+
+            // Zatwierdź zmiany i usuń wiersz z bazy danych
+            $entityManager->flush();
+
         }
 
-        // Oznacz encję do usunięcia
-        $entityManager->remove($entity);
 
-        // Zatwierdź zmiany i usuń wiersz z bazy danych
-        $entityManager->flush();
+        ?>
 
-    }
-
-?>
-
-     <?php
-         $queryBuilder = $entityManager->createQueryBuilder();
-         $dane = $queryBuilder
-           ->select('c')
-           ->from(configurations::class, 'c')
-           ->getQuery();
-           $dane_lista = $dane->getResult();
-    ?>
+        <?php
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $dane = $queryBuilder
+            ->select('c')
+            ->from(configurations::class, 'c')
+            ->getQuery();
+        $dane_lista = $dane->getResult();
+        ?>
 
         <table>
-                        <tr>
-                            <th> ID </th>
-                            <th>Nazwa Konfiguracji </th>
-                            <th>CPU </th>
-                            <th>MotherBoard </th>
-                            <th>GPU </th>
-                            <th>Ram </th>
-                            <th>HDD </th>
-                            <th>SSD </th>
-                            <th>Zasilacz </th>
-                            <th>obudowa </th>
-                            <th>Edit </th>
-                           
-                        </tr>
+            <tr>
+                <th> ID </th>
+                <th>Nazwa Konfiguracji </th>
+                <th>CPU </th>
+                <th>MotherBoard </th>
+                <th>GPU </th>
+                <th>Ram </th>
+                <th>HDD </th>
+                <th>SSD </th>
+                <th>Zasilacz </th>
+                <th>obudowa </th>
+                <th>Edit </th>
+
+            </tr>
             <?php
-            foreach($dane_lista as $d)
-            {
-                echo"<tr><td>".$d->getID()."</td><td>".$d->getName()."</td><td>".getProductname($d->getID_cpu())."</td><td>".getProductMbName($d->getID_mb())."</td><td>".getProductGpuName($d->getID_gpu())."</td><td>".getProductRamName($d->getID_ram())."</td><td>".getProductHddName($d->getID_hdd())."</td><td>".getProductSSDName($d->getID_ssd())."</td><td>".getProductZasilaczName($d->getID_zasilacz())."</td><td>".getProductObudowaName($d->getID_obudowa())."</td><td>"."<form method='post'><button type='submit' name='edit'>Edit</button></td><td><input type='number' name='cpu_id' hidden value='" . $d->getID_cpu() . "'><input type='number' name='mb_id' hidden value='" . $d->getID_mb() . "'><input type='number' name='ram_id' hidden value='" . $d->getID_ram() . "'><input type='number' name='gpu_id' hidden value='" . $d->getID_gpu() . "'><input type='number' name='zasilacz_id' hidden value='" . $d->getID_zasilacz() . "'><input type='number' name='obudowa_id' hidden value='" . $d->getID_obudowa() . "'><input type='number' name='ssd_id' hidden value='" . $d->getID_ssd() . "'><input type='number' name='hdd_id' hidden value='" . $d->getID_hdd() . "'><input type='number' name='chlodzenie_id' hidden value='" . $d->getID_chlodzenie() ."'><input type='number' name='id' hidden value='".$d->getID()."'></form></td>"; 
-                
+            foreach ($dane_lista as $d) {
+                echo "<tr><td>" . $d->getID() . "</td><td>" . $d->getName() . "</td><td>" . getProductname($d->getID_cpu()) . "</td><td>" . getProductMbName($d->getID_mb()) . "</td><td>" . getProductGpuName($d->getID_gpu()) . "</td><td>" . getProductRamName($d->getID_ram()) . "</td><td>" . getProductHddName($d->getID_hdd()) . "</td><td>" . getProductSSDName($d->getID_ssd()) . "</td><td>" . getProductZasilaczName($d->getID_zasilacz()) . "</td><td>" . getProductObudowaName($d->getID_obudowa()) . "</td><td>" . "<form method='post'><button type='submit' name='edit'>Edit</button></td><td><input type='number' name='cpu_id' hidden value='" . $d->getID_cpu() . "'><input type='number' name='mb_id' hidden value='" . $d->getID_mb() . "'><input type='number' name='ram_id' hidden value='" . $d->getID_ram() . "'><input type='number' name='gpu_id' hidden value='" . $d->getID_gpu() . "'><input type='number' name='zasilacz_id' hidden value='" . $d->getID_zasilacz() . "'><input type='number' name='obudowa_id' hidden value='" . $d->getID_obudowa() . "'><input type='number' name='ssd_id' hidden value='" . $d->getID_ssd() . "'><input type='number' name='hdd_id' hidden value='" . $d->getID_hdd() . "'><input type='number' name='chlodzenie_id' hidden value='" . $d->getID_chlodzenie() . "'><input type='number' name='id' hidden value='" . $d->getID() . "'></form></td>";
+
                 $nazwaCPU = $d->getID_cpu();
                 $nazwaGPU = $d->getID_gpu();
-                $nazwaMB =  $d->getID_mb();
+                $nazwaMB = $d->getID_mb();
                 $nazwaRam = $d->getID_ram();
                 $nazwaHdd = $d->getID_hdd();
                 $nazwaSSD = $d->getID_ssd();
@@ -126,27 +129,27 @@ $select = "";
                 $nazwaID = $d->getID();
             }
 
-            
-                        
+
+
             function usunKonfiguration($nazwaID)
             {
-            $connectionParams = [
-                'dbname' => 'peryferia',
-                'user' => 'root',
-                'password' => '',
-                'host' => 'localhost',
-                'driver' => 'mysqli',
-            ];
-            $conn = DriverManager::getConnection($connectionParams);
-            $entityManager = EntityManager::create(
-                $conn,
-                Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
-            );
-            $single_user = $entityManager->find('Iddb', $nazwaID);
+                $connectionParams = [
+                    'dbname' => 'peryferia',
+                    'user' => 'root',
+                    'password' => '',
+                    'host' => 'localhost',
+                    'driver' => 'mysqli',
+                ];
+                $conn = DriverManager::getConnection($connectionParams);
+                $entityManager = EntityManager::create(
+                    $conn,
+                    Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+                );
+                $single_user = $entityManager->find('Iddb', $nazwaID);
 
-            $entityManager->remove($single_user);
+                $entityManager->remove($single_user);
 
-            $entityManager->flush();
+                $entityManager->flush();
             }
 
 
@@ -162,9 +165,9 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
@@ -189,9 +192,9 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
@@ -216,9 +219,9 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
@@ -243,9 +246,9 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
@@ -270,9 +273,9 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
@@ -288,8 +291,8 @@ $select = "";
             }
 
             function getProductname($nazwaCPU)
-            {     
-                   
+            {
+
                 $connectionParams = [
                     'dbname' => 'peryferia',
                     'user' => 'root',
@@ -298,9 +301,9 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
@@ -326,12 +329,12 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
-                    
+
 
                 $queryBuilder = $entityManager->createQueryBuilder();
                 $dane2 = $queryBuilder
@@ -344,8 +347,8 @@ $select = "";
             }
 
             function getProductGpuName($nazwaGPU)
-            {     
-                   
+            {
+
                 $connectionParams = [
                     'dbname' => 'peryferia',
                     'user' => 'root',
@@ -354,9 +357,9 @@ $select = "";
                     'driver' => 'mysqli',
                 ];
                 $conn = DriverManager::getConnection($connectionParams);
-                
+
                 $entityManager = EntityManager::create(
-                    $conn,    
+                    $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
@@ -372,17 +375,18 @@ $select = "";
 
             }
 
-            
-            $link = "konfigurepc.php?type=&cpu=" .$_POST['cpu_id'] . "&mb=" . $_POST['mb_id'] ."&ram=" . $_POST['ram_id'] ."&gpu=" . $_POST['gpu_id'] ."&zasilacz=" . $_POST['zasilacz_id'] ."&chlodzenie_cpu=" . $_POST['chlodzenie_id'] ."&hdd=" . $_POST['hdd_id'] ."&ssd=" . $_POST['ssd_id'] ."&obudowa=" . $_POST['obudowa_id'] ."&delete = ".$_POST['usun']."";
 
 
-            if(isset($_POST['edit'])){
-                header("Location: " . $link );
+
+            if (isset($_POST['edit'])) {
+
+                $link = "konfigurepc.php?type=&cpu=" . $_POST['cpu_id'] . "&mb=" . $_POST['mb_id'] . "&ram=" . $_POST['ram_id'] . "&gpu=" . $_POST['gpu_id'] . "&zasilacz=" . $_POST['zasilacz_id'] . "&chlodzenie_cpu=" . $_POST['chlodzenie_id'] . "&hdd=" . $_POST['hdd_id'] . "&ssd=" . $_POST['ssd_id'] . "&obudowa=" . $_POST['obudowa_id'];
+                header("Location: " . $link);
             }
-            
 
-            if(isset($_POST['usun']) && isset($_POST['id'])){
-                
+
+            if (isset($_POST['usun']) && isset($_POST['id'])) {
+
                 $connectionParams = [
                     'dbname' => 'peryferia',
                     'user' => 'root',
@@ -396,30 +400,30 @@ $select = "";
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
 
-                
+
                 $queryBuilder = $entityManager->createQueryBuilder();
                 $dane2 = $queryBuilder
                     ->select('c')
                     ->from(Configurations::class, 'c')
                     ->where('c.ID = ' . $nazwaID)
                     ->getQuery();
-                $date= $dane2->getResult();
+                $date = $dane2->getResult();
 
-                foreach($date as $q)
-                {
+                foreach ($date as $q) {
                     $nowaZmienna = $q->getID();
 
                 }
 
-                 usunKonfiguration($nowaZmienna);
+                usunKonfiguration($nowaZmienna);
             }
 
             ?>
-            
-    </table>    
+
+        </table>
     </div>
-        <script src="JS/script.js"></script>
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    </body>
+    <script src="JS/script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
 </html>
