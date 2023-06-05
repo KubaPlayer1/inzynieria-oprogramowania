@@ -53,9 +53,6 @@ $select = "";
         <nav class="navigation">
             <a href="add.php">Add new part</a>
             <a href="konfigurepc.php">Config PC</a>
-            <a href="save_configuration.php">Save configuration</a>
-            <a href="myConfigurations.php">My configurations</a>
-            <button class="button-out" href="../index.html">Log out</button>
         </nav>
     </header>
     <div class="konfiguracje">
