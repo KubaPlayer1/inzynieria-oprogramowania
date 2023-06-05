@@ -440,8 +440,8 @@ header .icon {
 }
 
 .tile p {
-  color: white !important;
-  filter: drop-shadow(1px 1px 5px red);
+  color: rgb(53 255 2) !important;
+  filter: drop-shadow(1px 1px 5px black);
   font-size: 2em;
   font-weight: 700;
 
