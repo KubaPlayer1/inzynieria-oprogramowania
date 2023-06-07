@@ -58,34 +58,10 @@ $select = "";
     <div class="konfiguracje">
 
 
-        <form action="" method="POST">
+        <!--<form action="" method="POST">
             <input type="text" name="id" placeholder="Enter ID of a configuration">
             <input type="Submit" name="delete" value="Submit">
-        </form>
-
-        <?php
-
-        if (isset($_POST['delete'])) {
-
-
-            $id = $_POST['id'];
-            // Pobierz encję, którą chcesz usunąć
-            $entity = $entityManager->getRepository(Configurations::class)->find($id); // Zastąp 'YourEntity' nazwą twojej encji i '$id' konkretnym ID wiersza
-        
-            if (!$entity) {
-                //throw $this->createNotFoundException('Nie znaleziono encji o podanym ID');
-            }
-
-            // Oznacz encję do usunięcia
-            $entityManager->remove($entity);
-
-            // Zatwierdź zmiany i usuń wiersz z bazy danych
-            $entityManager->flush();
-
-        }
-
-
-        ?>
+        </form>-->
 
         <?php
         $queryBuilder = $entityManager->createQueryBuilder();
@@ -109,11 +85,12 @@ $select = "";
                 <th>Zasilacz </th>
                 <th>obudowa </th>
                 <th>Edit </th>
+                <th>Delete </th>
 
             </tr>
             <?php
             foreach ($dane_lista as $d) {
-                echo "<tr><td>" . $d->getID() . "</td><td>" . $d->getName() . "</td><td>" . getProductname($d->getID_cpu()) . "</td><td>" . getProductMbName($d->getID_mb()) . "</td><td>" . getProductGpuName($d->getID_gpu()) . "</td><td>" . getProductRamName($d->getID_ram()) . "</td><td>" . getProductHddName($d->getID_hdd()) . "</td><td>" . getProductSSDName($d->getID_ssd()) . "</td><td>" . getProductZasilaczName($d->getID_zasilacz()) . "</td><td>" . getProductObudowaName($d->getID_obudowa()) . "</td><td>" . "<form method='post'><button type='submit' name='edit'>Edit</button></td><td><input type='number' name='cpu_id' hidden value='" . $d->getID_cpu() . "'><input type='number' name='mb_id' hidden value='" . $d->getID_mb() . "'><input type='number' name='ram_id' hidden value='" . $d->getID_ram() . "'><input type='number' name='gpu_id' hidden value='" . $d->getID_gpu() . "'><input type='number' name='zasilacz_id' hidden value='" . $d->getID_zasilacz() . "'><input type='number' name='obudowa_id' hidden value='" . $d->getID_obudowa() . "'><input type='number' name='ssd_id' hidden value='" . $d->getID_ssd() . "'><input type='number' name='hdd_id' hidden value='" . $d->getID_hdd() . "'><input type='number' name='chlodzenie_id' hidden value='" . $d->getID_chlodzenie() . "'><input type='number' name='id' hidden value='" . $d->getID() . "'></form></td>";
+                echo "<tr><td>" . $d->getID() . "</td><td>" . $d->getName() . "</td><td>" . getProductname($d->getID_cpu()) . "</td><td>" . getProductMbName($d->getID_mb()) . "</td><td>" . getProductGpuName($d->getID_gpu()) . "</td><td>" . getProductRamName($d->getID_ram()) . "</td><td>" . getProductHddName($d->getID_hdd()) . "</td><td>" . getProductSSDName($d->getID_ssd()) . "</td><td>" . getProductZasilaczName($d->getID_zasilacz()) . "</td><td>" . getProductObudowaName($d->getID_obudowa()) . "</td><td><form method='post'><button type='submit' name='edit'>Edit</button></td><td><button type='submit' name='delete'>Delete</button></td><td><input type='number' name='cpu_id' hidden value='" . $d->getID_cpu() . "'><input type='number' name='mb_id' hidden value='" . $d->getID_mb() . "'><input type='number' name='ram_id' hidden value='" . $d->getID_ram() . "'><input type='number' name='gpu_id' hidden value='" . $d->getID_gpu() . "'><input type='number' name='zasilacz_id' hidden value='" . $d->getID_zasilacz() . "'><input type='number' name='obudowa_id' hidden value='" . $d->getID_obudowa() . "'><input type='number' name='ssd_id' hidden value='" . $d->getID_ssd() . "'><input type='number' name='hdd_id' hidden value='" . $d->getID_hdd() . "'><input type='number' name='chlodzenie_id' hidden value='" . $d->getID_chlodzenie() . "'><input type='number' name='id' hidden value='" . $d->getID() . "'><input type='number' name='account_id' hidden value='" . $d->getID_account() . "'></form></td>";
 
                 $nazwaCPU = $d->getID_cpu();
                 $nazwaGPU = $d->getID_gpu();
@@ -124,6 +101,7 @@ $select = "";
                 $nazwaZasilacz = $d->getID_zasilacz();
                 $nazwaObudowa = $d->getID_obudowa();
                 $nazwaID = $d->getID();
+                $nazwaAccount = $d->getID_account();
             }
 
 
@@ -142,11 +120,12 @@ $select = "";
                     $conn,
                     Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
                 );
-                $single_user = $entityManager->find('Iddb', $nazwaID);
+                $single_user = $entityManager->find('Configurations', $nazwaID);
 
                 $entityManager->remove($single_user);
 
                 $entityManager->flush();
+                header("Location: myConfigurations.php");
             }
 
 
@@ -373,46 +352,60 @@ $select = "";
             }
 
 
-
-
-            if (isset($_POST['edit'])) {
-
-                $link = "konfigurepc.php?type=&cpu=" . $_POST['cpu_id'] . "&mb=" . $_POST['mb_id'] . "&ram=" . $_POST['ram_id'] . "&gpu=" . $_POST['gpu_id'] . "&zasilacz=" . $_POST['zasilacz_id'] . "&chlodzenie_cpu=" . $_POST['chlodzenie_id'] . "&hdd=" . $_POST['hdd_id'] . "&ssd=" . $_POST['ssd_id'] . "&obudowa=" . $_POST['obudowa_id'];
-                header("Location: " . $link);
-            }
-
-
-            if (isset($_POST['usun']) && isset($_POST['id'])) {
-
-                $connectionParams = [
-                    'dbname' => 'peryferia',
-                    'user' => 'root',
-                    'password' => '',
-                    'host' => 'localhost',
-                    'driver' => 'mysqli',
-                ];
-                $conn = DriverManager::getConnection($connectionParams);
-                $entityManager = EntityManager::create(
-                    $conn,
-                    Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
-                );
-
-
-                $queryBuilder = $entityManager->createQueryBuilder();
-                $dane2 = $queryBuilder
-                    ->select('c')
-                    ->from(Configurations::class, 'c')
-                    ->where('c.ID = ' . $nazwaID)
-                    ->getQuery();
-                $date = $dane2->getResult();
-
-                foreach ($date as $q) {
-                    $nowaZmienna = $q->getID();
-
+            if (isset($_POST['cpu_id']) && isset($_POST['mb_id']) && isset($_POST['ram_id']) && isset($_POST['gpu_id']) && isset($_POST['zasilacz_id']) && isset($_POST['obudowa_id']) && isset($_POST['ssd_id']) && isset($_POST['hdd_id']) && isset($_POST['chlodzenie_id']) && isset($_POST['id']) && isset($_POST['account_id'])) {
+                $cpu_id = $_POST['cpu_id'];
+                $mb_id = $_POST['mb_id'];
+                $ram_id = $_POST['ram_id'];
+                $gpu_id = $_POST['gpu_id'];
+                $zasilacz_id = $_POST['zasilacz_id'];
+                $obudowa_id = $_POST['obudowa_id'];
+                $ssd_id = $_POST['ssd_id'];
+                $hdd_id = $_POST['hdd_id'];
+                $chlodzenie_id = $_POST['chlodzenie_id'];
+                $id = $_POST['id'];
+                $account_id = $_POST['account_id'];
+                print_r($_POST);
+                if (isset($_POST['edit'])) {
+                    $link = "konfigurepc.php?type=&cpu=" . $cpu_id . "&mb=" . $mb_id . "&ram=" . $ram_id . "&gpu=" . $gpu_id . "&zasilacz=" . $zasilacz_id . "&chlodzenie_cpu=" . $chlodzenie_id . "&hdd=" . $hdd_id . "&ssd=" . $ssd_id . "&obudowa=" . $obudowa_id;
+                    header("Location: " . $link);
                 }
 
-                usunKonfiguration($nowaZmienna);
+                if (isset($_POST['delete'])) {
+
+                    $connectionParams = [
+                        'dbname' => 'peryferia',
+                        'user' => 'root',
+                        'password' => '',
+                        'host' => 'localhost',
+                        'driver' => 'mysqli',
+                    ];
+                    $conn = DriverManager::getConnection($connectionParams);
+                    $entityManager = EntityManager::create(
+                        $conn,
+                        Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+                    );
+
+
+                    $queryBuilder = $entityManager->createQueryBuilder();
+                    $dane2 = $queryBuilder
+                        ->select('c')
+                        ->from(Configurations::class, 'c')
+                        ->where('c.ID = ' . $id)
+                        ->getQuery();
+                    $date = $dane2->getResult();
+
+                    foreach ($date as $q) {
+                        $nowaZmienna = $q->getID();
+                        usunKonfiguration($nowaZmienna);
+                    }
+                }
             }
+
+
+
+
+
+
 
             ?>
 
