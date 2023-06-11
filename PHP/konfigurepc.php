@@ -2,6 +2,7 @@
 require_once('parts.php');
 require_once('configurations.php');
 require_once('accounts.php');
+require_once("name.php");
 require_once('ID.php');
 //require_once('DB_connection.php');
 require_once 'vendor/autoload.php';
@@ -137,25 +138,8 @@ function del_user($id)
     <h2 class="logo">Build your PC!</h2>
     <nav class="navigation">
       <a href="konfigurepc.php">Clear configuration</a>
-      <a href="add.php">Add new part</a>
-      <a href="#">My account</a>
+      <a href="myAccount.php">My account</a>
       <a href="myConfigurations.php">My configurations</a>
-      <form action="#" method="get"><button class="button-out" name="button-out">Log out</button></form>
-      <?php
-      if (isset($_GET['button-out'])) {
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $accQuery = $queryBuilder
-          ->select('c')
-          ->from(Iddb::class, 'c')
-          ->getQuery();
-        $acc = $accQuery->getResult();
-        foreach ($acc as $ac) {
-          $idaccount = $ac->getId();
-        }
-        del_user($idaccount);
-        header("Location: ../index.html");
-      }
-      ?>
     </nav>
   </header>
 
@@ -621,6 +605,28 @@ function del_user($id)
 
   <?php
 
+  function deleteNameOfConfiguration($nazwaID)
+  {
+    $connectionParams = [
+      'dbname' => 'peryferia',
+      'user' => 'root',
+      'password' => '',
+      'host' => 'localhost',
+      'driver' => 'mysqli',
+    ];
+    $conn = DriverManager::getConnection($connectionParams);
+    $entityManager = EntityManager::create(
+      $conn,
+      Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+    );
+    $single_name = $entityManager->find('NameOfConfig', $nazwaID);
+
+    $entityManager->remove($single_name);
+
+    $entityManager->flush();
+  }
+
+
   $queryBuilder = $entityManager->createQueryBuilder();
   $accQuery = $queryBuilder
     ->select('c')
@@ -630,6 +636,9 @@ function del_user($id)
   foreach ($acc as $ac) {
     $account = $ac->getId_account();
   }
+
+
+
 
 
   function getProductName($type, $id)
@@ -760,7 +769,7 @@ function del_user($id)
   <div class="input">
     <form action="konfigurepc.php" method="post">
       <label>If you wont to save yor configuration please enter it's name: </label>
-      <input type="text" name="nazwa" required>
+      <input type="text" name="nazwa" id="nazwa" value="<?php echo getNameConfig() ?>" onkeyup="saveValue();" required>
       <input type="number" name="account" hidden value="<?php echo $account; ?>">
       <input type="number" name="proc" hidden value="<?php global $proc;
       echo $proc; ?>">
@@ -786,6 +795,38 @@ function del_user($id)
     </form>
   </div>
   <?php
+  function getNameConfig()
+  {
+    $connectionParams = [
+      'dbname' => 'peryferia',
+      'user' => 'root',
+      'password' => '',
+      'host' => 'localhost',
+      'driver' => 'mysqli',
+    ];
+    $conn = DriverManager::getConnection($connectionParams);
+    $entityManager = EntityManager::create(
+      $conn,
+      Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+    );
+    $queryBuilder = $entityManager->createQueryBuilder();
+    $nameQuery = $queryBuilder
+      ->select('c')
+      ->from(NameOfConfig::class, 'c')
+      ->getQuery();
+    $name_config = $nameQuery->getResult();
+    foreach ($name_config as $name_conf) {
+      if ($name_conf == null) {
+        $nazwa = "";
+        return $nazwa;
+      } else {
+        $nazwa = $name_conf->getName();
+        $usuwana_wartosc = $name_conf->getID();
+        deleteNameOfConfiguration($usuwana_wartosc);
+        return $nazwa;
+      }
+    }
+  }
   if (isset($_POST['nazwa'])) {
     $connectionParams = [
       'dbname' => 'peryferia',
@@ -814,7 +855,7 @@ function del_user($id)
 
     if (isset($_POST['save'])) {
       //var_dump($_POST);
-      if (isset($konto, $procesor, $plyta_gl, $pamiec, $grafika, $psu, $chlodzenie, $wolny, $szybki, $case)) {
+      if ($konto != 0 && $procesor != 0 && $plyta_gl != 0 && $pamiec != 0 && $grafika != 0 && $psu != 0 && $chlodzenie != 0 && $wolny != 0 && $szybki != 0 && $case != 0) {
         $queryBuilder = $entityManager->createQueryBuilder();
         $conf = $queryBuilder
           ->select('c')
@@ -853,7 +894,28 @@ function del_user($id)
     }
   }
   ?>
+  <script type="text/javascript">
+    saveValue();
+    getSavedValue();
+    /* Here you can add more inputs to set value. if it's saved */
 
+    //Save the value function - save it to localStorage as (ID, VALUE)
+    function saveValue() {
+      let nazwazmienna = document.getElementById("nazwa").value;
+      if (nazwazmienna != null && nazwazmienna.length != 0) {
+        document.cookie = "nazwa=" + nazwazmienna;
+      }
+
+    }
+
+    //get the saved value function - return the value of "v" from localStorage. 
+    function getSavedValue() {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; nazwa=`);
+      let data = parts.pop().split(';').shift();
+      document.getElementById("nazwa").value = data;
+    }
+  </script>
 
 
   <script src="JS/script.js"></script>

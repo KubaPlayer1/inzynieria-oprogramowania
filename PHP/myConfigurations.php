@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 require_once('accounts.php');
+require_once("name.php");
 require_once('configurations.php');
 require_once 'vendor/autoload.php';
 require_once('parts.php');
@@ -90,7 +91,7 @@ $select = "";
             </tr>
             <?php
             foreach ($dane_lista as $d) {
-                echo "<tr><td>" . $d->getID() . "</td><td>" . $d->getName() . "</td><td>" . getProductname($d->getID_cpu()) . "</td><td>" . getProductMbName($d->getID_mb()) . "</td><td>" . getProductGpuName($d->getID_gpu()) . "</td><td>" . getProductRamName($d->getID_ram()) . "</td><td>" . getProductHddName($d->getID_hdd()) . "</td><td>" . getProductSSDName($d->getID_ssd()) . "</td><td>" . getProductZasilaczName($d->getID_zasilacz()) . "</td><td>" . getProductObudowaName($d->getID_obudowa()) . "</td><td><form method='post'><button type='submit' name='edit'>Edit</button></td><td><button type='submit' name='delete'>Delete</button></td><td><input type='number' name='cpu_id' hidden value='" . $d->getID_cpu() . "'><input type='number' name='mb_id' hidden value='" . $d->getID_mb() . "'><input type='number' name='ram_id' hidden value='" . $d->getID_ram() . "'><input type='number' name='gpu_id' hidden value='" . $d->getID_gpu() . "'><input type='number' name='zasilacz_id' hidden value='" . $d->getID_zasilacz() . "'><input type='number' name='obudowa_id' hidden value='" . $d->getID_obudowa() . "'><input type='number' name='ssd_id' hidden value='" . $d->getID_ssd() . "'><input type='number' name='hdd_id' hidden value='" . $d->getID_hdd() . "'><input type='number' name='chlodzenie_id' hidden value='" . $d->getID_chlodzenie() . "'><input type='number' name='id' hidden value='" . $d->getID() . "'><input type='number' name='account_id' hidden value='" . $d->getID_account() . "'></form></td>";
+                echo "<tr><td>" . $d->getID() . "</td><td>" . $d->getName() . "</td><td>" . getProductname($d->getID_cpu()) . "</td><td>" . getProductMbName($d->getID_mb()) . "</td><td>" . getProductGpuName($d->getID_gpu()) . "</td><td>" . getProductRamName($d->getID_ram()) . "</td><td>" . getProductHddName($d->getID_hdd()) . "</td><td>" . getProductSSDName($d->getID_ssd()) . "</td><td>" . getProductZasilaczName($d->getID_zasilacz()) . "</td><td>" . getProductObudowaName($d->getID_obudowa()) . "</td><td><form method='post'><button type='submit' name='edit'>Edit</button></td><td><button type='submit' name='delete'>Delete</button></td><td><input type='number' name='cpu_id' hidden value='" . $d->getID_cpu() . "'><input type='number' name='mb_id' hidden value='" . $d->getID_mb() . "'><input type='number' name='ram_id' hidden value='" . $d->getID_ram() . "'><input type='number' name='gpu_id' hidden value='" . $d->getID_gpu() . "'><input type='number' name='zasilacz_id' hidden value='" . $d->getID_zasilacz() . "'><input type='number' name='obudowa_id' hidden value='" . $d->getID_obudowa() . "'><input type='number' name='ssd_id' hidden value='" . $d->getID_ssd() . "'><input type='number' name='hdd_id' hidden value='" . $d->getID_hdd() . "'><input type='number' name='chlodzenie_id' hidden value='" . $d->getID_chlodzenie() . "'><input type='number' name='id' hidden value='" . $d->getID() . "'><input type='number' name='account_id' hidden value='" . $d->getID_account() . "'><input type='text' name='nazwa' id='nazwa' hidden value='" . $d->getName() . "'></form></td>";
 
                 $nazwaCPU = $d->getID_cpu();
                 $nazwaGPU = $d->getID_gpu();
@@ -352,7 +353,7 @@ $select = "";
             }
 
 
-            if (isset($_POST['cpu_id']) && isset($_POST['mb_id']) && isset($_POST['ram_id']) && isset($_POST['gpu_id']) && isset($_POST['zasilacz_id']) && isset($_POST['obudowa_id']) && isset($_POST['ssd_id']) && isset($_POST['hdd_id']) && isset($_POST['chlodzenie_id']) && isset($_POST['id']) && isset($_POST['account_id'])) {
+            if (isset($_POST['cpu_id']) && isset($_POST['mb_id']) && isset($_POST['ram_id']) && isset($_POST['gpu_id']) && isset($_POST['zasilacz_id']) && isset($_POST['obudowa_id']) && isset($_POST['ssd_id']) && isset($_POST['hdd_id']) && isset($_POST['chlodzenie_id']) && isset($_POST['id']) && isset($_POST['account_id']) && isset($_POST['nazwa'])) {
                 $cpu_id = $_POST['cpu_id'];
                 $mb_id = $_POST['mb_id'];
                 $ram_id = $_POST['ram_id'];
@@ -364,8 +365,13 @@ $select = "";
                 $chlodzenie_id = $_POST['chlodzenie_id'];
                 $id = $_POST['id'];
                 $account_id = $_POST['account_id'];
+                $nazwa = $_POST['nazwa'];
                 print_r($_POST);
                 if (isset($_POST['edit'])) {
+                    $nameofconfig = (new NameOfConfig())
+                        ->setName($nazwa);
+                    $entityManager->persist($nameofconfig);
+                    $entityManager->flush();
                     $link = "konfigurepc.php?type=&cpu=" . $cpu_id . "&mb=" . $mb_id . "&ram=" . $ram_id . "&gpu=" . $gpu_id . "&zasilacz=" . $zasilacz_id . "&chlodzenie_cpu=" . $chlodzenie_id . "&hdd=" . $hdd_id . "&ssd=" . $ssd_id . "&obudowa=" . $obudowa_id;
                     header("Location: " . $link);
                 }
