@@ -802,7 +802,6 @@ function del_user($id)
           break;
         case 'ram':
           ?>
-
           <form method="GET" style="display: flex; align-items: center;">
             <input type="text" name="search" placeholder="Search.."
               style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
