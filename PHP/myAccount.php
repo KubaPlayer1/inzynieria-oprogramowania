@@ -37,70 +37,6 @@ function test_input($data)
     return $data;
 }
 
-
-
-if (isset($_POST['type'])) {
-    $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-    var_dump($actual_link);
-    var_dump($_POST['type']);
-    var_dump($_POST['id']);
-    if ($_POST['type'] == 'zasilacz') {
-        echo "<td><form method='POST'><input type='number' name='zasi' hidden value='" . $_POST['id'] . "'></form>";
-    }
-
-    $url = addToUrl($actual_link, $_POST['type'], $_POST['id']);
-    $url = addToUrl($url, 'type', '');
-
-    header('Location: ' . $url);
-}
-
-function addToUrl($url, $key, $value = null)
-{
-    $query = parse_url($url, PHP_URL_QUERY);
-    if ($query) {
-        parse_str($query, $queryParams);
-        $queryParams[$key] = $value;
-        $url = str_replace("?$query", '?' . http_build_query($queryParams), $url);
-    } else {
-        $url .= '?' . urlencode($key) . '=' . urlencode($value);
-    }
-    return $url;
-}
-function saveConfiguration($config)
-{
-    global $entityManager;
-
-    //$configuration = new Configurations();
-    //$configuration->setID_account($ID_account);
-    //$configuration->setID_cpu($ID_cpu);
-    //$configuration->setID_mb($ID_mb);
-    //$configuration->setID_ram($ID_ram);
-    //$configuration->setID_gpu($ID_gpu);
-    //$configuration->setID_zasilacz($ID_zasilacz);
-    //$configuration->setID_chlodzenie($ID_chlodzenie);
-    //$configuration->setID_hdd($ID_hdd);
-    //$configuration->setID_ssd($ID_ssd);
-    //$configuration->setID_obudowa($ID_obudowa);
-    //$configuration->setName($name);
-
-    //$entityManager->persist($configuration);
-    //$entityManager->flush();
-
-    echo "Konfiguracja została zapisana w bazie danych.";
-}
-$select = "";
-$account;
-$chlo = 0;
-$proc = 0;
-$obu = 0;
-$ssddy = 0;
-$hdddy = 0;
-$pami = 0;
-$graf = 0;
-$plyta = 0;
-$zasi = 0;
-
 function del_user($id)
 {
     $connectionParams = [
@@ -136,6 +72,7 @@ function del_user($id)
     <header>
         <h2 class="logo">Account</h2>
         <nav class="navigation">
+            <a href="konfigurepc.php">Configurate PC</a>
             <form action="#" method="get"><button class="button-out" name="button-out">Log out</button></form>
             <?php
             if (isset($_GET['button-out'])) {
