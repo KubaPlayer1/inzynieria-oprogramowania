@@ -354,20 +354,21 @@ $select = "";
 
 
             if (isset($_POST['cpu_id']) && isset($_POST['mb_id']) && isset($_POST['ram_id']) && isset($_POST['gpu_id']) && isset($_POST['zasilacz_id']) && isset($_POST['obudowa_id']) && isset($_POST['ssd_id']) && isset($_POST['hdd_id']) && isset($_POST['chlodzenie_id']) && isset($_POST['id']) && isset($_POST['account_id']) && isset($_POST['nazwa'])) {
-                $cpu_id = $_POST['cpu_id'];
-                $mb_id = $_POST['mb_id'];
-                $ram_id = $_POST['ram_id'];
-                $gpu_id = $_POST['gpu_id'];
-                $zasilacz_id = $_POST['zasilacz_id'];
-                $obudowa_id = $_POST['obudowa_id'];
-                $ssd_id = $_POST['ssd_id'];
-                $hdd_id = $_POST['hdd_id'];
-                $chlodzenie_id = $_POST['chlodzenie_id'];
-                $id = $_POST['id'];
-                $account_id = $_POST['account_id'];
-                $nazwa = $_POST['nazwa'];
+
                 print_r($_POST);
                 if (isset($_POST['edit'])) {
+                    $cpu_id = $_POST['cpu_id'];
+                    $mb_id = $_POST['mb_id'];
+                    $ram_id = $_POST['ram_id'];
+                    $gpu_id = $_POST['gpu_id'];
+                    $zasilacz_id = $_POST['zasilacz_id'];
+                    $obudowa_id = $_POST['obudowa_id'];
+                    $ssd_id = $_POST['ssd_id'];
+                    $hdd_id = $_POST['hdd_id'];
+                    $chlodzenie_id = $_POST['chlodzenie_id'];
+                    $id = $_POST['id'];
+                    $account_id = $_POST['account_id'];
+                    $nazwa = $_POST['nazwa'];
                     $nameofconfig = (new NameOfConfig())
                         ->setName($nazwa);
                     $entityManager->persist($nameofconfig);
@@ -377,6 +378,18 @@ $select = "";
                 }
 
                 if (isset($_POST['delete'])) {
+                    $cpu_id = $_POST['cpu_id'];
+                    $mb_id = $_POST['mb_id'];
+                    $ram_id = $_POST['ram_id'];
+                    $gpu_id = $_POST['gpu_id'];
+                    $zasilacz_id = $_POST['zasilacz_id'];
+                    $obudowa_id = $_POST['obudowa_id'];
+                    $ssd_id = $_POST['ssd_id'];
+                    $hdd_id = $_POST['hdd_id'];
+                    $chlodzenie_id = $_POST['chlodzenie_id'];
+                    $id = $_POST['id'];
+                    $account_id = $_POST['account_id'];
+                    $nazwa = $_POST['nazwa'];
 
                     $connectionParams = [
                         'dbname' => 'peryferia',

@@ -827,6 +827,28 @@ function del_user($id)
       }
     }
   }
+
+  function deleteConfig($id)
+  {
+    $connectionParams = [
+      'dbname' => 'peryferia',
+      'user' => 'root',
+      'password' => '',
+      'host' => 'localhost',
+      'driver' => 'mysqli',
+    ];
+    $conn = DriverManager::getConnection($connectionParams);
+    $entityManager = EntityManager::create(
+      $conn,
+      Setup::createAttributeMetadataConfiguration([__DIR__ . '/Entity'])
+    );
+    $single_config = $entityManager->find('Configurations', $id);
+
+    $entityManager->remove($single_config);
+
+    $entityManager->flush();
+  }
+
   if (isset($_POST['nazwa'])) {
     $connectionParams = [
       'dbname' => 'peryferia',
@@ -866,27 +888,47 @@ function del_user($id)
 
         foreach ($confi as $config) {
           if ($config->getName() == $nazwa) {
-            echo "This name of configuration exist on your account.";
-            $link = "konfigurepc.php?type=&cpu=" . $procesor . "&mb=" . $plyta_gl . "&ram=" . $pamiec . "&gpu=" . $grafika . "&zasilacz=" . $psu . "&chlodzenie_cpu=" . $chlodzenie . "&hdd=" . $wolny . "&ssd=" . $szybki . "&obudowa=" . $case . "";
-            header("Location: " . $link);
+            $zamieniana = $config->getID();
+            $nameOf = $config->getName();
+            //deleteConfig($zamieniana);
           }
         }
-        $configurations = (new Configurations())
-          ->setID_account($konto)
-          ->setID_cpu($procesor)
-          ->setID_mb($plyta_gl)
-          ->setID_ram($pamiec)
-          ->setID_gpu($grafika)
-          ->setID_zasilacz($psu)
-          ->setID_chlodzenie($chlodzenie)
-          ->setID_hdd($wolny)
-          ->setID_ssd($szybki)
-          ->setID_obudowa($case)
-          ->setName($nazwa);
+        if ($nameOf != null && $zamieniana != null) {
+          deleteConfig($zamieniana);
+          $configurations = (new Configurations())
+            ->setID_account($konto)
+            ->setID_cpu($procesor)
+            ->setID_mb($plyta_gl)
+            ->setID_ram($pamiec)
+            ->setID_gpu($grafika)
+            ->setID_zasilacz($psu)
+            ->setID_chlodzenie($chlodzenie)
+            ->setID_hdd($wolny)
+            ->setID_ssd($szybki)
+            ->setID_obudowa($case)
+            ->setName($nazwa);
 
-        $entityManager->persist($configurations);
-        $entityManager->flush();
-        header("Location: konfigurepc.php");
+          $entityManager->persist($configurations);
+          $entityManager->flush();
+          header("Location: konfigurepc.php");
+        } else {
+          $configurations = (new Configurations())
+            ->setID_account($konto)
+            ->setID_cpu($procesor)
+            ->setID_mb($plyta_gl)
+            ->setID_ram($pamiec)
+            ->setID_gpu($grafika)
+            ->setID_zasilacz($psu)
+            ->setID_chlodzenie($chlodzenie)
+            ->setID_hdd($wolny)
+            ->setID_ssd($szybki)
+            ->setID_obudowa($case)
+            ->setName($nazwa);
+
+          $entityManager->persist($configurations);
+          $entityManager->flush();
+          header("Location: konfigurepc.php");
+        }
       } else {
         echo "nie dodano nic do tabeli.";
       }
@@ -914,7 +956,7 @@ function del_user($id)
       const parts = value.split(`; nazwa=`);
       let data = parts.pop().split(';').shift();
       document.getElementById("nazwa").value = data;
-    }
+  }
   </script>
 
 
