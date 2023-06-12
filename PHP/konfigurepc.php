@@ -149,90 +149,90 @@ function del_user($id)
       <?php switch ($_GET['type']) {
         case "cpu":
           ?>
-        
-        <form method="GET" style="display: flex; align-items: center;">
-  <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
-  <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
-</form>
+
+          <form method="GET" style="display: flex; align-items: center;">
+            <input type="text" name="search" placeholder="Search.."
+              style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+            <input type="submit" value="Search"
+              style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+          </form>
           <?php
-          if((empty($_GET['search'])))
-          {
-            
-              $queryBuilder = $entityManager->createQueryBuilder();
-              $cpusQuery = $queryBuilder
-                  ->select('c')
-                  ->from(Cpu::class, 'c')
-                  ->getQuery();
-              $cpus = $cpusQuery->getResult();
-              ?>
-              <table>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Socket</th>
-              <th>Turbo</th>
-              <th>Cores</th>
-              <th>Threads</th>
-              <th>Add</th>
-            </tr>
+          if ((empty($_GET['search']))) {
 
-                  <?php
+            $queryBuilder = $entityManager->createQueryBuilder();
+            $cpusQuery = $queryBuilder
+              ->select('c')
+              ->from(Cpu::class, 'c')
+              ->getQuery();
+            $cpus = $cpusQuery->getResult();
+            ?>
+            <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Socket</th>
+                <th>Turbo</th>
+                <th>Cores</th>
+                <th>Threads</th>
+                <th>Add</th>
+              </tr>
 
-foreach ($cpus as $cpu) {
-  echo "<tr>";
-  echo "<td>" . $cpu->getId_cpu() . "</td>";
-  echo "<td>" . $cpu->getNazwa() . "</td>";
-  echo "<td>" . $cpu->getCpu_socket() . "</td>";
-  echo "<td>" . $cpu->getTurbo() . "</td>";
-  echo "<td>" . $cpu->getRdzenie() . "</td>";
-  echo "<td>" . $cpu->getWatki() . "</td>";
-  echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpu->getId_cpu() . "'></form></td>";
-  echo "</tr>";
-}
-                  ?>
-              </table>
-              
               <?php
-            
-          }
-          else{
-              $search = $_GET['search'];
-              $queryBuilder = $entityManager->createQueryBuilder();
-              $cpusQuery = $queryBuilder
-                  ->select('c')
-                  ->from(Cpu::class, 'c')
-                  ->where('c.nazwa LIKE :input')
-                  ->setParameter('input', '%' . $search . '%')
-                  ->getQuery();
-              $cpus = $cpusQuery->getResult();
+
+              foreach ($cpus as $cpu) {
+                echo "<tr>";
+                echo "<td>" . $cpu->getId_cpu() . "</td>";
+                echo "<td>" . $cpu->getNazwa() . "</td>";
+                echo "<td>" . $cpu->getCpu_socket() . "</td>";
+                echo "<td>" . $cpu->getTurbo() . "</td>";
+                echo "<td>" . $cpu->getRdzenie() . "</td>";
+                echo "<td>" . $cpu->getWatki() . "</td>";
+                echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpu->getId_cpu() . "'></form></td>";
+                echo "</tr>";
+              }
               ?>
-              <table>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Socket</th>
-              <th>Turbo</th>
-              <th>Cores</th>
-              <th>Threads</th>
-              <th>Add</th>
-            </tr>
-                  <?php
-                  foreach ($cpus as $cpu) {
-                    echo "<tr>";
-                    echo "<td>" . $cpu->getId_cpu() . "</td>";
-                    echo "<td>" . $cpu->getNazwa() . "</td>";
-                    echo "<td>" . $cpu->getCpu_socket() . "</td>";
-                    echo "<td>" . $cpu->getTurbo() . "</td>";
-                    echo "<td>" . $cpu->getRdzenie() . "</td>";
-                    echo "<td>" . $cpu->getWatki() . "</td>";
-                    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpu->getId_cpu() . "'></form></td>";
-                    echo "</tr>";
-                  }
-                  ?>
-              </table>
+            </table>
+
+            <?php
+
+          } else {
+            $search = $_GET['search'];
+            $queryBuilder = $entityManager->createQueryBuilder();
+            $cpusQuery = $queryBuilder
+              ->select('c')
+              ->from(Cpu::class, 'c')
+              ->where('c.nazwa LIKE :input')
+              ->setParameter('input', '%' . $search . '%')
+              ->getQuery();
+            $cpus = $cpusQuery->getResult();
+            ?>
+            <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Socket</th>
+                <th>Turbo</th>
+                <th>Cores</th>
+                <th>Threads</th>
+                <th>Add</th>
+              </tr>
               <?php
+              foreach ($cpus as $cpu) {
+                echo "<tr>";
+                echo "<td>" . $cpu->getId_cpu() . "</td>";
+                echo "<td>" . $cpu->getNazwa() . "</td>";
+                echo "<td>" . $cpu->getCpu_socket() . "</td>";
+                echo "<td>" . $cpu->getTurbo() . "</td>";
+                echo "<td>" . $cpu->getRdzenie() . "</td>";
+                echo "<td>" . $cpu->getWatki() . "</td>";
+                echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpu->getId_cpu() . "'></form></td>";
+                echo "</tr>";
+              }
+              ?>
+            </table>
+            <?php
           }
-      
+
           break;
         case 'chlodzenie_cpu':
           $queryBuilder = $entityManager->createQueryBuilder();
