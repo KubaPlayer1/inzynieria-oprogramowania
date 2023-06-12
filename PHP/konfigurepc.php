@@ -235,132 +235,305 @@ function del_user($id)
 
           break;
         case 'chlodzenie_cpu':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $cpusCQuery = $queryBuilder
-            ->select('c')
-            ->from(CpuCooler::class, 'c')
-            ->getQuery();
-          $cpusC = $cpusCQuery->getResult();
           ?>
-          <table>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Max TDP</th>
-              <th>Socket</th>
-              <th>Heigth</th>
-              <th>Width</th>
-              <th>Depth</th>
-              <th>Count of heatpipes</th>
-              <th>Size of heatpipe</th>
-              <th>Add</th>
-            </tr>
-
+        
+          <form method="GET" style="display: flex; align-items: center;">
+    <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+    <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+  </form>
             <?php
-
-            foreach ($cpusC as $cpuC) {
-              echo "<tr>";
-              echo "<td>" . $cpuC->getId_chlodzenie_cpu() . "</td>";
-              echo "<td>" . $cpuC->getNazwa() . "</td>";
-              echo "<td>" . $cpuC->getMaks_TDP() . "</td>";
-              echo "<td>" . $cpuC->getSocket() . "</td>";
-              echo "<td>" . $cpuC->getWysokosc() . "</td>";
-              echo "<td>" . $cpuC->getSzerokosc() . "</td>";
-              echo "<td>" . $cpuC->getGlebokosc() . "</td>";
-              echo "<td>" . $cpuC->getIlosc_cieplowodow() . "</td>";
-              echo "<td>" . $cpuC->getSrednica_cieplowodow() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpuC->getId_chlodzenie_cpu() . "'></form></td>";
-              echo "</tr>";
+            if((empty($_GET['search'])))
+            {
+              
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $cpuCQuery = $queryBuilder
+                    ->select('c')
+                    ->from(CpuCooler::class, 'c')
+                    ->getQuery();
+                $cpusC = $cpusCQuery->getResult();
+                ?>
+                <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Max TDP</th>
+                <th>Socket</th>
+                <th>Heigth</th>
+                <th>Width</th>
+                <th>Depth</th>
+                <th>Count of heatpipes</th>
+                <th>Size of heatpipe</th>
+                <th>Add</th>
+              </tr>
+  
+                    <?php
+  
+  foreach ($cpusC as $cpuC) {
+    echo "<tr>";
+    echo "<td>" . $cpuC->getId_chlodzenie_cpu() . "</td>";
+    echo "<td>" . $cpuC->getNazwa() . "</td>";
+    echo "<td>" . $cpuC->getMaks_TDP() . "</td>";
+    echo "<td>" . $cpuC->getSocket() . "</td>";
+    echo "<td>" . $cpuC->getWysokosc() . "</td>";
+    echo "<td>" . $cpuC->getSzerokosc() . "</td>";
+    echo "<td>" . $cpuC->getGlebokosc() . "</td>";
+    echo "<td>" . $cpuC->getIlosc_cieplowodow() . "</td>";
+    echo "<td>" . $cpuC->getSrednica_cieplowodow() . "</td>";
+    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpuC->getId_chlodzenie_cpu() . "'></form></td>";
+    echo "</tr>";
+  }
+                    ?>
+                </table>
+                
+                <?php
+              
             }
-            ?>
-          </table>
-          <?php
-          break;
+            else{
+                $search = $_GET['search'];
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $hddQuery = $queryBuilder
+                    ->select('c')
+                    ->from(CpuCooler::class, 'c')
+                    ->where('c.nazwa LIKE :input')
+                    ->setParameter('input', '%' . $search . '%')
+                    ->getQuery();
+                $cpusC = $cpusCQuery->getResult();
+                ?>
+                <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Max TDP</th>
+                <th>Socket</th>
+                <th>Heigth</th>
+                <th>Width</th>
+                <th>Depth</th>
+                <th>Count of heatpipes</th>
+                <th>Size of heatpipe</th>
+                <th>Add</th>
+              </tr>
+                    <?php
+                    foreach ($cpusC as $cpuC) {
+                      echo "<tr>";
+                      echo "<td>" . $cpuC->getId_chlodzenie_cpu() . "</td>";
+                      echo "<td>" . $cpuC->getNazwa() . "</td>";
+                      echo "<td>" . $cpuC->getMaks_TDP() . "</td>";
+                      echo "<td>" . $cpuC->getSocket() . "</td>";
+                      echo "<td>" . $cpuC->getWysokosc() . "</td>";
+                      echo "<td>" . $cpuC->getSzerokosc() . "</td>";
+                      echo "<td>" . $cpuC->getGlebokosc() . "</td>";
+                      echo "<td>" . $cpuC->getIlosc_cieplowodow() . "</td>";
+                      echo "<td>" . $cpuC->getSrednica_cieplowodow() . "</td>";
+                      echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $cpuC->getId_chlodzenie_cpu() . "'></form></td>";
+                      echo "</tr>";
+                    }
+                    ?>
+                </table>
+                <?php
+            }
+        
+            break;
         case 'hdd':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $hddQuery = $queryBuilder
-            ->select('c')
-            ->from(Hdd::class, 'c')
-            ->getQuery();
-          $hdds = $hddQuery->getResult();
           ?>
-          <table>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Format</th>
-              <th>Interface</th>
-              <th>ROM memory</th>
-              <th>Capacity</th>
-              <th>Speed</th>
-              <th>Add</th>
-            </tr>
-
+        
+          <form method="GET" style="display: flex; align-items: center;">
+    <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+    <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+  </form>
             <?php
-
-            foreach ($hdds as $hdd) {
-              echo "<tr>";
-              echo "<td>" . $hdd->getId_hdd() . "</td>";
-              echo "<td>" . $hdd->getNazwa() . "</td>";
-              echo "<td>" . $hdd->getFormat() . "</td>";
-              echo "<td>" . $hdd->getInterfejs() . "</td>";
-              echo "<td>" . $hdd->getPamiec_podreczna() . "</td>";
-              echo "<td>" . $hdd->getPojemnosc() . "</td>";
-              echo "<td>" . $hdd->getPredkosc() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $hdd->getId_hdd() . "'></form></td>";
-              echo "</tr>";
+            if((empty($_GET['search'])))
+            {
+              
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $hddQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Hdd::class, 'c')
+                    ->getQuery();
+                $hdds = $hddQuery->getResult();
+                ?>
+                <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Format</th>
+                <th>Interface</th>
+                <th>ROM memory</th>
+                <th>Capacity</th>
+                <th>Speed</th>
+                <th>Add</th>
+              </tr>
+  
+                    <?php
+  
+  foreach ($hdds as $hdd) {
+    echo "<tr>";
+    echo "<td>" . $hdd->getId_hdd() . "</td>";
+    echo "<td>" . $hdd->getNazwa() . "</td>";
+    echo "<td>" . $hdd->getFormat() . "</td>";
+    echo "<td>" . $hdd->getInterfejs() . "</td>";
+    echo "<td>" . $hdd->getPamiec_podreczna() . "</td>";
+    echo "<td>" . $hdd->getPojemnosc() . "</td>";
+    echo "<td>" . $hdd->getPredkosc() . "</td>";
+    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $hdd->getId_hdd() . "'></form></td>";
+    echo "</tr>";
+  }
+                    ?>
+                </table>
+                
+                <?php
+              
             }
-            ?>
-          </table>
-          <?php
-          break;
+            else{
+                $search = $_GET['search'];
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $hddQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Hdd::class, 'c')
+                    ->where('c.nazwa LIKE :input')
+                    ->setParameter('input', '%' . $search . '%')
+                    ->getQuery();
+                $hdds = $hddQuery->getResult();
+                ?>
+                <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Format</th>
+                <th>Interface</th>
+                <th>ROM memory</th>
+                <th>Capacity</th>
+                <th>Speed</th>
+                <th>Add</th>
+              </tr>
+                    <?php
+                    foreach ($hdds as $hdd) {
+                      echo "<tr>";
+                      echo "<td>" . $hdd->getId_hdd() . "</td>";
+                      echo "<td>" . $hdd->getNazwa() . "</td>";
+                      echo "<td>" . $hdd->getFormat() . "</td>";
+                      echo "<td>" . $hdd->getInterfejs() . "</td>";
+                      echo "<td>" . $hdd->getPamiec_podreczna() . "</td>";
+                      echo "<td>" . $hdd->getPojemnosc() . "</td>";
+                      echo "<td>" . $hdd->getPredkosc() . "</td>";
+                      echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $hdd->getId_hdd() . "'></form></td>";
+                      echo "</tr>";
+                    }
+                    ?>
+                </table>
+                <?php
+            }
+        
+            break;
         case 'ssd':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $ssdQuery = $queryBuilder
-            ->select('c')
-            ->from(Ssd::class, 'c')
-            ->getQuery();
-          $ssds = $ssdQuery->getResult();
           ?>
-          <table>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Interface</th>
-              <th>Capacity</th>
-              <th>Format</th>
-              <th>Reading</th>
-              <th>Saving</th>
-              <th>Add</th>
-            </tr>
-
-            <?php
-
-            foreach ($ssds as $ssd) {
-              echo "<tr>";
-              echo "<td>" . $ssd->getId() . "</td>";
-              echo "<td>" . $ssd->getNazwa() . "</td>";
-              echo "<td>" . $ssd->getInterfejs() . "</td>";
-              echo "<td>" . $ssd->getPojemnosc() . "</td>";
-              echo "<td>" . $ssd->getFormat() . "</td>";
-              echo "<td>" . $ssd->getOdczyt() . "</td>";
-              echo "<td>" . $ssd->getZapis() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ssd->getId() . "'></form></td>";
-              echo "</tr>";
-            }
-            ?>
-          </table>
-          <?php
-          break;
+        
+          <form method="GET" style="display: flex; align-items: center;">
+    <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+    <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+  </form>
+                      <?php
+                      if((empty($_GET['search'])))
+                      {
+                        
+                          $queryBuilder = $entityManager->createQueryBuilder();
+                          $ssdQuery = $queryBuilder
+                              ->select('c')
+                              ->from(Ssd::class, 'c')
+                              ->getQuery();
+                          $ssds = $ssdQuery->getResult();
+                          ?>
+                          <table>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Name</th>
+                                  <th>Interface</th>
+                                  <th>Capacity</th>
+                                  <th>Format</th>
+                                  <th>Reading</th>
+                                  <th>Saving</th>
+                                  <th>Add</th>
+                              </tr>
+          
+                              <?php
+          
+                              foreach ($ssds as $ssd) {
+                                  echo "<tr>";
+                                  echo "<td>" . $ssd->getId() . "</td>";
+                                  echo "<td>" . $ssd->getNazwa() . "</td>";
+                                  echo "<td>" . $ssd->getInterfejs() . "</td>";
+                                  echo "<td>" . $ssd->getPojemnosc() . "</td>";
+                                  echo "<td>" . $ssd->getFormat() . "</td>";
+                                  echo "<td>" . $ssd->getOdczyt() . "</td>";
+                                  echo "<td>" . $ssd->getZapis() . "</td>";
+                                  echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ssd->getId() . "'></form></td>";
+                                  echo "</tr>";
+                              }
+                              ?>
+                          </table>
+                          
+                          <?php
+                        
+                      }
+                      else{
+                          $search = $_GET['search'];
+                          $queryBuilder = $entityManager->createQueryBuilder();
+                          $ssdQuery = $queryBuilder
+                              ->select('c')
+                              ->from(Ssd::class, 'c')
+                              ->where('c.nazwa LIKE :input')
+                              ->setParameter('input', '%' . $search . '%')
+                              ->getQuery();
+                          $ssds = $ssdQuery->getResult();
+                          ?>
+                          <table>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Name</th>
+                                  <th>Interface</th>
+                                  <th>Capacity</th>
+                                  <th>Format</th>
+                                  <th>Reading</th>
+                                  <th>Saving</th>
+                                  <th>Add</th>
+                              </tr>
+                              <?php
+                              foreach ($ssds as $ssd) {
+                                  echo "<tr>";
+                                  echo "<td>" . $ssd->getId() . "</td>";
+                                  echo "<td>" . $ssd->getNazwa() . "</td>";
+                                  echo "<td>" . $ssd->getInterfejs() . "</td>";
+                                  echo "<td>" . $ssd->getPojemnosc() . "</td>";
+                                  echo "<td>" . $ssd->getFormat() . "</td>";
+                                  echo "<td>" . $ssd->getOdczyt() . "</td>";
+                                  echo "<td>" . $ssd->getZapis() . "</td>";
+                                  echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ssd->getId() . "'></form></td>";
+                                  echo "</tr>";
+                              }
+                              ?>
+                          </table>
+                          <?php
+                      }
+                  
+                      break;
         case 'gpu':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $gpusQuery = $queryBuilder
-            ->select('c')
-            ->from(Gpu::class, 'c')
-            ->getQuery();
-          $gpus = $gpusQuery->getResult();
           ?>
-          <table>
+        
+        <form method="GET" style="display: flex; align-items: center;">
+  <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+  <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+</form>
+          <?php
+          if((empty($_GET['search'])))
+          {
+            
+              $queryBuilder = $entityManager->createQueryBuilder();
+              $gpusQuery = $queryBuilder
+                  ->select('c')
+                  ->from(Gpu::class, 'c')
+                  ->getQuery();
+              $gpus = $gpusQuery->getResult();
+              ?>
+              <table>
             <tr>
               <th>ID</th>
               <th>Name</th>
@@ -373,34 +546,89 @@ function del_user($id)
               <th>Add</th>
             </tr>
 
-            <?php
+                  <?php
 
-            foreach ($gpus as $gpu) {
-              echo "<tr>";
-              echo "<td>" . $gpu->getId_gpu() . "</td>";
-              echo "<td>" . $gpu->getNazwa() . "</td>";
-              echo "<td>" . $gpu->getProducent_chipsetu() . "</td>";
-              echo "<td>" . $gpu->getDlugosc_karty() . "</td>";
-              echo "<td>" . $gpu->getIlosc_ram() . "</td>";
-              echo "<td>" . $gpu->getRodzaj_chipsetu() . "</td>";
-              echo "<td>" . $gpu->getRekomendowana_moc_zasilacza() . "</td>";
-              echo "<td>" . $gpu->getTaktowanie_rdzenia_boost() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $gpu->getId_gpu() . "'></form></td>";
-              echo "</tr>";
-            }
-            ?>
-          </table>
-          <?php
+foreach ($gpus as $gpu) {
+  echo "<tr>";
+  echo "<td>" . $gpu->getId_gpu() . "</td>";
+  echo "<td>" . $gpu->getNazwa() . "</td>";
+  echo "<td>" . $gpu->getProducent_chipsetu() . "</td>";
+  echo "<td>" . $gpu->getDlugosc_karty() . "</td>";
+  echo "<td>" . $gpu->getIlosc_ram() . "</td>";
+  echo "<td>" . $gpu->getRodzaj_chipsetu() . "</td>";
+  echo "<td>" . $gpu->getRekomendowana_moc_zasilacza() . "</td>";
+  echo "<td>" . $gpu->getTaktowanie_rdzenia_boost() . "</td>";
+  echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $gpu->getId_gpu() . "'></form></td>";
+  echo "</tr>";
+}
+                  ?>
+              </table>
+              
+              <?php
+            
+          }
+          else{
+              $search = $_GET['search'];
+              $queryBuilder = $entityManager->createQueryBuilder();
+              $gpusQuery = $queryBuilder
+                  ->select('c')
+                  ->from(Gpu::class, 'c')
+                  ->where('c.nazwa LIKE :input')
+                  ->setParameter('input', '%' . $search . '%')
+                  ->getQuery();
+              $gpus = $gpusQuery->getResult();
+              ?>
+              <table>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Chipset manufacturer</th>
+              <th>Length</th>
+              <th>RAM</th>
+              <th>Chipset type</th>
+              <th>Recomended PSU power</th>
+              <th>BOOST</th>
+              <th>Add</th>
+            </tr>
+                  <?php
+                  foreach ($gpus as $gpu) {
+                    echo "<tr>";
+                    echo "<td>" . $gpu->getId_gpu() . "</td>";
+                    echo "<td>" . $gpu->getNazwa() . "</td>";
+                    echo "<td>" . $gpu->getProducent_chipsetu() . "</td>";
+                    echo "<td>" . $gpu->getDlugosc_karty() . "</td>";
+                    echo "<td>" . $gpu->getIlosc_ram() . "</td>";
+                    echo "<td>" . $gpu->getRodzaj_chipsetu() . "</td>";
+                    echo "<td>" . $gpu->getRekomendowana_moc_zasilacza() . "</td>";
+                    echo "<td>" . $gpu->getTaktowanie_rdzenia_boost() . "</td>";
+                    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $gpu->getId_gpu() . "'></form></td>";
+                    echo "</tr>";
+                  }
+                  ?>
+              </table>
+              <?php
+          }
+      
           break;
         case 'obudowa':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $obudowaQuery = $queryBuilder
-            ->select('c')
-            ->from(Obudowa::class, 'c')
-            ->getQuery();
-          $obudowy = $obudowaQuery->getResult();
           ?>
-          <table>
+        
+        <form method="GET" style="display: flex; align-items: center;">
+  <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+  <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+</form>
+          <?php
+          if((empty($_GET['search'])))
+          {
+            
+              $queryBuilder = $entityManager->createQueryBuilder();
+              $obudowaQuery = $queryBuilder
+                  ->select('c')
+                  ->from(Obudowa::class, 'c')
+                  ->getQuery();
+              $obudowy = $obudowaQuery->getResult();
+              ?>
+             <table>
             <tr>
               <th>ID</th>
               <th>Name</th>
@@ -413,74 +641,185 @@ function del_user($id)
               <th>Add</th>
             </tr>
 
-            <?php
+                  <?php
 
-            foreach ($obudowy as $obudowa) {
-              echo "<tr>";
-              echo "<td>" . $obudowa->getId_obudowa() . "</td>";
-              echo "<td>" . $obudowa->getNazwa() . "</td>";
-              echo "<td>" . $obudowa->getStandard() . "</td>";
-              echo "<td>" . $obudowa->getMaks_dlugosc_karty_graf() . "</td>";
-              echo "<td>" . $obudowa->getTyp_obudowy() . "</td>";
-              echo "<td>" . $obudowa->getWysokosc() . "</td>";
-              echo "<td>" . $obudowa->getSzerokosc() . "</td>";
-              echo "<td>" . $obudowa->getGlebokosc() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $obudowa->getId_obudowa() . "'></form></td>";
-              echo "</tr>";
-            }
-            ?>
-          </table>
-          <?php
-          break;
-        case 'mb':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $moboQuery = $queryBuilder
-            ->select('c')
-            ->from(Mb::class, 'c')
-            ->getQuery();
-          $mobos = $moboQuery->getResult();
-          ?>
-          <table>
+foreach ($obudowy as $obudowa) {
+  echo "<tr>";
+  echo "<td>" . $obudowa->getId_obudowa() . "</td>";
+  echo "<td>" . $obudowa->getNazwa() . "</td>";
+  echo "<td>" . $obudowa->getStandard() . "</td>";
+  echo "<td>" . $obudowa->getMaks_dlugosc_karty_graf() . "</td>";
+  echo "<td>" . $obudowa->getTyp_obudowy() . "</td>";
+  echo "<td>" . $obudowa->getWysokosc() . "</td>";
+  echo "<td>" . $obudowa->getSzerokosc() . "</td>";
+  echo "<td>" . $obudowa->getGlebokosc() . "</td>";
+  echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $obudowa->getId_obudowa() . "'></form></td>";
+  echo "</tr>";
+}
+                  ?>
+              </table>
+              
+              <?php
+            
+          }
+          else{
+              $search = $_GET['search'];
+              $queryBuilder = $entityManager->createQueryBuilder();
+              $obudowaQuery = $queryBuilder
+                  ->select('c')
+                  ->from(Obudowa::class, 'c')
+                  ->where('c.nazwa LIKE :input')
+                  ->setParameter('input', '%' . $search . '%')
+                  ->getQuery();
+              $obudowy = $obudowaQuery->getResult();
+              ?>
+              <table>
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Mb chipset</th>
-              <th>CPU socket</th>
-              <th>RAM slots</th>
-              <th>Mb standard</th>
-              <th>RAM standard</th>
-              <th>Max RAM capacity</th>
+              <th>Standard</th>
+              <th>Max size of GPU</th>
+              <th>Type</th>
+              <th>Heigth</th>
+              <th>Width</th>
+              <th>Depth</th>
               <th>Add</th>
             </tr>
-
-            <?php
-
-            foreach ($mobos as $mb) {
-              echo "<tr>";
-              echo "<td>" . $mb->getId_mb() . "</td>";
-              echo "<td>" . $mb->getNazwa() . "</td>";
-              echo "<td>" . $mb->getChipset_plyty() . "</td>";
-              echo "<td>" . $mb->getGniazdo_procesora() . "</td>";
-              echo "<td>" . $mb->getLiczba_slotow_pamieci() . "</td>";
-              echo "<td>" . $mb->getStandard_plyty() . "</td>";
-              echo "<td>" . $mb->getStandard_pamieci() . "</td>";
-              echo "<td>" . $mb->getMaks_ilosc_pamieci_ram() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $mb->getId_mb() . "'></form></td>";
-              echo "</tr>";
-            }
-            ?>
-          </table>
-          <?php
+                  <?php
+                  foreach ($obudowy as $obudowa) {
+                    echo "<tr>";
+                    echo "<td>" . $obudowa->getId_obudowa() . "</td>";
+                    echo "<td>" . $obudowa->getNazwa() . "</td>";
+                    echo "<td>" . $obudowa->getStandard() . "</td>";
+                    echo "<td>" . $obudowa->getMaks_dlugosc_karty_graf() . "</td>";
+                    echo "<td>" . $obudowa->getTyp_obudowy() . "</td>";
+                    echo "<td>" . $obudowa->getWysokosc() . "</td>";
+                    echo "<td>" . $obudowa->getSzerokosc() . "</td>";
+                    echo "<td>" . $obudowa->getGlebokosc() . "</td>";
+                    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $obudowa->getId_obudowa() . "'></form></td>";
+                    echo "</tr>";
+                  }
+                  ?>
+              </table>
+              <?php
+          }
+      
           break;
-        case 'ram':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $ramQuery = $queryBuilder
-            ->select('c')
-            ->from(Ram::class, 'c')
-            ->getQuery();
-          $ramMemories = $ramQuery->getResult();
+        case 'mb':
           ?>
-          <table>
+        
+          <form method="GET" style="display: flex; align-items: center;">
+    <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+    <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+  </form>
+            <?php
+            if((empty($_GET['search'])))
+            {
+              
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $moboQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Mb::class, 'c')
+                    ->getQuery();
+                $mobos = $moboQuery->getResult();
+                ?>
+               <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Mb chipset</th>
+                <th>CPU socket</th>
+                <th>RAM slots</th>
+                <th>Mb standard</th>
+                <th>RAM standard</th>
+                <th>Max RAM capacity</th>
+                <th>Add</th>
+              </tr>
+  
+                    <?php
+  
+  foreach ($mobos as $mb) {
+    echo "<tr>";
+    echo "<td>" . $mb->getId_mb() . "</td>";
+    echo "<td>" . $mb->getNazwa() . "</td>";
+    echo "<td>" . $mb->getChipset_plyty() . "</td>";
+    echo "<td>" . $mb->getGniazdo_procesora() . "</td>";
+    echo "<td>" . $mb->getLiczba_slotow_pamieci() . "</td>";
+    echo "<td>" . $mb->getStandard_plyty() . "</td>";
+    echo "<td>" . $mb->getStandard_pamieci() . "</td>";
+    echo "<td>" . $mb->getMaks_ilosc_pamieci_ram() . "</td>";
+    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $mb->getId_mb() . "'></form></td>";
+    echo "</tr>";
+  }
+                    ?>
+                </table>
+                
+                <?php
+              
+            }
+            else{
+                $search = $_GET['search'];
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $moboQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Mb::class, 'c')
+                    ->where('c.nazwa LIKE :input')
+                    ->setParameter('input', '%' . $search . '%')
+                    ->getQuery();
+                $mobos = $moboQuery->getResult();
+                ?>
+                <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Mb chipset</th>
+                <th>CPU socket</th>
+                <th>RAM slots</th>
+                <th>Mb standard</th>
+                <th>RAM standard</th>
+                <th>Max RAM capacity</th>
+                <th>Add</th>
+              </tr>
+                    <?php
+                     foreach ($mobos as $mb) {
+                      echo "<tr>";
+                      echo "<td>" . $mb->getId_mb() . "</td>";
+                      echo "<td>" . $mb->getNazwa() . "</td>";
+                      echo "<td>" . $mb->getChipset_plyty() . "</td>";
+                      echo "<td>" . $mb->getGniazdo_procesora() . "</td>";
+                      echo "<td>" . $mb->getLiczba_slotow_pamieci() . "</td>";
+                      echo "<td>" . $mb->getStandard_plyty() . "</td>";
+                      echo "<td>" . $mb->getStandard_pamieci() . "</td>";
+                      echo "<td>" . $mb->getMaks_ilosc_pamieci_ram() . "</td>";
+                      echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $mb->getId_mb() . "'></form></td>";
+                      echo "</tr>";
+                    }
+                    ?>
+                </table>
+                <?php
+            }
+        
+            break;
+        case 'ram':
+          ?>
+        
+        <form method="GET" style="display: flex; align-items: center;">
+  <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+  <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+</form>
+          <?php
+          if((empty($_GET['search'])))
+          {
+            
+              $queryBuilder = $entityManager->createQueryBuilder();
+              $moboQuery = $queryBuilder
+                  ->select('c')
+                  ->from(Ram::class, 'c')
+                  ->getQuery();
+              $ramMemories = $ramQuery->getResult();
+              ?>
+             <table>
+             <table>
             <tr>
               <th>ID</th>
               <th>Name</th>
@@ -492,66 +831,169 @@ function del_user($id)
               <th>Add</th>
             </tr>
 
-            <?php
+                  <?php
 
-            foreach ($ramMemories as $ram) {
-              echo "<tr>";
-              echo "<td>" . $ram->getId_ram() . "</td>";
-              echo "<td>" . $ram->getNazwa() . "</td>";
-              echo "<td>" . $ram->getCzestotliwosc() . "</td>";
-              echo "<td>" . $ram->getLiczba_modulow() . "</td>";
-              echo "<td>" . $ram->getLaczna_pamiec() . "</td>";
-              echo "<td>" . $ram->getOpluznienie() . "</td>";
-              echo "<td>" . $ram->getTyp_pamieci() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ram->getId_ram() . "'></form></td>";
-              echo "</tr>";
-            }
-            ?>
-          </table>
-          <?php
-          break;
-        case 'zasilacz':
-          $queryBuilder = $entityManager->createQueryBuilder();
-          $zasilaczeQuery = $queryBuilder
-            ->select('c')
-            ->from(Zasilacz::class, 'c')
-            ->getQuery();
-          $zasilacze = $zasilaczeQuery->getResult();
-          ?>
-          <table>
+foreach ($ramMemories as $ram) {
+  echo "<tr>";
+  echo "<td>" . $ram->getId_ram() . "</td>";
+  echo "<td>" . $ram->getNazwa() . "</td>";
+  echo "<td>" . $ram->getCzestotliwosc() . "</td>";
+  echo "<td>" . $ram->getLiczba_modulow() . "</td>";
+  echo "<td>" . $ram->getLaczna_pamiec() . "</td>";
+  echo "<td>" . $ram->getOpluznienie() . "</td>";
+  echo "<td>" . $ram->getTyp_pamieci() . "</td>";
+  echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ram->getId_ram() . "'></form></td>";
+  echo "</tr>";
+}
+                  ?>
+              </table>
+              
+              <?php
+            
+          }
+          else{
+              $search = $_GET['search'];
+              $queryBuilder = $entityManager->createQueryBuilder();
+              $ramQuery = $queryBuilder
+                  ->select('c')
+                  ->from(Ram::class, 'c')
+                  ->where('c.nazwa LIKE :input')
+                  ->setParameter('input', '%' . $search . '%')
+                  ->getQuery();
+              $ramMemories = $ramQuery->getResult();
+              ?>
+              <table>
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Certyficate</th>
-              <th>Fan size</th>
-              <th>Power</th>
-              <th>Standard</th>
-              <th>Heigth</th>
-              <th>Width</th>
-              <th>Depth</th>
+              <th>Friquency</th>
+              <th>How much modules</th>
+              <th>Capacity</th>
+              <th>CLI</th>
+              <th>Type</th>
               <th>Add</th>
             </tr>
-
-            <?php
-
-            foreach ($zasilacze as $zasilacz) {
-              echo "<tr>";
-              echo "<td>" . $zasilacz->getId_zasilacz() . "</td>";
-              echo "<td>" . $zasilacz->getNazwa() . "</td>";
-              echo "<td>" . $zasilacz->getCertyfikat() . "</td>";
-              echo "<td>" . $zasilacz->getSrednica_wentylatora() . "</td>";
-              echo "<td>" . $zasilacz->getMoc() . "</td>";
-              echo "<td>" . $zasilacz->getStandard() . "</td>";
-              echo "<td>" . $zasilacz->getWysokosc() . "</td>";
-              echo "<td>" . $zasilacz->getSzerokosc() . "</td>";
-              echo "<td>" . $zasilacz->getGlebokosc() . "</td>";
-              echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $zasilacz->getId_zasilacz() . "'></form></td>";
-              echo "</tr>";
-            }
-            ?>
-          </table>
-          <?php
+                  <?php
+                  foreach ($ramMemories as $ram) {
+                    echo "<tr>";
+                    echo "<td>" . $ram->getId_ram() . "</td>";
+                    echo "<td>" . $ram->getNazwa() . "</td>";
+                    echo "<td>" . $ram->getCzestotliwosc() . "</td>";
+                    echo "<td>" . $ram->getLiczba_modulow() . "</td>";
+                    echo "<td>" . $ram->getLaczna_pamiec() . "</td>";
+                    echo "<td>" . $ram->getOpluznienie() . "</td>";
+                    echo "<td>" . $ram->getTyp_pamieci() . "</td>";
+                    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $ram->getId_ram() . "'></form></td>";
+                    echo "</tr>";
+                  }
+                  ?>
+              </table>
+              <?php
+          }
+      
           break;
+        case 'zasilacz':
+          ?>
+        
+          <form method="GET" style="display: flex; align-items: center;">
+    <input type="text" name="search" placeholder="Search.." style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;">
+    <input type="submit" value="Search" style="padding: 10px 20px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; margin-left: 10px; cursor: pointer;">
+  </form>
+            <?php
+            if((empty($_GET['search'])))
+            {
+              
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $zasilaczeQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Zasilacz::class, 'c')
+                    ->getQuery();
+                $zasilacze = $zasilaczeQuery->getResult();
+                ?>
+               
+               <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Certyficate</th>
+                <th>Fan size</th>
+                <th>Power</th>
+                <th>Standard</th>
+                <th>Heigth</th>
+                <th>Width</th>
+                <th>Depth</th>
+                <th>Add</th>
+              </tr>
+  
+                    <?php
+  
+  foreach ($zasilacze as $zasilacz) {
+    echo "<tr>";
+    echo "<td>" . $zasilacz->getId_zasilacz() . "</td>";
+    echo "<td>" . $zasilacz->getNazwa() . "</td>";
+    echo "<td>" . $zasilacz->getCertyfikat() . "</td>";
+    echo "<td>" . $zasilacz->getSrednica_wentylatora() . "</td>";
+    echo "<td>" . $zasilacz->getMoc() . "</td>";
+    echo "<td>" . $zasilacz->getStandard() . "</td>";
+    echo "<td>" . $zasilacz->getWysokosc() . "</td>";
+    echo "<td>" . $zasilacz->getSzerokosc() . "</td>";
+    echo "<td>" . $zasilacz->getGlebokosc() . "</td>";
+    echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $zasilacz->getId_zasilacz() . "'></form></td>";
+    echo "</tr>";
+  }
+                    ?>
+                </table>
+                
+                <?php
+              
+            }
+            else{
+                $search = $_GET['search'];
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $zasilaczQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Zasilacz::class, 'c')
+                    ->where('c.nazwa LIKE :input')
+                    ->setParameter('input', '%' . $search . '%')
+                    ->getQuery();
+                $zasilacze = $zasilaczQuery->getResult();
+                ?>
+                <table>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Certyficate</th>
+                <th>Fan size</th>
+                <th>Power</th>
+                <th>Standard</th>
+                <th>Heigth</th>
+                <th>Width</th>
+                <th>Depth</th>
+                <th>Add</th>
+              
+              </tr>
+                    <?php
+                    foreach ($zasilacze as $zasilacz) {
+                      echo "<tr>";
+                      echo "<td>" . $zasilacz->getId_zasilacz() . "</td>";
+                      echo "<td>" . $zasilacz->getNazwa() . "</td>";
+                      echo "<td>" . $zasilacz->getCertyfikat() . "</td>";
+                      echo "<td>" . $zasilacz->getSrednica_wentylatora() . "</td>";
+                      echo "<td>" . $zasilacz->getMoc() . "</td>";
+                      echo "<td>" . $zasilacz->getStandard() . "</td>";
+                      echo "<td>" . $zasilacz->getWysokosc() . "</td>";
+                      echo "<td>" . $zasilacz->getSzerokosc() . "</td>";
+                      echo "<td>" . $zasilacz->getGlebokosc() . "</td>";
+                      echo "<td><form method='POST'><button type='submit'>Add</button><input type='text' name='type' hidden value='" . $_GET['type'] . "'><input name='id' type='number' hidden value='" . $zasilacz->getId_zasilacz() . "'></form></td>";
+                      echo "</tr>";
+                    }
+                    ?>
+                </table>
+                <?php
+            }
+        
+            break;
+        
         default:
           echo "Nieprawidłowe dane!";
           break;
