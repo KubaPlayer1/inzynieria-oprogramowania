@@ -674,3 +674,89 @@ header .icon:hover {
   font-size: 200%;
   padding-bottom: 20px;
 }
+
+.add{
+  position: relative;
+  align-items: left;
+  backdrop-filter: blur(20px);
+  text-align: left;
+  width: 35%;
+  height: auto;
+  font-size: 200%;
+}
+
+.add input{
+  width: 100%;
+  height: 40px;
+  background-color: transparent;
+  border: 2px solid;
+}
+
+.add button{
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background: transparent;
+  border: 2px solid;
+  outline: none;
+  margin-top: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.5s;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.add button:hover{
+  background-color: black;
+  color: rgb(247, 0, 255);
+}
+
+.add select{
+  width: 150px;
+  height: 35px;
+  border: 2px solid;
+  font-size: 100%;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.add select:hover{
+  background-color: black;
+  color: rgb(247, 0, 255);
+}
+
+.parts{
+  transform: translateY(5%);
+  position: relative;
+  align-items: left;
+  backdrop-filter: blur(20px);
+  text-align: left;
+  width: 40%;
+  height: auto;
+  font-size: 200%;
+}
+
+.parts button{
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background: transparent;
+  border: 2px solid;
+  outline: none;
+  margin-top: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.5s;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.parts button:hover{
+  background-color: black;
+  color: rgb(247, 0, 255);
+}

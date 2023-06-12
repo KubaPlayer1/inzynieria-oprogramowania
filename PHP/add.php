@@ -50,30 +50,215 @@ $select = "";
         <nav class="navigation">
             <a href="konfigurepc.php"><ion-icon name="home-sharp">Konfigure PC</ion-icon></a>
             <a href="serch2.php"><ion-icon name="search-sharp">Serch</ion-icon></a>
+            <a href="add.php">Return to main page</a>
             <button class="button-out" href="../index.html">Log out</button>
         </nav>
     </header>
 
-
-    <form action="" method="post">
-        <?php if (!isset($_POST['submit'])) { ?>
-            <label>Choose what you wont to add: </label>
-            <select name="select">
-                <option value="">Select...</option>
-                <option value="cpu">CPU</option>
-                <option value="gpu">GPU</option>
-                <option value="zasilacz">Power supply</option>
-                <option value="mb">Mother board</option>
-                <option value="ram">RAM</option>
-                <option value="ssd">SSD</option>
-                <option value="hdd">HDD</option>
-                <option value="chlodzenie_cpu">CPU cooler</option>
-                <option value="obudowa">Case</option>
-            </select>
-            <input type="submit" name="submit" value="Submit" />
-        <?php } ?>
+    <div class="add">
+        <form action="" method="post">
+            <?php if (!isset($_POST['submit'])) { ?>
+                <label>Choose what you wont to add: </label>
+                <select name="select">
+                    <option value="">Select...</option>
+                    <option value="cpu">CPU</option>
+                    <option value="gpu">GPU</option>
+                    <option value="zasilacz">Power supply</option>
+                    <option value="mb">Mother board</option>
+                    <option value="ram">RAM</option>
+                    <option value="ssd">SSD</option>
+                    <option value="hdd">HDD</option>
+                    <option value="chlodzenie_cpu">CPU cooler</option>
+                    <option value="obudowa">Case</option>
+                </select>
+                <button type="submit" name="submit">Submit</button>
+            <?php } ?>
+            <?php
+            $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
+            if (isset($_POST["submit"])) {
+                $select = $_POST["select"];
+                //echo($select);
+                if (empty($select)) {
+                    echo "There is no opption choosed.";
+                }
+                if ($podzespoly[0] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Socket</label>
+                    <input type="text" id="socket" name="socket">
+                    <label>Clock</label>
+                    <input type="number" step="0.1" min="0.0" max="10.0" id="zegar" name="zegar">
+                    <label>Turbo</label>
+                    <input type="number" step="0.1" min="0.0" max="10.0" id="turbo" name="turbo">
+                    <label>Cores</label>
+                    <input type="number" min="0" max="64" id="rdzenie" name="rdzenie">
+                    <label>Threads</label>
+                    <input type="number" min="0" max="128" id="watki" name="watki">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[1] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Manyfacturer od chipset</label>
+                    <input type="text" id="producent_chipsetu" name="producent_chipsetu">
+                    <label>Length of GPU</label>
+                    <input type="number" step="0.1" min="15" max="45" id="dlugosc_karty" name="dlugosc_karty">
+                    <label>Capacity of RAM</label>
+                    <input type="number" step="1" min="2" max="32" id="ilosc_ram" name="ilosc_ram">
+                    <label>Type of chipset</label>
+                    <input type="text" id="rodzaj_chipsetu" name="rodzaj_chipsetu">
+                    <label>Recomended power of power supply</label>
+                    <input type="number" step="1" min="500" max="2000" id="rekomendowana_moc_zasilacza"
+                        name="rekomendowana_moc_zasilacza">
+                    <label>Timing of thread boost</label>
+                    <input type="number" step="0.1" min="0.0" max="10.0" id="taktowanie_rdzenia_boost"
+                        name="taktowanie_rdzenia_boost">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[2] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Certyfication</label>
+                    <input type="text" id="certyfikat" name="certyfikat">
+                    <label>Vent size</label>
+                    <input type="number" step="1" min="10" max="36" id="srednica_wentylatora" name="srednica_wentylatora">
+                    <label>Power</label>
+                    <input type="number" step="1" min="500" max="2000" id="moc" name="moc">
+                    <label>Standarization</label>
+                    <input type="text" id="standard" name="standard">
+                    <label>Height</label>
+                    <input type="number" step="0.1" min="5" max="15" id="wysokosc" name="wysokosc">
+                    <label>Width</label>
+                    <input type="number" step="0.1" min="5" max="20" id="szerokosc" name="szerokosc">
+                    <label>Depth</label>
+                    <input type="number" step="0.1" min="5" max="25" id="glebokosc" name="glebokosc">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[3] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Board chipset</label>
+                    <input type="text" id="chipset_plyty" name="chipset_plyty">
+                    <label>Processor socket</label>
+                    <input type="text" id="gniazdo_procesora" name="gniazdo_procesora">
+                    <label>RAM slots count</label>
+                    <input type="number" id="liczba_slotow_pamieci" name="liczba_slotow_pamieci">
+                    <label>Board standard</label>
+                    <input type="text" id="standard_plyty" name="standard_plyty">
+                    <label>RAM standard</label>
+                    <input type="text" id="standard_pamieci" name="standard_pamieci">
+                    <label>Max size of RAM capacity</label>
+                    <input type="number" id="maks_ilosc_pamieci_ram" name="maks_ilosc_pamieci_ram">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[4] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Frequency</label>
+                    <input type="number" id="czestotliwosc" name="czestotliwosc">
+                    <label>Count of modules</label>
+                    <input type="number" id="liczba_modulow" name="liczba_modulow">
+                    <label>Summary capacity</label>
+                    <input type="number" id="laczna_pamiec" name="laczna_pamiec">
+                    <label>Delay</label>
+                    <input type="text" id="opoznienie" name="opoznienie">
+                    <label>Type of memory</label>
+                    <input type="text" id="typ_pamieci" name="typ_pamieci">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[5] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Interface</label>
+                    <input type="number" id="interfejs" name="interfejs">
+                    <label>Capacity</label>
+                    <input type="number" id="pojemnosc" name="pojemnosc">
+                    <label>Format</label>
+                    <input type="number" id="format" name="format">
+                    <label>Reading</label>
+                    <input type="text" id="odczyt" name="odczyt">
+                    <label>Saving</label>
+                    <input type="text" id="zapis" name="zapis">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[6] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Format</label>
+                    <input type="text" id="format" name="format">
+                    <label>Interface</label>
+                    <input type="number" id="interfejs" name="interfejs">
+                    <label>Cache</label>
+                    <input type="text" id="pamiec_podreczna" name="pamiec_podreczna">
+                    <label>Capacity</label>
+                    <input type="number" id="pojemnosc" name="pojemnosc">
+                    <label>Speed</label>
+                    <input type="number" id="predkosc" name="predkosc">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[7] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>MAX TDP</label>
+                    <input type="number" id="maks_TDP" name="maks_TDP">
+                    <label>Socket</label>
+                    <input type="text" id="socket" name="socket">
+                    <label>Height</label>
+                    <input type="number" id="wysokosc" name="wysokosc">
+                    <label>Width</label>
+                    <input type="number" id="szerokosc" name="szerokosc">
+                    <label>Depth</label>
+                    <input type="number" id="glebokosc" name="glebokosc">
+                    <label>Count of heatpipes</label>
+                    <input type="number" id="ilosc_cieplowodow" name="ilosc_cieplowodow">
+                    <label>Diameter of heatpipes</label>
+                    <input type="number" id="srednica_cieplowodow" name="srednica_cieplowodow">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                if ($podzespoly[8] == $select) {
+                    ?>
+                    <label>Name</label>
+                    <input type="text" id="nazwa" name="nazwa">
+                    <label>Standard</label>
+                    <input type="text" id="standard" name="standard">
+                    <label>MAX size of GPU</label>
+                    <input type="number" id="maks_dlugosc_karty_graficznej" name="maks_dlugosc_karty_graficznej">
+                    <label>Type of case</label>
+                    <input type="text" id="typ_obudowy" name="typ_obudowy">
+                    <label>Height</label>
+                    <input type="number" id="wyskokosc" name="wyskokosc">
+                    <label>Width</label>
+                    <input type="number" id="szerokosc" name="szerokosc">
+                    <label>Depth</label>
+                    <input type="number" id="glebokosc" name="glebokosc">
+                    <button type="submit" name="add">Add</button>
+                    <?php
+                }
+                ?>
+                <input type="text" name="select" hidden value="<?php echo $select ?>">
+                <?php
+            }
+            ?>
+        </form>
+    </div>
+    <div class="parts">
         <?php
-        $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
         if (isset($_POST["submit"])) {
             $select = $_POST["select"];
             //echo($select);
@@ -81,180 +266,370 @@ $select = "";
                 echo "There is no opption choosed.";
             }
             if ($podzespoly[0] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $cpusQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Cpu::class, 'c')
+                    ->getQuery();
+                $cpus = $cpusQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="text" id="socket" name="socket">
-                <label>Socket</label>
-                <input type="number" step="0.1" min="0.0" max="10.0" id="zegar" name="zegar">
-                <label>Clock</label>
-                <input type="number" step="0.1" min="0.0" max="10.0" id="turbo" name="turbo">
-                <label>Turbo</label>
-                <input type="number" min="0" max="64" id="rdzenie" name="rdzenie">
-                <label>Cores</label>
-                <input type="number" min="0" max="128" id="watki" name="watki">
-                <label>Threads</label>
-                <input type="submit" name="add" value="Add" />
+                <table>
+                    <tr>
+                        <!--<th>ID</th>-->
+                        <th>Name</th>
+                        <th>Socket</th>
+                        <!--<th>Turbo</th>-->
+                        <!--<th>Cores</th>-->
+                        <!--<th>Threads</th>-->
+                        <th>Add</th>
+                    </tr>
+                    <?php
+                    foreach ($cpus as $cpu) {
+                        echo "<tr>";
+                        //echo "<td>" . $cpu->getId_cpu() . "</td>";
+                        echo "<td>" . $cpu->getNazwa() . "</td>";
+                        echo "<td>" . $cpu->getCpu_socket() . "</td>";
+                        //echo "<td>" . $cpu->getTurbo() . "</td>";
+                        //echo "<td>" . $cpu->getRdzenie() . "</td>";
+                        //echo "<td>" . $cpu->getWatki() . "</td>";
+                        echo "<td><form method='POST'><button type='submit'>Edit</button></form></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
                 <?php
             }
             if ($podzespoly[1] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $gpusQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Gpu::class, 'c')
+                    ->getQuery();
+                $gpus = $gpusQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="text" id="producent_chipsetu" name="producent_chipsetu">
-                <label>Manyfacturer od chipset</label>
-                <input type="number" step="0.1" min="15" max="45" id="dlugosc_karty" name="dlugosc_karty">
-                <label>Length of GPU</label>
-                <input type="number" step="1" min="2" max="32" id="ilosc_ram" name="ilosc_ram">
-                <label>Capacity of RAM</label>
-                <input type="text" id="rodzaj_chipsetu" name="rodzaj_chipsetu">
-                <label>Type of chipset</label>
-                <input type="number" step="1" min="500" max="2000" id="rekomendowana_moc_zasilacza"
-                    name="rekomendowana_moc_zasilacza">
-                <label>Recomended power of power supply</label>
-                <input type="number" step="0.1" min="0.0" max="10.0" id="taktowanie_rdzenia_boost"
-                    name="taktowanie_rdzenia_boost">
-                <label>Timing of thread boost</label>
-                <input type="submit" name="add" value="Add" />
+                <table>
+                    <tr>
+                        <!--<th>ID</th>-->
+                        <th>Name</th>
+                        <!--<th>Chipset manufacturer</th>-->
+                        <!--<th>Length</th>-->
+                        <th>RAM</th>
+                        <!--<th>Chipset type</th>-->
+                        <th>Recomended PSU power</th>
+                        <!--<th>BOOST</th>-->
+                        <th>Add</th>
+                    </tr>
+
+                    <?php
+
+                    foreach ($gpus as $gpu) {
+                        echo "<tr>";
+                        echo "<td>" . $gpu->getId_gpu() . "</td>";
+                        echo "<td>" . $gpu->getNazwa() . "</td>";
+                        echo "<td>" . $gpu->getProducent_chipsetu() . "</td>";
+                        echo "<td>" . $gpu->getDlugosc_karty() . "</td>";
+                        echo "<td>" . $gpu->getIlosc_ram() . "</td>";
+                        echo "<td>" . $gpu->getRodzaj_chipsetu() . "</td>";
+                        echo "<td>" . $gpu->getRekomendowana_moc_zasilacza() . "</td>";
+                        echo "<td>" . $gpu->getTaktowanie_rdzenia_boost() . "</td>";
+                        echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
+
                 <?php
             }
             if ($podzespoly[2] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $zasilaczeQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Zasilacz::class, 'c')
+                    ->getQuery();
+                $zasilacze = $zasilaczeQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="text" id="certyfikat" name="certyfikat">
-                <label>Certyfication</label>
-                <input type="number" step="1" min="10" max="36" id="srednica_wentylatora" name="srednica_wentylatora">
-                <label>Vent size</label>
-                <input type="number" step="1" min="500" max="2000" id="moc" name="moc">
-                <label>Power</label>
-                <input type="text" id="standard" name="standard">
-                <label>Standarization</label>
-                <input type="number" step="0.1" min="5" max="15" id="wysokosc" name="wysokosc">
-                <label>Height</label>
-                <input type="number" step="0.1" min="5" max="20" id="szerokosc" name="szerokosc">
-                <label>Width</label>
-                <input type="number" step="0.1" min="5" max="25" id="glebokosc" name="glebokosc">
-                <label>Depth</label>
-                <input type="submit" name="add" value="Add" />
+
+                <table>
+                    <tr>
+                        <!--<th>ID</th>-->
+                        <th>Name</th>
+                        <!--<th>Certyficate</th>-->
+                        <!--<th>Fan size</th>-->
+                        <th>Power</th>
+                        <th>Standard</th>
+                        <!--<th>Heigth</th>-->
+                        <!--<th>Width</th>-->
+                        <!--<th>Depth</th>-->
+                        <th>Add</th>
+                    </tr>
+
+                    <?php
+
+                    foreach ($zasilacze as $zasilacz) {
+                        echo "<tr>";
+                        //echo "<td>" . $zasilacz->getId_zasilacz() . "</td>";
+                        echo "<td>" . $zasilacz->getNazwa() . "</td>";
+                        //echo "<td>" . $zasilacz->getCertyfikat() . "</td>";
+                        //echo "<td>" . $zasilacz->getSrednica_wentylatora() . "</td>";
+                        echo "<td>" . $zasilacz->getMoc() . "</td>";
+                        echo "<td>" . $zasilacz->getStandard() . "</td>";
+                        //echo "<td>" . $zasilacz->getWysokosc() . "</td>";
+                        //echo "<td>" . $zasilacz->getSzerokosc() . "</td>";
+                        //echo "<td>" . $zasilacz->getGlebokosc() . "</td>";
+                        echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
+
                 <?php
             }
             if ($podzespoly[3] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $moboQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Mb::class, 'c')
+                    ->getQuery();
+                $mobos = $moboQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="text" id="chipset_plyty" name="chipset_plyty">
-                <label>Board chipset</label>
-                <input type="text" id="gniazdo_procesora" name="gniazdo_procesora">
-                <label>Processor socket</label>
-                <input type="number" id="liczba_slotow_pamieci" name="liczba_slotow_pamieci">
-                <label>RAM slots count</label>
-                <input type="text" id="standard_plyty" name="standard_plyty">
-                <label>Board standard</label>
-                <input type="text" id="standard_pamieci" name="standard_pamieci">
-                <label>RAM standard</label>
-                <input type="number" id="maks_ilosc_pamieci_ram" name="maks_ilosc_pamieci_ram">
-                <label>Max size of RAM capacity</label>
-                <input type="submit" name="add" value="Add" />
+                <table>
+                    <tr>
+                        <!--<th>ID</th>-->
+                        <th>Name</th>
+                        <!--<th>Mb chipset</th>-->
+                        <!--<th>CPU socket</th>-->
+                        <th>RAM slots</th>
+                        <!--<th>Mb standard</th>-->
+                        <!--<th>RAM standard</th>-->
+                        <th>Max RAM capacity</th>
+                        <th>Add</th>
+                    </tr>
+                    <?php
+                    foreach ($mobos as $mb) {
+                        echo "<tr>";
+                        //echo "<td>" . $mb->getId_mb() . "</td>";
+                        echo "<td>" . $mb->getNazwa() . "</td>";
+                        //echo "<td>" . $mb->getChipset_plyty() . "</td>";
+                        //echo "<td>" . $mb->getGniazdo_procesora() . "</td>";
+                        echo "<td>" . $mb->getLiczba_slotow_pamieci() . "</td>";
+                        echo "<td>" . $mb->getStandard_plyty() . "</td>";
+                        //echo "<td>" . $mb->getStandard_pamieci() . "</td>";
+                        echo "<td>" . $mb->getMaks_ilosc_pamieci_ram() . "</td>";
+                        echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
                 <?php
             }
             if ($podzespoly[4] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $ramQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Ram::class, 'c')
+                    ->getQuery();
+                $ramMemories = $ramQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="number" id="czestotliwosc" name="czestotliwosc">
-                <label>Frequency</label>
-                <input type="number" id="liczba_modulow" name="liczba_modulow">
-                <label>Count of modules</label>
-                <input type="number" id="laczna_pamiec" name="laczna_pamiec">
-                <label>Summary capacity</label>
-                <input type="text" id="opoznienie" name="opoznienie">
-                <label>Delay</label>
-                <input type="text" id="typ_pamieci" name="typ_pamieci">
-                <label>Type of memory</label>
-                <input type="submit" name="add" value="Add" />
-                <?php
+                <table>
+                    <table>
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>Name</th>
+                            <th>Friquency</th>
+                            <th>How much modules</th>
+                            <th>Capacity</th>
+                            <!--<th>CLI</th>-->
+                            <!--<th>Type</th>-->
+                            <th>Add</th>
+                        </tr>
+
+                        <?php
+
+                        foreach ($ramMemories as $ram) {
+                            echo "<tr>";
+                            //echo "<td>" . $ram->getId_ram() . "</td>";
+                            echo "<td>" . $ram->getNazwa() . "</td>";
+                            echo "<td>" . $ram->getCzestotliwosc() . "</td>";
+                            echo "<td>" . $ram->getLiczba_modulow() . "</td>";
+                            echo "<td>" . $ram->getLaczna_pamiec() . "</td>";
+                            //echo "<td>" . $ram->getOpluznienie() . "</td>";
+                            //echo "<td>" . $ram->getTyp_pamieci() . "</td>";
+                            echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+
+                    <?php
             }
             if ($podzespoly[5] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $ssdQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Ssd::class, 'c')
+                    ->getQuery();
+                $ssds = $ssdQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="number" id="interfejs" name="interfejs">
-                <label>Interface</label>
-                <input type="number" id="pojemnosc" name="pojemnosc">
-                <label>Capacity</label>
-                <input type="number" id="format" name="format">
-                <label>Format</label>
-                <input type="text" id="odczyt" name="odczyt">
-                <label>Reading</label>
-                <input type="text" id="zapis" name="zapis">
-                <label>Saving</label>
-                <input type="submit" name="add" value="Add" />
-                <?php
+                    <table>
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>Name</th>
+                            <!--<th>Interface</th>-->
+                            <th>Capacity</th>
+                            <!--<th>Format</th>-->
+                            <!--<th>Reading</th>-->
+                            <!--<th>Saving</th>-->
+                            <th>Add</th>
+                        </tr>
+
+                        <?php
+
+                        foreach ($ssds as $ssd) {
+                            echo "<tr>";
+                            //echo "<td>" . $ssd->getId() . "</td>";
+                            echo "<td>" . $ssd->getNazwa() . "</td>";
+                            //echo "<td>" . $ssd->getInterfejs() . "</td>";
+                            echo "<td>" . $ssd->getPojemnosc() . "</td>";
+                            //echo "<td>" . $ssd->getFormat() . "</td>";
+                            //echo "<td>" . $ssd->getOdczyt() . "</td>";
+                            //echo "<td>" . $ssd->getZapis() . "</td>";
+                            echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+
+                    <?php
             }
             if ($podzespoly[6] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $hddQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Hdd::class, 'c')
+                    ->getQuery();
+                $hdds = $hddQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="text" id="format" name="format">
-                <label>Format</label>
-                <input type="number" id="interfejs" name="interfejs">
-                <label>Interface</label>
-                <input type="text" id="pamiec_podreczna" name="pamiec_podreczna">
-                <label>Cache</label>
-                <input type="number" id="pojemnosc" name="pojemnosc">
-                <label>Capacity</label>
-                <input type="number" id="predkosc" name="predkosc">
-                <label>Speed</label>
-                <input type="submit" name="add" value="Add" />
-                <?php
+                    <table>
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>Name</th>
+                            <th>Format</th>
+                            <!--<th>Interface</th>-->
+                            <!--<th>ROM memory</th>-->
+                            <th>Capacity</th>
+                            <th>Speed</th>
+                            <th>Add</th>
+                        </tr>
+
+                        <?php
+
+                        foreach ($hdds as $hdd) {
+                            echo "<tr>";
+                            //echo "<td>" . $hdd->getId_hdd() . "</td>";
+                            echo "<td>" . $hdd->getNazwa() . "</td>";
+                            echo "<td>" . $hdd->getFormat() . "</td>";
+                            //echo "<td>" . $hdd->getInterfejs() . "</td>";
+                            //echo "<td>" . $hdd->getPamiec_podreczna() . "</td>";
+                            echo "<td>" . $hdd->getPojemnosc() . "</td>";
+                            echo "<td>" . $hdd->getPredkosc() . "</td>";
+                            echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+
+                    <?php
             }
             if ($podzespoly[7] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $cpusCQuery = $queryBuilder
+                    ->select('c')
+                    ->from(CpuCooler::class, 'c')
+                    ->getQuery();
+                $cpusC = $cpusCQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="number" id="maks_TDP" name="maks_TDP">
-                <label>MAX TDP</label>
-                <input type="text" id="socket" name="socket">
-                <label>Socket</label>
-                <input type="number" id="wysokosc" name="wysokosc">
-                <label>Height</label>
-                <input type="number" id="szerokosc" name="szerokosc">
-                <label>Width</label>
-                <input type="number" id="glebokosc" name="glebokosc">
-                <label>Depth</label>
-                <input type="number" id="ilosc_cieplowodow" name="ilosc_cieplowodow">
-                <label>Count of heatpipes</label>
-                <input type="number" id="srednica_cieplowodow" name="srednica_cieplowodow">
-                <label>Diameter of heatpipes</label>
-                <input type="submit" name="add" value="Add" />
-                <?php
+                    <table>
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>Name</th>
+                            <!--<th>Max TDP</th>-->
+                            <th>Socket</th>
+                            <!--<th>Heigth</th>-->
+                            <!--<th>Width</th>-->
+                            <!--<th>Depth</th>-->
+                            <!--<th>Count of heatpipes</th>-->
+                            <!--<th>Size of heatpipe</th>-->
+                            <th>Add</th>
+                        </tr>
+
+                        <?php
+
+                        foreach ($cpusC as $cpuC) {
+                            echo "<tr>";
+                            //echo "<td>" . $cpuC->getId_chlodzenie_cpu() . "</td>";
+                            echo "<td>" . $cpuC->getNazwa() . "</td>";
+                            //echo "<td>" . $cpuC->getMaks_TDP() . "</td>";
+                            echo "<td>" . $cpuC->getSocket() . "</td>";
+                            //echo "<td>" . $cpuC->getWysokosc() . "</td>";
+                            //echo "<td>" . $cpuC->getSzerokosc() . "</td>";
+                            //echo "<td>" . $cpuC->getGlebokosc() . "</td>";
+                            //echo "<td>" . $cpuC->getIlosc_cieplowodow() . "</td>";
+                            //echo "<td>" . $cpuC->getSrednica_cieplowodow() . "</td>";
+                            echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+
+                    <?php
             }
             if ($podzespoly[8] == $select) {
+                $queryBuilder = $entityManager->createQueryBuilder();
+                $obudowaQuery = $queryBuilder
+                    ->select('c')
+                    ->from(Obudowa::class, 'c')
+                    ->getQuery();
+                $obudowy = $obudowaQuery->getResult();
                 ?>
-                <input type="text" id="nazwa" name="nazwa">
-                <label>Name</label>
-                <input type="text" id="standard" name="standard">
-                <label>Standard</label>
-                <input type="number" id="maks_dlugosc_karty_graficznej" name="maks_dlugosc_karty_graficznej">
-                <label>MAX size of GPU</label>
-                <input type="text" id="typ_obudowy" name="typ_obudowy">
-                <label>Type of case</label>
-                <input type="number" id="wyskokosc" name="wyskokosc">
-                <label>Height</label>
-                <input type="number" id="szerokosc" name="szerokosc">
-                <label>Width</label>
-                <input type="number" id="glebokosc" name="glebokosc">
-                <label>Depth</label>
-                <input type="submit" name="add" value="Add" />
-                <?php
+                    <table>
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>Name</th>
+                            <th>Standard</th>
+                            <th>Max size of GPU</th>
+                            <!--<th>Type</th>-->
+                            <!--<th>Heigth</th>-->
+                            <!--<th>Width</th>-->
+                            <!--<th>Depth</th>-->
+                            <th>Add</th>
+                        </tr>
+
+                        <?php
+
+                        foreach ($obudowy as $obudowa) {
+                            echo "<tr>";
+                            //echo "<td>" . $obudowa->getId_obudowa() . "</td>";
+                            echo "<td>" . $obudowa->getNazwa() . "</td>";
+                            echo "<td>" . $obudowa->getStandard() . "</td>";
+                            echo "<td>" . $obudowa->getMaks_dlugosc_karty_graf() . "</td>";
+                            //echo "<td>" . $obudowa->getTyp_obudowy() . "</td>";
+                            //echo "<td>" . $obudowa->getWysokosc() . "</td>";
+                            //echo "<td>" . $obudowa->getSzerokosc() . "</td>";
+                            //echo "<td>" . $obudowa->getGlebokosc() . "</td>";
+                            echo "<td><form method='POST'><button type='submit'>Add</button></form></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+
+                    <?php
             }
             ?>
-            <input type="text" name="select" hidden value="<?php echo $select ?>">
-            <?php
+                <input type="text" name="select" hidden value="<?php echo $select ?>">
+                <?php
         }
         ?>
-    </form>
+    </div>
     <?php
     if (isset($_POST['select'])) {
         $select = $_POST['select'];
@@ -452,6 +827,7 @@ $select = "";
         echo "Case add was succesful.";
     }
     ?>
+
 
 
     <script src="../JS/script.js"></script>
