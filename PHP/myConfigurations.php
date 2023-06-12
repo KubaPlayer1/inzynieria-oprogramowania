@@ -63,6 +63,7 @@ $select = "";
             <input type="text" name="id" placeholder="Enter ID of a configuration">
             <input type="Submit" name="delete" value="Submit">
         </form>-->
+        <h2>My configurations</h2>
 
         <?php
         $queryBuilder = $entityManager->createQueryBuilder();
@@ -71,10 +72,7 @@ $select = "";
             ->from(configurations::class, 'c')
             ->getQuery();
         $dane_lista = $dane->getResult();
-        ?>
 
-
-        <?php
         if ($dane_lista == null) {
             echo "<p>There is no elements to show.</p>";
         } else {
@@ -82,17 +80,17 @@ $select = "";
             <table>
                 <tr>
                     <th> ID </th>
-                    <th>Nazwa Konfiguracji </th>
-                    <th>CPU </th>
-                    <th>MotherBoard </th>
-                    <th>GPU </th>
-                    <th>Ram </th>
-                    <th>HDD </th>
-                    <th>SSD </th>
-                    <th>Zasilacz </th>
-                    <th>obudowa </th>
-                    <th>Edit </th>
-                    <th>Delete </th>
+                    <th>Configuration name</th>
+                    <th>CPU</th>
+                    <th>MotherBoard</th>
+                    <th>GPU</th>
+                    <th>RAM</th>
+                    <th>HDD</th>
+                    <th>SSD</th>
+                    <th>PSU</th>
+                    <th>Case</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
 
                 </tr>
                 <?php
@@ -366,7 +364,6 @@ $select = "";
 
         if (isset($_POST['cpu_id']) && isset($_POST['mb_id']) && isset($_POST['ram_id']) && isset($_POST['gpu_id']) && isset($_POST['zasilacz_id']) && isset($_POST['obudowa_id']) && isset($_POST['ssd_id']) && isset($_POST['hdd_id']) && isset($_POST['chlodzenie_id']) && isset($_POST['id']) && isset($_POST['account_id']) && isset($_POST['nazwa'])) {
 
-            print_r($_POST);
             if (isset($_POST['edit'])) {
                 $cpu_id = $_POST['cpu_id'];
                 $mb_id = $_POST['mb_id'];

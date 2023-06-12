@@ -1,84 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Konfigurate your PC</title>
-        <link rel="stylesheet" href="STYLES/style.css">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Konfigurate your PC</title>
+    <link rel="stylesheet" href="STYLES/style.css" />
+  </head>
 
-    <body>
-        <!--<img src="GRAPHICS/strona_logo.png">-->
-        <header><h2 class="logo">Build your PC!</h2>
-            <nav class="navigation">
-                <a href="index.html"><ion-icon name="home-sharp">Home</ion-icon></a>
-                <a href="HTML/about.html"><ion-icon name="help-sharp">About</ion-icon></a>
-                <a href="HTML/contact.html"><ion-icon name="call-sharp">Contact</ion-icon></a>
-                <a href="PHP/serch.php"><ion-icon name="search-sharp">Serch</ion-icon></a>
-                <button class="button-pop">Login</button>
-            </nav>
-        </header>
+  <body>
+    <!--<img src="GRAPHICS/strona_logo.png">-->
+    <header>
+      <h2 class="logo">Build your PC!</h2>
+      <nav class="navigation">
+        <a href="index.html"><ion-icon name="home-sharp">Home</ion-icon></a>
+        <a href="HTML/about.html"
+          ><ion-icon name="help-sharp">About</ion-icon></a
+        >
+        <a href="HTML/contact.html"
+          ><ion-icon name="call-sharp">Contact</ion-icon></a
+        >
+        <a href="PHP/serch.php"
+          ><ion-icon name="search-sharp">Serch</ion-icon></a
+        >
+        <button class="button-pop">Login</button>
+      </nav>
+    </header>
 
-        <div class="wrapper">
-            <span class="close-button"><ion-icon name="close-outline"></ion-icon></span>
+    <div class="wrapper">
+      <span class="close-button"
+        ><ion-icon name="close-outline"></ion-icon
+      ></span>
 
-            <div class="form-box login">
-                <h2>Login</h2>
-                <form action="PHP/DB_connection.php" id="login" method="get">
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
-                        <input type="email" id="email" name="email" required>
-                        <label>Email</label>
-                    </div>
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
-                        <input type="password" id="password" name="password" required>
-                        <label>Password</label>
-                    </div>
-                    <div class="forgot">
-                        <label><input type="checkbox">Remenber me</label>
-                        <a href="HTML/change.html">Forgot password?</a>
-                    </div>
-                    <input type="submit" class="btn" value="Login"/>
-                    <div class="register">
-                        <p>Don't have an account?<a href="#" class="register-link">Register</a></p>
-                    </div>
-                </form>
-            </div>
+      <div class="form-box login">
+        <h2>Login</h2>
+        <form action="PHP/DB_connection.php" id="login" method="get">
+          <div class="input-box">
+            <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+            <input type="email" id="email" name="email" required />
+            <label>Email</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"
+              ><ion-icon name="lock-closed-outline"></ion-icon
+            ></span>
+            <input type="password" id="password" name="password" required />
+            <label>Password</label>
+          </div>
+          <div class="forgot">
+            <label><input type="checkbox" />Remenber me</label>
+          </div>
+          <input type="submit" class="btn" value="Login" />
+          <div class="register">
+            <p>
+              Don't have an account?<a href="#" class="register-link"
+                >Register</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
 
-            <div class="form-box register">
-                <h2>Registration</h2>
-                <form action="PHP/DB_connection.php" id="register" method="post">
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
-                        <input type="text" id="username" name="username" onkeydown="usernameValidation()" required>
-                        <label>Username</label>
-                        <span id="username-valid"></span>
-                    </div>
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
-                        <input type="email" id="email" name="email" onkeydown="emailValidation()" required>
-                        <label>Email</label>
-                        <span id="email-valid"></span>
-                    </div>
-                    <div class="input-box">
-                        <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
-                        <input type="password" id="password" name="password" onkeydown="passwordValidation()" required>
-                        <label>Password</label>
-                        <span id="password-valid"></span>
-                    </div>
-                    <div class="forgot">
-                        <label><input type="checkbox" name="terms" required id="terms">Agree to conditios and terms?</label>
-                    </div>
-                    <button type="submit" class="btn" id="btn">Register</button>
-                    <div class="register">
-                        <p>Already have an account?<a href="#" class="login-link">Login</a></p>
-                    </div>
-                </form>
-            </div>
-        </div>
+      <div class="form-box register">
+        <h2>Registration</h2>
+        <form action="PHP/DB_connection.php" id="register" method="post">
+          <div class="input-box">
+            <span class="icon"
+              ><ion-icon name="person-circle-outline"></ion-icon
+            ></span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              onkeydown="usernameValidation()"
+              required
+            />
+            <label>Username</label>
+            <span id="username-valid"></span>
+          </div>
+          <div class="input-box">
+            <span class="icon"><ion-icon name="mail-outline"></ion-icon></span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              onkeydown="emailValidation()"
+              required
+            />
+            <label>Email</label>
+            <span id="email-valid"></span>
+          </div>
+          <div class="input-box">
+            <span class="icon"
+              ><ion-icon name="lock-closed-outline"></ion-icon
+            ></span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onkeydown="passwordValidation()"
+              required
+            />
+            <label>Password</label>
+            <span id="password-valid"></span>
+          </div>
+          <div class="forgot">
+            <label
+              ><input type="checkbox" name="terms" required id="terms" />Agree
+              to conditios and terms?</label
+            >
+          </div>
+          <button type="submit" class="btn" id="btn">Register</button>
+          <div class="register">
+            <p>
+              Already have an account?<a href="#" class="login-link">Login</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
 
-        <script src="JS/script.js"></script>
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    </body>
+    <script src="JS/script.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
 </html>

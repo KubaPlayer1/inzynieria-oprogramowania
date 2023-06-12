@@ -510,9 +510,6 @@ function del_user($id)
   <?php } ?>
 
   <div class="container">
-    <div class="logo">
-      <img src="../GRAPHICS/strona_logo.png" alt="LOGO" />
-    </div>
     <div class="grid">
       <a href="?type=cpu">
         <div class="tile">
