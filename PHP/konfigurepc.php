@@ -247,7 +247,7 @@ function del_user($id)
           if ((empty($_GET['search']))) {
 
             $queryBuilder = $entityManager->createQueryBuilder();
-            $cpuCQuery = $queryBuilder
+            $cpusCQuery = $queryBuilder
               ->select('c')
               ->from(CpuCooler::class, 'c')
               ->getQuery();
@@ -291,7 +291,7 @@ function del_user($id)
           } else {
             $search = $_GET['search'];
             $queryBuilder = $entityManager->createQueryBuilder();
-            $hddQuery = $queryBuilder
+            $cpusCQuery = $queryBuilder
               ->select('c')
               ->from(CpuCooler::class, 'c')
               ->where('c.nazwa LIKE :input')
@@ -812,7 +812,7 @@ function del_user($id)
           if ((empty($_GET['search']))) {
 
             $queryBuilder = $entityManager->createQueryBuilder();
-            $moboQuery = $queryBuilder
+            $ramQuery = $queryBuilder
               ->select('c')
               ->from(Ram::class, 'c')
               ->getQuery();
