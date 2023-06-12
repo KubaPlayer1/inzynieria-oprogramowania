@@ -956,7 +956,7 @@ function del_user($id)
       const parts = value.split(`; nazwa=`);
       let data = parts.pop().split(';').shift();
       document.getElementById("nazwa").value = data;
-  }
+    }
   </script>
 
 
