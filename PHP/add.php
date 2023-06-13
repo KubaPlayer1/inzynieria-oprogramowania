@@ -50,7 +50,7 @@ $select = "";
         <nav class="navigation">
             <a href="add.php">Go back to selecting</a>
             <a href="konfigurepc.php"><ion-icon name="home-sharp">Konfigure PC</ion-icon></a>
-            <a href="serch.php"><ion-icon name="search-sharp">Serch</ion-icon></a>
+            <a href="serch2.php"><ion-icon name="search-sharp">Serch</ion-icon></a>
         </nav>
     </header>
 
@@ -75,20 +75,20 @@ $select = "";
 
         <?php } ?>
         <div class="box">
-            
-                <?php
-                $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
-                if (isset($_POST["submit"])) {
 
-                    $select = $_POST["select"];
-                    //echo($select);
-                    if (empty($select)) {
-                        echo "There is no opption choosed.";
-                    }
-                    ?>
-                    <div class="dodawanie">
-                        <?php
-                        if ($podzespoly[0] == $select) {
+            <?php
+            $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
+            if (isset($_POST["submit"])) {
+
+                $select = $_POST["select"];
+                //echo($select);
+                if (empty($select)) {
+                    echo "There is no opption choosed.";
+                }
+                ?>
+                <div class="dodawanie">
+                    <?php
+                    if ($podzespoly[0] == $select) {
                         ?>
 
                         <label>Name</label>
@@ -109,15 +109,17 @@ $select = "";
                         <label>Threads</label>
                         <input type="number" min="0" max="128" id="watki" name="watki">
                         </br>
-                        <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
                         <div class="a">
-                        <a href='update.php'>Edit</a>
+                            <a href='update.php'>Edit</a>
                         </div>
                     </div>
                     <div class="lista">
                         <form action="add.php" method="POST">
                             <input type="text" name="name" placeholder="give me nazwa " />
-                            <input type="submit" name="submit" value="Submit " style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                            <input type="submit" name="submit" value="Submit "
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
 
                         </form>
 
@@ -159,7 +161,7 @@ $select = "";
                                 <?php
                                 foreach ($dane_lista as $d) {
                                     ?>
-                                    <?php echo "<tr><td>" .$d->getId_cpu()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getCpu_socket() . "</td><td></td></tr>" ?>
+                                    <?php echo "<tr><td>" . $d->getId_cpu() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getCpu_socket() . "</td><td></td></tr>" ?>
                                     <?php
                                     if (isset($_POST['update_cpu_data'])) {
                                         $id = $_POST['id_cpu'];
@@ -193,9 +195,9 @@ $select = "";
                     </div>
                     <div class="dodawanie">
                         <?php
-                        }
-                        if ($podzespoly[1] == $select) {
-                            ?>
+                    }
+                    if ($podzespoly[1] == $select) {
+                        ?>
                         <label>Name</label>
                         <input type="text" id="nazwa" name="nazwa">
                         </br>
@@ -219,713 +221,729 @@ $select = "";
                         <input type="number" step="0.1" min="0.0" max="10.0" id="taktowanie_rdzenia_boost"
                             name="taktowanie_rdzenia_boost">
                         </br>
-                        <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+
                         <div class="a">
-                        <a href='updateGpu.php'>Edit</a>
+                            <a href='updateGpu.php'>Edit</a>
                         </div>
                     </div>
                     <div class="lista">
-                    <?php
-                    ?>
-
-
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
-
-                    </form>
-                    <?php if (isset($_POST['name'])) {
-
-
-                        session_start();
-                        $conn = mysqli_connect("localhost", "root", "", "peryferia");
-
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(Gpu::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
-
+                        <?php
                         ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th> Nazwa</th>
-                                <th> Producent Chipsetu</th>
-                            </tr>
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId_gpu()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getProducent_chipsetu() . "</td></tr>"; ?>
+
+
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+
+                        </form>
+                        <?php if (isset($_POST['name'])) {
+
+
+                            session_start();
+                            $conn = mysqli_connect("localhost", "root", "", "peryferia");
+
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(Gpu::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
+
+                            ?>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Nazwa</th>
+                                    <th> Producent Chipsetu</th>
+                                </tr>
                                 <?php
-                                if (isset($_POST['update_gpu_data'])) {
-                                    $id = $_POST['id_gpu'];
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId_gpu() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getProducent_chipsetu() . "</td></tr>"; ?>
+                                    <?php
+                                    if (isset($_POST['update_gpu_data'])) {
+                                        $id = $_POST['id_gpu'];
 
-                                    $nazwaGPU = $_POST['nazwa'];
-                                    $producentChipsetu = $_POST['producent_chipsetu'];
-                                    $dlugoscKarty = $_POST['dlugosc_karty'];
-                                    $iloscRam = $_POST['ilosc_ram'];
-                                    $rodzajChipsetu = $_POST['rodzaj_chipsetu'];
-                                    $rekomendowanaMocZasilacza = $_POST['rekomendowana_moc_zasilacza'];
-                                    $taktowanieRdzeniaBoost = $_POST['taktowanie_rdzenia_boost'];
+                                        $nazwaGPU = $_POST['nazwa'];
+                                        $producentChipsetu = $_POST['producent_chipsetu'];
+                                        $dlugoscKarty = $_POST['dlugosc_karty'];
+                                        $iloscRam = $_POST['ilosc_ram'];
+                                        $rodzajChipsetu = $_POST['rodzaj_chipsetu'];
+                                        $rekomendowanaMocZasilacza = $_POST['rekomendowana_moc_zasilacza'];
+                                        $taktowanieRdzeniaBoost = $_POST['taktowanie_rdzenia_boost'];
 
-                                    $query = "UPDATE cpu SET nazwa='$nazwaGPU', producent_chipsetu='$producentChipsetu', ilosc_ram='$iloscRam', rodzaj_chipsetu='$rodzajChipsetu', rekomendowana_moc_zasilacza='$rdzrekomendowanaMocZasilaczaenie', taktowanie_rdzenia_boost='$taktowanieRdzeniaBoost' WHERE id_gpu='$id'";
-                                    echo $query;
+                                        $query = "UPDATE cpu SET nazwa='$nazwaGPU', producent_chipsetu='$producentChipsetu', ilosc_ram='$iloscRam', rodzaj_chipsetu='$rodzajChipsetu', rekomendowana_moc_zasilacza='$rdzrekomendowanaMocZasilaczaenie', taktowanie_rdzenia_boost='$taktowanieRdzeniaBoost' WHERE id_gpu='$id'";
+                                        echo $query;
 
-                                    $query_run = mysqli_query($conn, $query);
+                                        $query_run = mysqli_query($conn, $query);
 
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
                                     }
+
                                 }
 
-                            }
-                            
                         }
                         ?>
-                       
+
 
                     </div>
                     <div class="dodawanie">
-                    </table>
-                    <?php
+                        </table>
+                        <?php
                     }
                     if ($podzespoly[2] == $select) {
                         ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>Certyfication</label>
-                    <input type="text" id="certyfikat" name="certyfikat">
-                    </br>
-                    <label>Vent size</label>
-                    <input type="number" step="1" min="10" max="36" id="srednica_wentylatora" name="srednica_wentylatora">
-                    </br>
-                    <label>Power</label>
-                    <input type="number" step="1" min="500" max="2000" id="moc" name="moc">
-                    </br>
-                    <label>Standarization</label>
-                    <input type="text" id="standard" name="standard">
-                    </br>
-                    <label>Height</label>
-                    <input type="number" step="0.1" min="5" max="15" id="wysokosc" name="wysokosc">
-                    </br>
-                    <label>Width</label>
-                    <input type="number" step="0.1" min="5" max="20" id="szerokosc" name="szerokosc">
-                    </br>
-                    <label>Depth</label>
-                    <input type="number" step="0.1" min="5" max="25" id="glebokosc" name="glebokosc">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    <div class="a">
-                    <a href='updateZasilacz.php'>Edit</a>
-                    </div>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>Certyfication</label>
+                        <input type="text" id="certyfikat" name="certyfikat">
+                        </br>
+                        <label>Vent size</label>
+                        <input type="number" step="1" min="10" max="36" id="srednica_wentylatora" name="srednica_wentylatora">
+                        </br>
+                        <label>Power</label>
+                        <input type="number" step="1" min="500" max="2000" id="moc" name="moc">
+                        </br>
+                        <label>Standarization</label>
+                        <input type="text" id="standard" name="standard">
+                        </br>
+                        <label>Height</label>
+                        <input type="number" step="0.1" min="5" max="15" id="wysokosc" name="wysokosc">
+                        </br>
+                        <label>Width</label>
+                        <input type="number" step="0.1" min="5" max="20" id="szerokosc" name="szerokosc">
+                        </br>
+                        <label>Depth</label>
+                        <input type="number" step="0.1" min="5" max="25" id="glebokosc" name="glebokosc">
+                        </br>
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
+                            <a href='updateZasilacz.php'>Edit</a>
+                        </div>
                     </div>
                     <div class="lista">
 
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
 
-                    </form>
+                        </form>
 
-                    <?php if (isset($_POST['name'])) {
+                        <?php if (isset($_POST['name'])) {
 
-                        session_start();
-                        $conn = mysqli_connect("localhost", "root", "", "peryferia");
+                            session_start();
+                            $conn = mysqli_connect("localhost", "root", "", "peryferia");
 
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(Zasilacz::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(Zasilacz::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
 
-                        ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th> Nazwa</th>
-                                <th> Certyfikat </th>
-                                <th> Moc</th>
-                                <th> Standard</th>
-                            </tr>
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId_zasilacz()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getCertyfikat() . " </td><td>" . $d->getMoc() . " </td><td>" . $d->getStandard() . "</td></tr>"; ?>
+                            ?>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Nazwa</th>
+                                    <th> Certyfikat </th>
+                                    <th> Moc</th>
+                                    <th> Standard</th>
+                                </tr>
                                 <?php
-                                if (isset($_POST['updateZasilacz.php'])) {
-                                    $id = $_POST['id_zasilacz'];
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId_zasilacz() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getCertyfikat() . " </td><td>" . $d->getMoc() . " </td><td>" . $d->getStandard() . "</td></tr>"; ?>
+                                    <?php
+                                    if (isset($_POST['updateZasilacz.php'])) {
+                                        $id = $_POST['id_zasilacz'];
 
-                                    $nazwaZasilacz = $_POST['nazwa'];
-                                    $certyfikatZasilacz = $_POST['certyfikat'];
-                                    $srednicaWentylatora = $_POST['srednica_wentylatora'];
-                                    $mocZasilacz = $_POST['moc'];
-                                    $standardZasilacz = $_POST['standard'];
-                                    $wysokoscZasilacz = $_POST['wysokosc'];
-                                    $szerokoscZasilacz = $_POST['szerokosc'];
-                                    $glebokoscZasilacz = $_POST['glebokosc'];
+                                        $nazwaZasilacz = $_POST['nazwa'];
+                                        $certyfikatZasilacz = $_POST['certyfikat'];
+                                        $srednicaWentylatora = $_POST['srednica_wentylatora'];
+                                        $mocZasilacz = $_POST['moc'];
+                                        $standardZasilacz = $_POST['standard'];
+                                        $wysokoscZasilacz = $_POST['wysokosc'];
+                                        $szerokoscZasilacz = $_POST['szerokosc'];
+                                        $glebokoscZasilacz = $_POST['glebokosc'];
 
-                                    $query = "UPDATE zasilacz SET nazwa='$nazwaZasilacz', certyfikat='$certyfikatZasilacz', srednica_wentylatora='$srednicaWentylatora', moc='$mocZasilacz', standard='$standardZasilacz', wysokosc='$wysokoscZasilacz', szerokosc='$szerokoscZasilacz', glebokosc='$glebokoscZasilacz' WHERE id_zasilacz='$id'";
-                                    echo $query;
+                                        $query = "UPDATE zasilacz SET nazwa='$nazwaZasilacz', certyfikat='$certyfikatZasilacz', srednica_wentylatora='$srednicaWentylatora', moc='$mocZasilacz', standard='$standardZasilacz', wysokosc='$wysokoscZasilacz', szerokosc='$szerokoscZasilacz', glebokosc='$glebokoscZasilacz' WHERE id_zasilacz='$id'";
+                                        echo $query;
 
-                                    $query_run = mysqli_query($conn, $query);
+                                        $query_run = mysqli_query($conn, $query);
 
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
                                     }
+
                                 }
-
-                            }
-                    }
-                    ?>
-                        <?php
-
+                        }
                         ?>
-                        </div>
-                        <div class="dodawanie">
-                    </table>
-                    <?php
+                            <?php
+
+                            ?>
+                    </div>
+                    <div class="dodawanie">
+                        </table>
+                        <?php
 
                     }
                     if ($podzespoly[3] == $select) {
                         ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>Board chipset</label>
-                    <input type="text" id="chipset_plyty" name="chipset_plyty">
-                    </br>
-                    <label>Processor socket</label>
-                    <input type="text" id="gniazdo_procesora" name="gniazdo_procesora">
-                    </br>
-                    <label>RAM slots count</label>
-                    <input type="number" id="liczba_slotow_pamieci" name="liczba_slotow_pamieci">
-                    </br>
-                    <label>Board standard</label>
-                    <input type="text" id="standard_plyty" name="standard_plyty">
-                    </br>
-                    <label>RAM standard</label>
-                    <input type="text" id="standard_pamieci" name="standard_pamieci">
-                    </br>
-                    <label>Max size of RAM capacity</label>
-                    <input type="number" id="maks_ilosc_pamieci_ram" name="maks_ilosc_pamieci_ram">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
-                    <div class="a">
-                    <a href='updateMB.php'>Edit</a>
-                    </div>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>Board chipset</label>
+                        <input type="text" id="chipset_plyty" name="chipset_plyty">
+                        </br>
+                        <label>Processor socket</label>
+                        <input type="text" id="gniazdo_procesora" name="gniazdo_procesora">
+                        </br>
+                        <label>RAM slots count</label>
+                        <input type="number" id="liczba_slotow_pamieci" name="liczba_slotow_pamieci">
+                        </br>
+                        <label>Board standard</label>
+                        <input type="text" id="standard_plyty" name="standard_plyty">
+                        </br>
+                        <label>RAM standard</label>
+                        <input type="text" id="standard_pamieci" name="standard_pamieci">
+                        </br>
+                        <label>Max size of RAM capacity</label>
+                        <input type="number" id="maks_ilosc_pamieci_ram" name="maks_ilosc_pamieci_ram">
+                        </br>
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
+                            <a href='updateMB.php'>Edit</a>
+                        </div>
                     </div>
                     <div class="lista">
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
-                    </form>
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        </form>
 
-                    <?php if (isset($_POST['name'])) {
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(Mb::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
+                        <?php if (isset($_POST['name'])) {
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(Mb::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
 
-                        ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th> Nazwa </th>
-                                <th> Chipset</th>
-                                <th> Gniazdo </th>
-                                <th> Standard</th>
-                            </tr>
+                            ?>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Nazwa </th>
+                                    <th> Chipset</th>
+                                    <th> Gniazdo </th>
+                                    <th> Standard</th>
+                                </tr>
 
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId_mb()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getChipset_plyty() . " </td><td>" . $d->getGniazdo_procesora() . " </td><td>" . $d->getStandard_plyty() . "</td></tr>";
-                                if (isset($_POST['updateMB.php'])) {
-                                    $id = $_POST['id_mb'];
+                                <?php
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId_mb() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getChipset_plyty() . " </td><td>" . $d->getGniazdo_procesora() . " </td><td>" . $d->getStandard_plyty() . "</td></tr>";
+                                    if (isset($_POST['updateMB.php'])) {
+                                        $id = $_POST['id_mb'];
 
-                                    $nazwaMB = $_POST['nazwa'];
-                                    $chipsetPlyty = $_POST['chipset_plyty'];
-                                    $gniazdoProcesora = $_POST['gniazdo_procesora'];
-                                    $liczbaSlotowPamieci = $_POST['liczba_slotow_pamieci'];
-                                    $standardPlyty = $_POST['standard_plyty'];
-                                    $standardPamieci = $_POST['standard_pamieci'];
-                                    $maksIloscPamieciRam = $_POST['maks_ilosc_pamieci_ram'];
+                                        $nazwaMB = $_POST['nazwa'];
+                                        $chipsetPlyty = $_POST['chipset_plyty'];
+                                        $gniazdoProcesora = $_POST['gniazdo_procesora'];
+                                        $liczbaSlotowPamieci = $_POST['liczba_slotow_pamieci'];
+                                        $standardPlyty = $_POST['standard_plyty'];
+                                        $standardPamieci = $_POST['standard_pamieci'];
+                                        $maksIloscPamieciRam = $_POST['maks_ilosc_pamieci_ram'];
 
 
-                                    $query = "UPDATE mb SET nazwa='$nazwaMB', chipset_plyty='$chipsetPlyty', gniazdo_procesora='$gniazdoProcesora', liczba_slotow_pamieci='$liczbaSlotowPamieci', standard_plyty='$standardPlyty', standard_pamieci='$standardPamieci', maks_ilosc_pamieci_ram='$maksIloscPamieciRam' WHERE id_mb='$id'";
-                                    echo $query;
+                                        $query = "UPDATE mb SET nazwa='$nazwaMB', chipset_plyty='$chipsetPlyty', gniazdo_procesora='$gniazdoProcesora', liczba_slotow_pamieci='$liczbaSlotowPamieci', standard_plyty='$standardPlyty', standard_pamieci='$standardPamieci', maks_ilosc_pamieci_ram='$maksIloscPamieciRam' WHERE id_mb='$id'";
+                                        echo $query;
 
-                                    $query_run = mysqli_query($conn, $query);
+                                        $query_run = mysqli_query($conn, $query);
 
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </table>
+                                ?>
+                            </table>
                         </div>
                         <div class="dodawanie">
-                        <?php
-                    }
+                            <?php
+                        }
                     }
                     if ($podzespoly[4] == $select) {
                         ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>Frequency</label>
-                    <input type="number" id="czestotliwosc" name="czestotliwosc">
-                    </br>
-                    <label>Count of modules</label>
-                    <input type="number" id="liczba_modulow" name="liczba_modulow">
-                    </br>
-                    <label>Summary capacity</label>
-                    <input type="number" id="laczna_pamiec" name="laczna_pamiec">
-                    </br>
-                    <label>Delay</label>
-                    <input type="text" id="opoznienie" name="opoznienie">
-                    </br>
-                    <label>Type of memory</label>
-                    <input type="text" id="typ_pamieci" name="typ_pamieci">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    <div class="a">
-                    <a href='updateRAM.php'>Edit</a>
-                    </div>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>Frequency</label>
+                        <input type="number" id="czestotliwosc" name="czestotliwosc">
+                        </br>
+                        <label>Count of modules</label>
+                        <input type="number" id="liczba_modulow" name="liczba_modulow">
+                        </br>
+                        <label>Summary capacity</label>
+                        <input type="number" id="laczna_pamiec" name="laczna_pamiec">
+                        </br>
+                        <label>Delay</label>
+                        <input type="text" id="opoznienie" name="opoznienie">
+                        </br>
+                        <label>Type of memory</label>
+                        <input type="text" id="typ_pamieci" name="typ_pamieci">
+                        </br>
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
+                            <a href='updateRAM.php'>Edit</a>
+                        </div>
                     </div>
                     <div class="lista">
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    </form>
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        </form>
 
-                    <?php if (isset($_POST['name'])) {
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(Ram::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
-
-                        ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th> Nazwa</th>
-                                <th> Czestotliwosc </th>
-                                <th> Opoznienie</th>
-                                <th> typ pamieci </th>
-                            </tr>
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId_ram()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getCzestotliwosc() . " </td><td>" . $d->getOpluznienie() . " </td><td>" . $d->getTyp_pamieci() . "</td></tr>";
-                                if (isset($_POST['updateRAM.php'])) {
-                                    $id = $_POST['id_ram'];
-
-                                    $nazwaRAM = $_POST['nazwa'];
-                                    $czestotliwosc = $_POST['czestotliwosc'];
-                                    $liczbaModulow = $_POST['liczba_modulow'];
-                                    $lacznaPamiec = $_POST['laczna_pamiec'];
-                                    $opoznienie = $_POST['opoznienie'];
-                                    $typPamieci = $_POST['typ_pamieci'];
-
-                                    $query = "UPDATE ram SET nazwa='$nazwaRAM', czestotliwosc='$czestotliwosc', liczba_modulow='$liczbaModulow', laczna_pamiec='$lacznaPamiec', opoznienie='$opoznienie', typ_pamieci='$typPamieci' WHERE id_ram='$id'";
-                                    echo $query;
-
-                                    $query_run = mysqli_query($conn, $query);
-
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
-                                    }
-                                }
-
-                            }
-
+                        <?php if (isset($_POST['name'])) {
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(Ram::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
 
                             ?>
-                        </table>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Nazwa</th>
+                                    <th> Czestotliwosc </th>
+                                    <th> Opoznienie</th>
+                                    <th> typ pamieci </th>
+                                </tr>
+                                <?php
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId_ram() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getCzestotliwosc() . " </td><td>" . $d->getOpluznienie() . " </td><td>" . $d->getTyp_pamieci() . "</td></tr>";
+                                    if (isset($_POST['updateRAM.php'])) {
+                                        $id = $_POST['id_ram'];
+
+                                        $nazwaRAM = $_POST['nazwa'];
+                                        $czestotliwosc = $_POST['czestotliwosc'];
+                                        $liczbaModulow = $_POST['liczba_modulow'];
+                                        $lacznaPamiec = $_POST['laczna_pamiec'];
+                                        $opoznienie = $_POST['opoznienie'];
+                                        $typPamieci = $_POST['typ_pamieci'];
+
+                                        $query = "UPDATE ram SET nazwa='$nazwaRAM', czestotliwosc='$czestotliwosc', liczba_modulow='$liczbaModulow', laczna_pamiec='$lacznaPamiec', opoznienie='$opoznienie', typ_pamieci='$typPamieci' WHERE id_ram='$id'";
+                                        echo $query;
+
+                                        $query_run = mysqli_query($conn, $query);
+
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
+                                    }
+
+                                }
+
+
+                                ?>
+                            </table>
                         </div>
                         <div class="dodawanie">
-                        <?php
-                    }
+                            <?php
+                        }
                     }
                     if ($podzespoly[5] == $select) {
                         ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>Interface</label>
-                    <input type="number" id="interfejs" name="interfejs">
-                    </br>
-                    <label>Capacity</label>
-                    <input type="number" id="pojemnosc" name="pojemnosc">
-                    </br>
-                    <label>Format</label>
-                    <input type="number" id="format" name="format">
-                    </br>
-                    <label>Reading</label>
-                    <input type="text" id="odczyt" name="odczyt">
-                    </br>
-                    <label>Saving</label>
-                    <input type="text" id="zapis" name="zapis">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    <div class="a">
-                    <a href='updateSSD.php'>Edit</a>
-                    </div>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>Interface</label>
+                        <input type="number" id="interfejs" name="interfejs">
+                        </br>
+                        <label>Capacity</label>
+                        <input type="number" id="pojemnosc" name="pojemnosc">
+                        </br>
+                        <label>Format</label>
+                        <input type="number" id="format" name="format">
+                        </br>
+                        <label>Reading</label>
+                        <input type="text" id="odczyt" name="odczyt">
+                        </br>
+                        <label>Saving</label>
+                        <input type="text" id="zapis" name="zapis">
+                        </br>
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
+                            <a href='updateSSD.php'>Edit</a>
+                        </div>
                     </div>
                     <div class="lista">
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    </form>
-                    <?php if (isset($_POST['name'])) {
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(Ssd::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        </form>
+                        <?php if (isset($_POST['name'])) {
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(Ssd::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
 
-                        ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th> Nazwa </th>
-                                <th> Interfejs</th>
-                                <th> Pojemnosc</th>
-                            </tr>
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
-                                if (isset($_POST['updateSSD.php'])) {
-                                    $id = $_POST['id'];
-
-                                    $nazwaSSD = $_POST['nazwa'];
-                                    $interfejs = $_POST['interfejs'];
-                                    $pojemnosc = $_POST['pojemnosc'];
-                                    $format = $_POST['format'];
-                                    $odczyt = $_POST['odczyt'];
-                                    $zapis = $_POST['zapis'];
-
-
-                                    $query = "UPDATE ssd SET nazwa='$nazwaSSD', interfejs='$interfejs', pojemnosc='$pojemnosc', format='$format', odczyt='$odczyt', zapis='$zapis' WHERE id='$id'";
-                                    echo $query;
-
-                                    $query_run = mysqli_query($conn, $query);
-
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
-                                    }
-                                }
-
-                            }
                             ?>
-                        </table>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Nazwa </th>
+                                    <th> Interfejs</th>
+                                    <th> Pojemnosc</th>
+                                </tr>
+                                <?php
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
+                                    if (isset($_POST['updateSSD.php'])) {
+                                        $id = $_POST['id'];
+
+                                        $nazwaSSD = $_POST['nazwa'];
+                                        $interfejs = $_POST['interfejs'];
+                                        $pojemnosc = $_POST['pojemnosc'];
+                                        $format = $_POST['format'];
+                                        $odczyt = $_POST['odczyt'];
+                                        $zapis = $_POST['zapis'];
+
+
+                                        $query = "UPDATE ssd SET nazwa='$nazwaSSD', interfejs='$interfejs', pojemnosc='$pojemnosc', format='$format', odczyt='$odczyt', zapis='$zapis' WHERE id='$id'";
+                                        echo $query;
+
+                                        $query_run = mysqli_query($conn, $query);
+
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
+                                    }
+
+                                }
+                                ?>
+                            </table>
                         </div>
                         <div class="dodawanie">
-                        <?php
-                    }
+                            <?php
+                        }
                     }
                     if ($podzespoly[6] == $select) {
                         ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>Format</label>
-                    <input type="text" id="format" name="format">
-                    </br>
-                    <label>Interface</label>
-                    <input type="number" id="interfejs" name="interfejs">
-                    </br>
-                    <label>Cache</label>
-                    <input type="text" id="pamiec_podreczna" name="pamiec_podreczna">
-                    </br>
-                    <label>Capacity</label>
-                    <input type="number" id="pojemnosc" name="pojemnosc">
-                    </br>
-                    <label>Speed</label>
-                    <input type="number" id="predkosc" name="predkosc">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    <div class="a">
-                    <a href='updateHDD.php'>Edit</a>
-                    </div>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>Format</label>
+                        <input type="text" id="format" name="format">
+                        </br>
+                        <label>Interface</label>
+                        <input type="number" id="interfejs" name="interfejs">
+                        </br>
+                        <label>Cache</label>
+                        <input type="text" id="pamiec_podreczna" name="pamiec_podreczna">
+                        </br>
+                        <label>Capacity</label>
+                        <input type="number" id="pojemnosc" name="pojemnosc">
+                        </br>
+                        <label>Speed</label>
+                        <input type="number" id="predkosc" name="predkosc">
+                        </br>
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
+                            <a href='updateHDD.php'>Edit</a>
+                        </div>
                     </div>
                     <div class="lista">
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
-                    </form>
-                    <?php if (isset($_POST['name'])) {
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(Hdd::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        </form>
+                        <?php if (isset($_POST['name'])) {
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(Hdd::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
 
-                        ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th> Nazwa </th>
-                                <th> Interfejs</th>
-                                <th> Pojemnosc </th>
-                            </tr>
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId_hdd()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
-                                if (isset($_POST['updateHDD.php'])) {
-                                    $id = $_POST['id_hdd'];
+                            ?>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Nazwa </th>
+                                    <th> Interfejs</th>
+                                    <th> Pojemnosc </th>
+                                </tr>
+                                <?php
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId_hdd() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
+                                    if (isset($_POST['updateHDD.php'])) {
+                                        $id = $_POST['id_hdd'];
 
-                                    $nazwaHDD = $_POST['nazwa'];
-                                    $formatHDD = $_POST['format'];
-                                    $interfejsHDD = $_POST['interfejs'];
-                                    $pamiecPodreczna = $_POST['pamiec_podreczna'];
-                                    $pojemnoscHDD = $_POST['pojemnosc'];
-                                    $predkoscHDD = $_POST['predkosc'];
+                                        $nazwaHDD = $_POST['nazwa'];
+                                        $formatHDD = $_POST['format'];
+                                        $interfejsHDD = $_POST['interfejs'];
+                                        $pamiecPodreczna = $_POST['pamiec_podreczna'];
+                                        $pojemnoscHDD = $_POST['pojemnosc'];
+                                        $predkoscHDD = $_POST['predkosc'];
 
 
-                                    $query = "UPDATE hdd SET nazwa='$nazwaHDD', format='$formatHDD', interfejs='$interfejsHDD', pamiec_podreczna='$forpamiecPodrecznamat', pojemnosc='$pojemnoscHDD', predkosc='$predkoscHDD' WHERE id_hdd='$id'";
-                                    echo $query;
+                                        $query = "UPDATE hdd SET nazwa='$nazwaHDD', format='$formatHDD', interfejs='$interfejsHDD', pamiec_podreczna='$forpamiecPodrecznamat', pojemnosc='$pojemnoscHDD', predkosc='$predkoscHDD' WHERE id_hdd='$id'";
+                                        echo $query;
 
-                                    $query_run = mysqli_query($conn, $query);
+                                        $query_run = mysqli_query($conn, $query);
 
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </table>
+                                ?>
+                            </table>
                         </div>
                         <div class="dodawanie">
-                        <?php
-                    }
+                            <?php
+                        }
                     }
                     if ($podzespoly[7] == $select) {
                         ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>MAX TDP</label>
-                    <input type="number" id="maks_TDP" name="maks_TDP">
-                    </br>
-                    <label>Socket</label>
-                    <input type="text" id="socket" name="socket">
-                    </br>
-                    <label>Height</label>
-                    <input type="number" id="wysokosc" name="wysokosc">
-                    </br>
-                    <label>Width</label>
-                    <input type="number" id="szerokosc" name="szerokosc">
-                    </br>
-                    <label>Depth</label>
-                    <input type="number" id="glebokosc" name="glebokosc">
-                    </br>
-                    <label>Count of heatpipes</label>
-                    <input type="number" id="ilosc_cieplowodow" name="ilosc_cieplowodow">
-                    </br>
-                    <label>Diameter of heatpipes</label>
-                    <input type="number" id="srednica_cieplowodow" name="srednica_cieplowodow">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    <div class="a">
-                    <a href='updateCooler.php'>Edit</a>
-                    </div>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>MAX TDP</label>
+                        <input type="number" id="maks_TDP" name="maks_TDP">
+                        </br>
+                        <label>Socket</label>
+                        <input type="text" id="socket" name="socket">
+                        </br>
+                        <label>Height</label>
+                        <input type="number" id="wysokosc" name="wysokosc">
+                        </br>
+                        <label>Width</label>
+                        <input type="number" id="szerokosc" name="szerokosc">
+                        </br>
+                        <label>Depth</label>
+                        <input type="number" id="glebokosc" name="glebokosc">
+                        </br>
+                        <label>Count of heatpipes</label>
+                        <input type="number" id="ilosc_cieplowodow" name="ilosc_cieplowodow">
+                        </br>
+                        <label>Diameter of heatpipes</label>
+                        <input type="number" id="srednica_cieplowodow" name="srednica_cieplowodow">
+                        </br>
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
+                            <a href='updateCooler.php'>Edit</a>
+                        </div>
                     </div>
                     <div class="lista">
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    </form>
-                    <?php if (isset($_POST['name'])) {
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(CpuCooler::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        </form>
+                        <?php if (isset($_POST['name'])) {
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(CpuCooler::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
 
-                        ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th>Nazwa </th>
-                                <th>Soket |</th>
-                                <th>Max TDP</th>
+                            ?>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th>Nazwa </th>
+                                    <th>Soket |</th>
+                                    <th>Max TDP</th>
 
-                            </tr>
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId_chlodzenie_cpu()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getSocket() . " </td><td>" . $d->getMaks_TDP() . "</td></tr>";
-                                if (isset($_POST['updateCooler.php'])) {
-                                    $id = $_POST['id_chlodzenie_cpu'];
+                                </tr>
+                                <?php
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId_chlodzenie_cpu() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getSocket() . " </td><td>" . $d->getMaks_TDP() . "</td></tr>";
+                                    if (isset($_POST['updateCooler.php'])) {
+                                        $id = $_POST['id_chlodzenie_cpu'];
 
-                                    $nazwaCooler = $_POST['nazwa'];
-                                    $maks_TDP = $_POST['maks_TDP'];
-                                    $socketCooler = $_POST['socket'];
-                                    $wysokoscCooler = $_POST['wysokosc'];
-                                    $szerokoscCooler = $_POST['szerokosc'];
-                                    $glebokoscCooler = $_POST['glebokosc'];
-                                    $iloscCooler = $_POST['ilosc_cieplowodow'];
-                                    $srednicaCooler = $_POST['srednica_cieplowodow'];
+                                        $nazwaCooler = $_POST['nazwa'];
+                                        $maks_TDP = $_POST['maks_TDP'];
+                                        $socketCooler = $_POST['socket'];
+                                        $wysokoscCooler = $_POST['wysokosc'];
+                                        $szerokoscCooler = $_POST['szerokosc'];
+                                        $glebokoscCooler = $_POST['glebokosc'];
+                                        $iloscCooler = $_POST['ilosc_cieplowodow'];
+                                        $srednicaCooler = $_POST['srednica_cieplowodow'];
 
 
-                                    $query = "UPDATE chlodzenie_cpu SET nazwa='$nazwaCooler', maks_TDP='$maks_TDP', socket='$socketCooler', wysokosc='$wysokoscCooler', szerokosc='$szerokoscCooler', glebokosc='$glebokoscCooler', ilosc_cieplowodow='$iloscCooler', srednica_cieplowodow='$srednicaCooler'   WHERE id_chlodzenie_cpu='$id'";
-                                    echo $query;
+                                        $query = "UPDATE chlodzenie_cpu SET nazwa='$nazwaCooler', maks_TDP='$maks_TDP', socket='$socketCooler', wysokosc='$wysokoscCooler', szerokosc='$szerokoscCooler', glebokosc='$glebokoscCooler', ilosc_cieplowodow='$iloscCooler', srednica_cieplowodow='$srednicaCooler'   WHERE id_chlodzenie_cpu='$id'";
+                                        echo $query;
 
-                                    $query_run = mysqli_query($conn, $query);
+                                        $query_run = mysqli_query($conn, $query);
 
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </table>
+                                ?>
+                            </table>
                         </div>
                         <div class="dodawanie">
-                        <?php
-                    }
+                            <?php
+                        }
 
                     }
                     if ($podzespoly[8] == $select) {
                         ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>Standard</label>
-                    <input type="text" id="standard" name="standard">
-                    </br>
-                    <label>MAX size of GPU</label>
-                    <input type="number" id="maks_dlugosc_karty_graficznej" name="maks_dlugosc_karty_graficznej">
-                    </br>
-                    <label>Type of case</label>
-                    <input type="text" id="typ_obudowy" name="typ_obudowy">
-                    </br>
-                    <label>Height</label>
-                    <input type="number" id="wyskokosc" name="wyskokosc">
-                    </br>
-                    <label>Width</label>
-                    <input type="number" id="szerokosc" name="szerokosc">
-                    </br>
-                    <label>Depth</label>
-                    <input type="number" id="glebokosc" name="glebokosc">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    <div class="a">
-                    <a href='updateCase.php'>Edit</a>
-                    </div>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>Standard</label>
+                        <input type="text" id="standard" name="standard">
+                        </br>
+                        <label>MAX size of GPU</label>
+                        <input type="number" id="maks_dlugosc_karty_graficznej" name="maks_dlugosc_karty_graficznej">
+                        </br>
+                        <label>Type of case</label>
+                        <input type="text" id="typ_obudowy" name="typ_obudowy">
+                        </br>
+                        <label>Height</label>
+                        <input type="number" id="wyskokosc" name="wyskokosc">
+                        </br>
+                        <label>Width</label>
+                        <input type="number" id="szerokosc" name="szerokosc">
+                        </br>
+                        <label>Depth</label>
+                        <input type="number" id="glebokosc" name="glebokosc">
+                        </br>
+                        <input type="submit" name="add" value="Add"
+                            style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
+                            <a href='updateCase.php'>Edit</a>
+                        </div>
                     </div>
                     <div class="lista">
-                    <form action="add.php" method="POST">
-                        <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
-                    </form>
-                    <?php if (isset($_POST['name'])) {
-                        $queryBuilder = $entityManager->createQueryBuilder();
-                        $dane = $queryBuilder
-                            ->select('c')
-                            ->from(Obudowa::class, 'c')
-                            ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
-                            ->getQuery();
-                        $dane_lista = $dane->getResult();
+                        <form action="add.php" method="POST">
+                            <input type="text" name="name" placeholder="give me nazwa " />
+                            <input type="submit" name="submit" value="Submit"
+                                style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        </form>
+                        <?php if (isset($_POST['name'])) {
+                            $queryBuilder = $entityManager->createQueryBuilder();
+                            $dane = $queryBuilder
+                                ->select('c')
+                                ->from(Obudowa::class, 'c')
+                                ->where("c.nazwa LIKE '%" . $_POST['name'] . "%'")
+                                ->getQuery();
+                            $dane_lista = $dane->getResult();
 
-                        ?>
-                        <table>
-                            <tr>
-                                <th> Id </th>
-                                <th> Nazwa</th>
-                                <th> Standard</th>
-                                <th> Typ obudowy </th>
-                                <th> Max dlugosc karty</th>
-                            </tr>
-                            <?php
-                            foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" .$d->getId_obudowa()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getStandard() . " </td><td>" . $d->getTyp_obudowy() . " </td><td>" . $d->getMaks_dlugosc_karty_graf() . "</td></tr>";
-                                if (isset($_POST['updateCase.php'])) {
-                                    $id = $_POST['id_obudowa'];
-
-                                    $nazwaCase = $_POST['nazwa'];
-                                    $standardCase = $_POST['standard'];
-                                    $maksDlugoscKarty = $_POST['maks_dlugosc_karty_graf'];
-                                    $typObudowy = $_POST['typ_obudowy'];
-                                    $wysokoscObudowy = $_POST['wysokosc'];
-                                    $szerokoscObudowy = $_POST['szerokosc'];
-                                    $glebokoscObudowy = $_POST['glebokosc'];
-
-
-                                    $query = "UPDATE obudowa SET nazwa='$nazwaCase', standard='$standardCase', maks_dlugosc_karty_graf='$maksDlugoscKarty', typ_obudowy='$typObudowy', wysokosc='$wysokoscObudowy', szerokosc='$szerokoscObudowy', glebokosc='$glebokoscObudowy'  WHERE id_obudowa='$id'";
-                                    echo $query;
-
-                                    $query_run = mysqli_query($conn, $query);
-
-                                    if ($query_run) {
-                                        $_SESSION['status'] = "Data Updated Succesufully";
-                                        // header("Location: add.php");
-                                    } else {
-                                        $_SESSION['status'] = "Not Updated";
-                                        // header("Location: add.php");
-                                    }
-
-                                }
-                            }
                             ?>
-                        </table>
+                            <table>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Nazwa</th>
+                                    <th> Standard</th>
+                                    <th> Typ obudowy </th>
+                                    <th> Max dlugosc karty</th>
+                                </tr>
+                                <?php
+                                foreach ($dane_lista as $d) { ?>
+                                    <?php echo "<tr><td>" . $d->getId_obudowa() . "</td><td>" . $d->getNazwa() . " </td><td>" . $d->getStandard() . " </td><td>" . $d->getTyp_obudowy() . " </td><td>" . $d->getMaks_dlugosc_karty_graf() . "</td></tr>";
+                                    if (isset($_POST['updateCase.php'])) {
+                                        $id = $_POST['id_obudowa'];
+
+                                        $nazwaCase = $_POST['nazwa'];
+                                        $standardCase = $_POST['standard'];
+                                        $maksDlugoscKarty = $_POST['maks_dlugosc_karty_graf'];
+                                        $typObudowy = $_POST['typ_obudowy'];
+                                        $wysokoscObudowy = $_POST['wysokosc'];
+                                        $szerokoscObudowy = $_POST['szerokosc'];
+                                        $glebokoscObudowy = $_POST['glebokosc'];
+
+
+                                        $query = "UPDATE obudowa SET nazwa='$nazwaCase', standard='$standardCase', maks_dlugosc_karty_graf='$maksDlugoscKarty', typ_obudowy='$typObudowy', wysokosc='$wysokoscObudowy', szerokosc='$szerokoscObudowy', glebokosc='$glebokoscObudowy'  WHERE id_obudowa='$id'";
+                                        echo $query;
+
+                                        $query_run = mysqli_query($conn, $query);
+
+                                        if ($query_run) {
+                                            $_SESSION['status'] = "Data Updated Succesufully";
+                                            // header("Location: add.php");
+                                        } else {
+                                            $_SESSION['status'] = "Not Updated";
+                                            // header("Location: add.php");
+                                        }
+
+                                    }
+                                }
+                                ?>
+                            </table>
                         </div>
                         <?php
-                    }
+                        }
 
                     }
                     ?>
                 <input type="text" name="select" hidden value="<?php echo $select ?>">
                 <?php
-                }
+            }
 
 
-                ?>
+            ?>
 
 
 
