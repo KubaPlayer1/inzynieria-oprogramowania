@@ -75,7 +75,7 @@ $select = "";
 
         <?php } ?>
         <div class="box">
-            <div class="dodawanie">
+            
                 <?php
                 $podzespoly = ["cpu", "gpu", "zasilacz", "mb", "ram", "ssd", "hdd", "chlodzenie_cpu", "obudowa"];
                 if (isset($_POST["submit"])) {
@@ -85,7 +85,10 @@ $select = "";
                     if (empty($select)) {
                         echo "There is no opption choosed.";
                     }
-                    if ($podzespoly[0] == $select) {
+                    ?>
+                    <div class="dodawanie">
+                        <?php
+                        if ($podzespoly[0] == $select) {
                         ?>
 
                         <label>Name</label>
@@ -106,14 +109,15 @@ $select = "";
                         <label>Threads</label>
                         <input type="number" min="0" max="128" id="watki" name="watki">
                         </br>
-                        <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
+                        <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                        <div class="a">
                         <a href='update.php'>Edit</a>
-
+                        </div>
                     </div>
                     <div class="lista">
                         <form action="add.php" method="POST">
                             <input type="text" name="name" placeholder="give me nazwa " />
-                            <input type="submit" name="submit" value="Submit" />
+                            <input type="submit" name="submit" value="Submit " style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
 
                         </form>
 
@@ -147,6 +151,7 @@ $select = "";
                             ?>
                             <table>
                                 <tr>
+                                    <th> Id </th>
                                     <th>Nazwa </th>
                                     <th> socket </th>
                                     <th> Edit </th>
@@ -154,7 +159,7 @@ $select = "";
                                 <?php
                                 foreach ($dane_lista as $d) {
                                     ?>
-                                    <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getCpu_socket() . "</td><td></td></tr>" ?>
+                                    <?php echo "<tr><td>" .$d->getId_cpu()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getCpu_socket() . "</td><td></td></tr>" ?>
                                     <?php
                                     if (isset($_POST['update_cpu_data'])) {
                                         $id = $_POST['id_cpu'];
@@ -185,46 +190,49 @@ $select = "";
                             <?php
                         }
                         ?>
-
                     </div>
-
-                    <?php
-                    }
-                    if ($podzespoly[1] == $select) {
-                        ?>
-                    <label>Name</label>
-                    <input type="text" id="nazwa" name="nazwa">
-                    </br>
-                    <label>Manyfacturer od chipset</label>
-                    <input type="text" id="producent_chipsetu" name="producent_chipsetu">
-                    </br>
-                    <label>Length of GPU</label>
-                    <input type="number" step="0.1" min="15" max="45" id="dlugosc_karty" name="dlugosc_karty">
-                    </br>
-                    <label>Capacity of RAM</label>
-                    <input type="number" step="1" min="2" max="32" id="ilosc_ram" name="ilosc_ram">
-                    </br>
-                    <label>Type of chipset</label>
-                    <input type="text" id="rodzaj_chipsetu" name="rodzaj_chipsetu">
-                    </br>
-                    <label>Recomended power of power supply</label>
-                    <input type="number" step="1" min="500" max="2000" id="rekomendowana_moc_zasilacza"
-                        name="rekomendowana_moc_zasilacza">
-                    </br>
-                    <label>Timing of thread boost</label>
-                    <input type="number" step="0.1" min="0.0" max="10.0" id="taktowanie_rdzenia_boost"
-                        name="taktowanie_rdzenia_boost">
-                    </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
-                    <a href='updateGpu.php'>Edit</a>
-
+                    <div class="dodawanie">
+                        <?php
+                        }
+                        if ($podzespoly[1] == $select) {
+                            ?>
+                        <label>Name</label>
+                        <input type="text" id="nazwa" name="nazwa">
+                        </br>
+                        <label>Manyfacturer od chipset</label>
+                        <input type="text" id="producent_chipsetu" name="producent_chipsetu">
+                        </br>
+                        <label>Length of GPU</label>
+                        <input type="number" step="0.1" min="15" max="45" id="dlugosc_karty" name="dlugosc_karty">
+                        </br>
+                        <label>Capacity of RAM</label>
+                        <input type="number" step="1" min="2" max="32" id="ilosc_ram" name="ilosc_ram">
+                        </br>
+                        <label>Type of chipset</label>
+                        <input type="text" id="rodzaj_chipsetu" name="rodzaj_chipsetu">
+                        </br>
+                        <label>Recomended power of power supply</label>
+                        <input type="number" step="1" min="500" max="2000" id="rekomendowana_moc_zasilacza"
+                            name="rekomendowana_moc_zasilacza">
+                        </br>
+                        <label>Timing of thread boost</label>
+                        <input type="number" step="0.1" min="0.0" max="10.0" id="taktowanie_rdzenia_boost"
+                            name="taktowanie_rdzenia_boost">
+                        </br>
+                        <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                    
+                        <div class="a">
+                        <a href='updateGpu.php'>Edit</a>
+                        </div>
+                    </div>
+                    <div class="lista">
                     <?php
                     ?>
 
 
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
 
                     </form>
                     <?php if (isset($_POST['name'])) {
@@ -244,12 +252,13 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th> Nazwa</th>
                                 <th> Producent Chipsetu</th>
                             </tr>
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getProducent_chipsetu() . "</td></tr>"; ?>
+                                <?php echo "<tr><td>" .$d->getId_gpu()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getProducent_chipsetu() . "</td></tr>"; ?>
                                 <?php
                                 if (isset($_POST['update_gpu_data'])) {
                                     $id = $_POST['id_gpu'];
@@ -277,11 +286,13 @@ $select = "";
                                 }
 
                             }
+                            
+                        }
+                        ?>
+                       
 
-                    }
-                    ?>
-
-
+                    </div>
+                    <div class="dodawanie">
                     </table>
                     <?php
                     }
@@ -311,13 +322,16 @@ $select = "";
                     <label>Depth</label>
                     <input type="number" step="0.1" min="5" max="25" id="glebokosc" name="glebokosc">
                     </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
+                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                    <div class="a">
                     <a href='updateZasilacz.php'>Edit</a>
-
+                    </div>
+                    </div>
+                    <div class="lista">
 
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
 
                     </form>
 
@@ -337,6 +351,7 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th> Nazwa</th>
                                 <th> Certyfikat </th>
                                 <th> Moc</th>
@@ -344,7 +359,7 @@ $select = "";
                             </tr>
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getCertyfikat() . " </td><td>" . $d->getMoc() . " </td><td>" . $d->getStandard() . "</td></tr>"; ?>
+                                <?php echo "<tr><td>" .$d->getId_zasilacz()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getCertyfikat() . " </td><td>" . $d->getMoc() . " </td><td>" . $d->getStandard() . "</td></tr>"; ?>
                                 <?php
                                 if (isset($_POST['updateZasilacz.php'])) {
                                     $id = $_POST['id_zasilacz'];
@@ -378,6 +393,8 @@ $select = "";
                         <?php
 
                         ?>
+                        </div>
+                        <div class="dodawanie">
                     </table>
                     <?php
 
@@ -405,12 +422,15 @@ $select = "";
                     <label>Max size of RAM capacity</label>
                     <input type="number" id="maks_ilosc_pamieci_ram" name="maks_ilosc_pamieci_ram">
                     </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
+                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
+                    <div class="a">
                     <a href='updateMB.php'>Edit</a>
-
+                    </div>
+                    </div>
+                    <div class="lista">
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
                     </form>
 
                     <?php if (isset($_POST['name'])) {
@@ -425,6 +445,7 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th> Nazwa </th>
                                 <th> Chipset</th>
                                 <th> Gniazdo </th>
@@ -433,7 +454,7 @@ $select = "";
 
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getChipset_plyty() . " </td><td>" . $d->getGniazdo_procesora() . " </td><td>" . $d->getStandard_plyty() . "</td></tr>";
+                                <?php echo "<tr><td>" .$d->getId_mb()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getChipset_plyty() . " </td><td>" . $d->getGniazdo_procesora() . " </td><td>" . $d->getStandard_plyty() . "</td></tr>";
                                 if (isset($_POST['updateMB.php'])) {
                                     $id = $_POST['id_mb'];
 
@@ -462,6 +483,8 @@ $select = "";
                             }
                             ?>
                         </table>
+                        </div>
+                        <div class="dodawanie">
                         <?php
                     }
                     }
@@ -485,12 +508,15 @@ $select = "";
                     <label>Type of memory</label>
                     <input type="text" id="typ_pamieci" name="typ_pamieci">
                     </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
+                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                    <div class="a">
                     <a href='updateRAM.php'>Edit</a>
-
+                    </div>
+                    </div>
+                    <div class="lista">
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
                     </form>
 
                     <?php if (isset($_POST['name'])) {
@@ -505,6 +531,7 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th> Nazwa</th>
                                 <th> Czestotliwosc </th>
                                 <th> Opoznienie</th>
@@ -512,7 +539,7 @@ $select = "";
                             </tr>
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getCzestotliwosc() . " </td><td>" . $d->getOpluznienie() . " </td><td>" . $d->getTyp_pamieci() . "</td></tr>";
+                                <?php echo "<tr><td>" .$d->getId_ram()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getCzestotliwosc() . " </td><td>" . $d->getOpluznienie() . " </td><td>" . $d->getTyp_pamieci() . "</td></tr>";
                                 if (isset($_POST['updateRAM.php'])) {
                                     $id = $_POST['id_ram'];
 
@@ -542,6 +569,8 @@ $select = "";
 
                             ?>
                         </table>
+                        </div>
+                        <div class="dodawanie">
                         <?php
                     }
                     }
@@ -565,15 +594,18 @@ $select = "";
                     <label>Saving</label>
                     <input type="text" id="zapis" name="zapis">
                     </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
-
+                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                    <div class="a">
                     <a href='updateSSD.php'>Edit</a>
-
+                    </div>
+                    </div>
+                    <div class="lista">
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
                     </form>
                     <?php if (isset($_POST['name'])) {
+                        $queryBuilder = $entityManager->createQueryBuilder();
                         $dane = $queryBuilder
                             ->select('c')
                             ->from(Ssd::class, 'c')
@@ -584,13 +616,14 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th> Nazwa </th>
                                 <th> Interfejs</th>
                                 <th> Pojemnosc</th>
                             </tr>
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
+                                <?php echo "<tr><td>" .$d->getId()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
                                 if (isset($_POST['updateSSD.php'])) {
                                     $id = $_POST['id'];
 
@@ -619,6 +652,8 @@ $select = "";
                             }
                             ?>
                         </table>
+                        </div>
+                        <div class="dodawanie">
                         <?php
                     }
                     }
@@ -642,13 +677,15 @@ $select = "";
                     <label>Speed</label>
                     <input type="number" id="predkosc" name="predkosc">
                     </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
-
+                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                    <div class="a">
                     <a href='updateHDD.php'>Edit</a>
-
+                    </div>
+                    </div>
+                    <div class="lista">
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;"/>
                     </form>
                     <?php if (isset($_POST['name'])) {
                         $queryBuilder = $entityManager->createQueryBuilder();
@@ -662,13 +699,14 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th> Nazwa </th>
                                 <th> Interfejs</th>
                                 <th> Pojemnosc </th>
                             </tr>
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
+                                <?php echo "<tr><td>" .$d->getId_hdd()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getInterfejs() . " </td><td>" . $d->getPojemnosc() . "</td></tr>";
                                 if (isset($_POST['updateHDD.php'])) {
                                     $id = $_POST['id_hdd'];
 
@@ -696,6 +734,8 @@ $select = "";
                             }
                             ?>
                         </table>
+                        </div>
+                        <div class="dodawanie">
                         <?php
                     }
                     }
@@ -725,13 +765,15 @@ $select = "";
                     <label>Diameter of heatpipes</label>
                     <input type="number" id="srednica_cieplowodow" name="srednica_cieplowodow">
                     </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
-
+                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                    <div class="a">
                     <a href='updateCooler.php'>Edit</a>
-
+                    </div>
+                    </div>
+                    <div class="lista">
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
                     </form>
                     <?php if (isset($_POST['name'])) {
                         $queryBuilder = $entityManager->createQueryBuilder();
@@ -745,6 +787,7 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th>Nazwa </th>
                                 <th>Soket |</th>
                                 <th>Max TDP</th>
@@ -752,7 +795,7 @@ $select = "";
                             </tr>
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getSocket() . " </td><td>" . $d->getMaks_TDP() . "</td></tr>";
+                                <?php echo "<tr><td>" .$d->getId_chlodzenie_cpu()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getSocket() . " </td><td>" . $d->getMaks_TDP() . "</td></tr>";
                                 if (isset($_POST['updateCooler.php'])) {
                                     $id = $_POST['id_chlodzenie_cpu'];
 
@@ -782,6 +825,8 @@ $select = "";
                             }
                             ?>
                         </table>
+                        </div>
+                        <div class="dodawanie">
                         <?php
                     }
 
@@ -809,12 +854,15 @@ $select = "";
                     <label>Depth</label>
                     <input type="number" id="glebokosc" name="glebokosc">
                     </br>
-                    <input type="submit" name="add" value="Add" style="height:50px; width:100px; Font-size:25px" />
+                    <input type="submit" name="add" value="Add" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
+                    <div class="a">
                     <a href='updateCase.php'>Edit</a>
-
+                    </div>
+                    </div>
+                    <div class="lista">
                     <form action="add.php" method="POST">
                         <input type="text" name="name" placeholder="give me nazwa " />
-                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="submit" value="Submit" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 250px;" />
                     </form>
                     <?php if (isset($_POST['name'])) {
                         $queryBuilder = $entityManager->createQueryBuilder();
@@ -828,6 +876,7 @@ $select = "";
                         ?>
                         <table>
                             <tr>
+                                <th> Id </th>
                                 <th> Nazwa</th>
                                 <th> Standard</th>
                                 <th> Typ obudowy </th>
@@ -835,7 +884,7 @@ $select = "";
                             </tr>
                             <?php
                             foreach ($dane_lista as $d) { ?>
-                                <?php echo "<tr><td>" . $d->getNazwa() . " </td><td>" . $d->getStandard() . " </td><td>" . $d->getTyp_obudowy() . " </td><td>" . $d->getMaks_dlugosc_karty_graf() . "</td></tr>";
+                                <?php echo "<tr><td>" .$d->getId_obudowa()."</td><td>". $d->getNazwa() . " </td><td>" . $d->getStandard() . " </td><td>" . $d->getTyp_obudowy() . " </td><td>" . $d->getMaks_dlugosc_karty_graf() . "</td></tr>";
                                 if (isset($_POST['updateCase.php'])) {
                                     $id = $_POST['id_obudowa'];
 
@@ -865,6 +914,7 @@ $select = "";
                             }
                             ?>
                         </table>
+                        </div>
                         <?php
                     }
 
