@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../GRAPHICS/pcbackground.jpg");
+  background: url("../GRAPHICS/newbackground.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -40,6 +40,10 @@ header {
   z-index: 99;
 }
 
+header h2 .logo{
+  text-align: left;
+}
+
 header .icon {
   position: absolute;
   right: 8px;
@@ -47,9 +51,17 @@ header .icon {
   color: black;
 }
 
+header .icon:hover {
+  position: absolute;
+  right: 8px;
+  size: 150%;
+  color: rgb(247, 0, 255);
+}
+
 .logo {
   font-size: 2em;
   user-select: none;
+  text-align: left;
 }
 .navigation {
   white-space: nowrap;
@@ -89,7 +101,8 @@ header .icon {
 .navigation .button-pop {
   width: 130px;
   height: 50px;
-  background: transparent;
+  background-color: black;
+  color: aqua;
   border: 2px solid;
   outline: none;
   border-radius: 6px;
@@ -101,14 +114,16 @@ header .icon {
 }
 
 .navigation .button-pop:hover {
-  background-color: rgb(255, 253, 253);
-  color: rgb(1, 14, 14);
+  background-color: black;
+  color: rgb(247, 0, 255);
 }
 
 .navigation .button-out {
+  position: relative;
   width: 130px;
   height: 50px;
-  background: transparent;
+  background-color: black;
+  color: aqua;
   border: 2px solid;
   outline: none;
   border-radius: 6px;
@@ -117,11 +132,12 @@ header .icon {
   font-weight: 500;
   margin-left: 40px;
   transition: 0.5s;
+  margin-top: 10px;
 }
 
 .navigation .button-out:hover {
   background-color: black;
-  color: aqua;
+  color: rgb(247, 0, 255);
 }
 
 .wrapper {
@@ -151,6 +167,7 @@ header .icon {
 .wrapper .form-box {
   width: 100%;
   padding: 40px;
+  font-size: 120%;
 }
 
 .wrapper .close-button {
@@ -302,7 +319,7 @@ header .icon {
 
 .btn:hover {
   background-color: black;
-  color: rgb(255, 255, 255);
+  color: rgb(247, 0, 255);
 }
 
 .register {
@@ -404,11 +421,57 @@ header .icon {
   justify-content: space-between;
   transform: translateY(-150%);
 }
+
+.info {
+  position: relative;
+  width: 400px;
+  height: 440px;
+  background: transparent;
+  border: 2px solid rgb(0, 5, 5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.info h1 {
+  position: absolute;
+  top: 10px;
+  text-align: center;
+  font-size: 2em;
+  padding: 20px;
+}
+
+.info .data1 {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
+  transform: translateY(150%);
+}
+
+.info .data1 a{
+  text-decoration: none;
+  color: aliceblue;
+  justify-content: center;
+}
+
+.info .data2 {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
+  display: flex;
+  transform: translateY(-150%);
+}
+
 .tile {
   position: relative;
   display: inline-block;
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   background-color: #4d4d4db4;
   margin: 10px;
   padding: 10px;
@@ -424,8 +487,8 @@ header .icon {
 }
 
 .tile:hover > img {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 
 .tile img {
@@ -433,16 +496,17 @@ header .icon {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   filter: invert();
   transition: 0.3s all ease-in-out;
+  filter: blur(2.5px);
 }
 
 .tile p {
-  color: white !important;
-  filter: drop-shadow(1px 1px 5px rgb(53, 255, 2));
-  font-size: 2em;
+  color: rgb(0, 238, 255) !important;
+  filter: drop-shadow(1px 1px 5px black);
+  font-size: 2.5em;
   font-weight: 700;
 
   position: absolute;
@@ -454,19 +518,11 @@ header .icon {
 }
 
 .container {
+  transform: translateY(10%);
+  position: absolute;
   width: 80%;
   margin: 0 auto;
   font-size: 70%;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto;
-  width: 800px;
-}
-
-.logo img {
-  width: 100%;
 }
 
 .grid {
@@ -512,11 +568,25 @@ header .icon {
   font-size: 1.2em;
 }
 
+.modal button {
+  font-size: 110%;
+  text-decoration: none;
+  border: 2px solid;
+  background-color: black;
+  color: rgb(255, 255, 255);
+}
+
+.modal button:hover {
+  background-color: black;
+  color: rgb(247, 0, 255);
+}
+
+
 .input input{
   height: 40px;
   width: 300px;
   font-size: 20px;
-  border: none;
+  border: 2px solid;
   background-color: transparent;
   color: rgb(255, 255, 255);
   margin-left: 10px;
@@ -534,15 +604,18 @@ header .icon {
   font-size: 1em;
   font-weight: 500;
   transition: 0.5s;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .input button:hover{
   background-color: black;
-  color: rgb(255, 255, 255);
+  color: rgb(247, 0, 255);
 }
 
 .input {
-  position: absolute;
+  position: top;
+  transform: translateY(-800%);
   width: 70%;
   height: 50px;
   font-size: 20px;
@@ -556,6 +629,160 @@ header .icon {
   overflow: hidden;
 }
 
-.input label{
-  margin-left: 100px;
+.konfiguracje {
+  font-size: 110%;
+  width: 100%;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.konfiguracje table{
+  width: 100%;
+  height: auto;
+}
+
+.konfiguracje table th{
+  border: 2px solid;
+}
+
+.konfiguracje table td{
+  border-bottom: 2px solid;
+}
+
+.konfiguracje button{
+  position: relative;
+  height: 35px;
+  width: 100px;
+  background: transparent;
+  border: 2px solid;
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.5s;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.konfiguracje button:hover{
+  background-color: black;
+  color: rgb(247, 0, 255);
+}
+
+.konfiguracje h2{
+  font-size: 200%;
+  padding-bottom: 20px;
+}
+
+.add{
+  position: relative;
+  align-items: left;
+  backdrop-filter: blur(20px);
+  text-align: left;
+  width: 35%;
+  height: auto;
+  font-size: 200%;
+}
+
+.add input{
+  width: 100%;
+  height: 40px;
+  background-color: transparent;
+  border: 2px solid;
+}
+
+.add button{
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background: transparent;
+  border: 2px solid;
+  outline: none;
+  margin-top: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.5s;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.add button:hover{
+  background-color: black;
+  color: rgb(247, 0, 255);
+}
+
+.add select{
+  width: 150px;
+  height: 35px;
+  border: 2px solid;
+  font-size: 100%;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.add select:hover{
+  background-color: black;
+  color: rgb(247, 0, 255);
+}
+
+.parts{
+  transform: translateY(5%);
+  position: relative;
+  align-items: left;
+  backdrop-filter: blur(20px);
+  text-align: left;
+  width: 40%;
+  height: auto;
+  font-size: 200%;
+}
+
+.parts button{
+  position: relative;
+  height: 40px;
+  width: 100%;
+  background: transparent;
+  border: 2px solid;
+  outline: none;
+  margin-top: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.5s;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.parts button:hover{
+  background-color: black;
+  color: rgb(247, 0, 255);
+}
+
+.a {
+  font-size: 35px;
+}
+a:hover {
+  color: hotpink;
+}
+a:link {
+  text-decoration: none;
+}
+
+.box {
+  position: relative;
+}
+
+.dodawanie {
+  width: 400px;
+  position: absolute;
+  right: 0;
+}
+
+.lista {
+  width: 420px;
+  position: absolute;
+  left: 0;
 }
