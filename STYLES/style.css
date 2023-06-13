@@ -760,3 +760,29 @@ header .icon:hover {
   background-color: black;
   color: rgb(247, 0, 255);
 }
+
+.a {
+  font-size: 35px;
+}
+a:hover {
+  color: hotpink;
+}
+a:link {
+  text-decoration: none;
+}
+
+.box {
+  position: relative;
+}
+
+.dodawanie {
+  width: 400px;
+  position: absolute;
+  right: 0;
+}
+
+.lista {
+  width: 420px;
+  position: absolute;
+  left: 0;
+}
